@@ -1,0 +1,6 @@
+framework module Pods_TeamsUITests {
+  umbrella header "Pods-TeamsUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}
