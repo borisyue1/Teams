@@ -17,6 +17,7 @@
 		B44EF3791E7E391E00E25F58 /* TeamsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44EF3781E7E391E00E25F58 /* TeamsTests.swift */; };
 		B44EF3841E7E391E00E25F58 /* TeamsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44EF3831E7E391E00E25F58 /* TeamsUITests.swift */; };
 		B44EF3921E7E39A500E25F58 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B44EF3911E7E39A500E25F58 /* GoogleService-Info.plist */; };
+		E13B0C941E946ACE00C8FE18 /* FeedCellViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13B0C931E946ACE00C8FE18 /* FeedCellViewController.swift */; };
 		FFD4291AED687A0BFC3D453F /* Pods_TeamsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADEAE4FCE7D03A99D40AB2DF /* Pods_TeamsTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -60,6 +61,7 @@
 		B44EF3851E7E391E00E25F58 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B44EF3911E7E39A500E25F58 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C97070A3557C605DCD63FD7C /* Pods-TeamsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TeamsTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TeamsTests/Pods-TeamsTests.release.xcconfig"; sourceTree = "<group>"; };
+		E13B0C931E946ACE00C8FE18 /* FeedCellViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedCellViewController.swift; sourceTree = "<group>"; };
 		E4019AFCAE2AC71C944D4D1C /* Pods-TeamsUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TeamsUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TeamsUITests/Pods-TeamsUITests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -146,6 +148,7 @@
 				B44EF36C1E7E391E00E25F58 /* LaunchScreen.storyboard */,
 				B44EF36F1E7E391E00E25F58 /* Info.plist */,
 				B44EF3911E7E39A500E25F58 /* GoogleService-Info.plist */,
+				E13B0C931E946ACE00C8FE18 /* FeedCellViewController.swift */,
 			);
 			path = Teams;
 			sourceTree = "<group>";
@@ -450,6 +453,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E13B0C941E946ACE00C8FE18 /* FeedCellViewController.swift in Sources */,
 				B44EF3661E7E391E00E25F58 /* ViewController.swift in Sources */,
 				B44EF3641E7E391E00E25F58 /* AppDelegate.swift in Sources */,
 			);
@@ -702,6 +706,7 @@
 				B44EF38A1E7E391E00E25F58 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B44EF38B1E7E391E00E25F58 /* Build configuration list for PBXNativeTarget "TeamsTests" */ = {
 			isa = XCConfigurationList;
@@ -710,6 +715,7 @@
 				B44EF38D1E7E391E00E25F58 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B44EF38E1E7E391E00E25F58 /* Build configuration list for PBXNativeTarget "TeamsUITests" */ = {
 			isa = XCConfigurationList;
@@ -718,6 +724,7 @@
 				B44EF3901E7E391E00E25F58 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
