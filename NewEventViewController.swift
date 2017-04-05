@@ -1,0 +1,128 @@
+//
+//  NewEventViewController.swift
+//  Teams
+//
+//  Created by Shireen Warrier on 4/4/17.
+//  Copyright © 2017 Boris Yue. All rights reserved.
+//
+
+import UIKit
+import Firebase
+
+class NewEventViewController: UIViewController {
+    var createTeamLabel: UILabel!
+    var sportPicker: UIPickerView!
+    var sportsList: [String]!
+    var datePicker: UIDatePicker!
+    var locationTextField: UITextField!
+    var postButton: UIButton!
+    var descriptionField: UITextView!
+    var date: String!
+    var sport: String!
+    var auth = FIRAuth.auth()
+    var eventsRef: FIRDatabaseReference = FIRDatabase.database().reference().child("Event")
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupLayout()
+        // Do any additional setup after loading the view.
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    func setupLayout() {
+        view.backgroundColor = UIColor.white
+        
+        createTeamLabel = UILabel(frame: CGRect(x: 0, y: view.frame.minY + 10, width: view.frame.width, height: 100))
+        createTeamLabel.textAlignment = .center
+        createTeamLabel.text = "Create a Team"
+        createTeamLabel.font = UIFont(name: "ArialMT", size: 18)
+        createTeamLabel.adjustsFontSizeToFitWidth = true
+        createTeamLabel.textColor = UIColor.black
+            
+        sportPicker = UIPickerView(frame: CGRect(x: 0, y: createTeamLabel.frame.maxY + 10, width: view.frame.width, height: 120))
+        sportPicker.delegate = self
+        sportPicker.dataSource = self
+        
+        sportsList = ["Soccer", "Basketball", "Football", "Ultimate Frisbee", "Tennis", "Volleyball", "Golf", "Spikeball"]
+        
+        datePicker = UIDatePicker(frame: CGRect(x: 0, y: sportPicker.frame.maxY + 20, width: view.frame.width, height: 150))
+        datePicker.addTarget(self, action: #selector(getDate), for: .valueChanged)
+        
+        locationTextField = UITextField(frame: CGRect(x: 0, y: datePicker.frame.maxY + 20, width: view.frame.width, height: 75))
+        locationTextField.placeholder = "Enter Location"
+        locationTextField.textAlignment = .center
+        
+        descriptionField = UITextView(frame: CGRect(x: 0, y: locationTextField.frame.maxY + 20, width: view.frame.width, height: 150))
+        descriptionField.text = "Description of Event"
+        descriptionField.textAlignment = .center
+        descriptionField.textContainer.maximumNumberOfLines = 2
+        descriptionField.textColor = UIColor.black
+        descriptionField.isUserInteractionEnabled = true
+        descriptionField.delegate = self
+        
+        postButton = UIButton(frame: CGRect(x: 0, y: descriptionField.frame.maxY + 20, width: view.frame.width, height: 60))
+        postButton.setTitle("Post", for: .normal)
+        postButton.setTitleColor(UIColor.black, for: .normal)
+        postButton.addTarget(self, action: #selector(addNewEvent), for: .touchUpInside)
+        
+        view.addSubview(createTeamLabel)
+        view.addSubview(sportPicker)
+        view.addSubview(datePicker)
+        view.addSubview(locationTextField)
+        view.addSubview(postButton)
+        view.addSubview(descriptionField)
+    }
+    
+    func getDate(sender: UIDatePicker) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = DateFormatter.Style.medium
+        dateFormatter.timeStyle = DateFormatter.Style.none
+        
+        date = dateFormatter.string(from: sender.date)
+    }
+    
+    func addNewEvent() {
+        let location = locationTextField.text!
+        self.locationTextField.text = ""
+        let description = descriptionField.text!
+        self.descriptionField.text = ""
+        
+        storage.put(eventImageData!, metadata: metadata).observe(.success) { (snapshot) in
+            let url = snapshot.metadata?.downloadURL()?.absoluteString
+            let newPost = ["eventName": eventName, "firstName": self.currentUser?.firstName!, "lastName": self.currentUser?.lastName!, "description": description, "numLikes": 0, "posterId": self.currentUser?.id!, "poster": (self.currentUser?.firstName)! + " " + (self.currentUser?.lastName)!, "imageUrl": url, "date": date, "day": day, "time": time, "usersInterested": []] as [String : Any]
+            let key = self.postsRef.childByAutoId().key
+            let childUpdates = ["/\(key)/": newPost]
+            self.postsRef.updateChildValues(childUpdates)
+            self.performSegue(withIdentifier: "toFeedFromNewSocialView", sender: self)
+            self.navigationController?.isNavigationBarHidden = false
+            
+        }
+        
+    }
+}
+
+extension NewEventViewController: UIPickerViewDataSource, UIPickerViewDelegate, UITextViewDelegate {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return sportsList.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return sportsList[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        sport = sportsList[row]
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        descriptionField.text = ""
+    }
+}

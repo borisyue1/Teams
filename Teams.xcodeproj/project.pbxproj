@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2EDED1B441596217AA03FE06 /* Pods_TeamsUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A77CCC0AEB55EEDDC9164892 /* Pods_TeamsUITests.framework */; };
 		3567FC59F88763261FB20851 /* Pods_Teams.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF0241EBB394F9AD308C0D83 /* Pods_Teams.framework */; };
+		511AC25A1E946F8B009379EC /* NewEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511AC2591E946F8B009379EC /* NewEventViewController.swift */; };
 		B44EF3641E7E391E00E25F58 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44EF3631E7E391E00E25F58 /* AppDelegate.swift */; };
 		B44EF3661E7E391E00E25F58 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44EF3651E7E391E00E25F58 /* ViewController.swift */; };
 		B44EF3691E7E391E00E25F58 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B44EF3671E7E391E00E25F58 /* Main.storyboard */; };
@@ -40,6 +41,7 @@
 /* Begin PBXFileReference section */
 		1CE7024AE7D8FDC633730566 /* Pods-Teams.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Teams.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Teams/Pods-Teams.debug.xcconfig"; sourceTree = "<group>"; };
 		500FECED9559EEA41DAA339D /* Pods-Teams.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Teams.release.xcconfig"; path = "Pods/Target Support Files/Pods-Teams/Pods-Teams.release.xcconfig"; sourceTree = "<group>"; };
+		511AC2591E946F8B009379EC /* NewEventViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NewEventViewController.swift; path = ../NewEventViewController.swift; sourceTree = "<group>"; };
 		78DAF67D3D0918471FCD9C8D /* Pods-TeamsTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TeamsTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TeamsTests/Pods-TeamsTests.debug.xcconfig"; sourceTree = "<group>"; };
 		78F411443EE2F2454933771E /* Pods-TeamsUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TeamsUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TeamsUITests/Pods-TeamsUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		A77CCC0AEB55EEDDC9164892 /* Pods_TeamsUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TeamsUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -140,6 +142,7 @@
 			isa = PBXGroup;
 			children = (
 				B44EF3631E7E391E00E25F58 /* AppDelegate.swift */,
+				511AC2591E946F8B009379EC /* NewEventViewController.swift */,
 				B44EF3651E7E391E00E25F58 /* ViewController.swift */,
 				B44EF3671E7E391E00E25F58 /* Main.storyboard */,
 				B44EF36A1E7E391E00E25F58 /* Assets.xcassets */,
@@ -451,6 +454,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B44EF3661E7E391E00E25F58 /* ViewController.swift in Sources */,
+				511AC25A1E946F8B009379EC /* NewEventViewController.swift in Sources */,
 				B44EF3641E7E391E00E25F58 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -702,6 +706,7 @@
 				B44EF38A1E7E391E00E25F58 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B44EF38B1E7E391E00E25F58 /* Build configuration list for PBXNativeTarget "TeamsTests" */ = {
 			isa = XCConfigurationList;
@@ -710,6 +715,7 @@
 				B44EF38D1E7E391E00E25F58 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B44EF38E1E7E391E00E25F58 /* Build configuration list for PBXNativeTarget "TeamsUITests" */ = {
 			isa = XCConfigurationList;
@@ -718,6 +724,7 @@
 				B44EF3901E7E391E00E25F58 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
