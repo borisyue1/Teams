@@ -13,7 +13,7 @@ import Firebase
 class Event {
     
     var author: String?
-    var authorPhoneNumber: Integer?
+    var authorPhoneNumber: Int?
     var sport: String?
     var description: String?
     var id: String?
@@ -29,7 +29,7 @@ class Event {
             if let author = postDict!["author"] as? String {
                 self.author = author
             }
-            if let authorPhoneNumber = postDict!["authorPhoneNumber"] as? Integer {
+            if let authorPhoneNumber = postDict!["authorPhoneNumber"] as? Int {
                 self.authorPhoneNumber = authorPhoneNumber
             }
            
