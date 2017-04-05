@@ -149,6 +149,7 @@
 			children = (
 				B44EF3631E7E391E00E25F58 /* AppDelegate.swift */,
 				B44EF3651E7E391E00E25F58 /* ViewController.swift */,
+				E13B0C971E94D36800C8FE18 /* Event.swift */,
 				B45A84B11E94C410008B34E4 /* FeedViewController.swift */,
 				E13B0C931E946ACE00C8FE18 /* FeedTableViewCell.swift */,
 				B44EF3671E7E391E00E25F58 /* Main.storyboard */,
@@ -156,8 +157,11 @@
 				B44EF36C1E7E391E00E25F58 /* LaunchScreen.storyboard */,
 				B44EF36F1E7E391E00E25F58 /* Info.plist */,
 				B44EF3911E7E39A500E25F58 /* GoogleService-Info.plist */,
+<<<<<<< HEAD
 				E13B0C971E94D36800C8FE18 /* Event.swift */,
 				E13B0C9B1E95AFFE00C8FE18 /* DetailViewController.swift */,
+=======
+>>>>>>> 1b2af5acaf16dcebffb3b41f9d07e895f91b6b1a
 			);
 			path = Teams;
 			sourceTree = "<group>";
