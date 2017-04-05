@@ -10,16 +10,19 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    var tableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        let feed = UIButton(frame: CGRect(x: 100, y: 200, width: 100, height: 100))
+        feed.setTitle("To Feed", for: .normal)
+        feed.setTitleColor(UIColor.black, for: .normal)
+        feed.addTarget(self, action: #selector(toFeed), for: .touchUpInside)
+        view.addSubview(feed)
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    func toFeed() {
+        self.navigationController?.pushViewController(FeedViewController(), animated: true)
     }
-
-
+    
 }
-
