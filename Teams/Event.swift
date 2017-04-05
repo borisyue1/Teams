@@ -19,6 +19,17 @@ class Event {
     var id: String?
     var peopleGoing: [String] = []
     var date: String?
+    var location: String?
+    
+    //used to create fake events
+    init(author: String, sport: String, description: String, peopleGoing: [String], date: String, location: String) {
+        self.author = author
+        self.sport = sport
+        self.description = description
+        self.peopleGoing = peopleGoing
+        self.date = date
+        self.location = location
+    }
     
     init(id: String, postDict: [String:Any]?) {
         self.id = id
@@ -32,7 +43,6 @@ class Event {
             if let authorPhoneNumber = postDict!["authorPhoneNumber"] as? Int {
                 self.authorPhoneNumber = authorPhoneNumber
             }
-           
             if let sport = postDict!["sport"] as? String {
                 self.sport = sport
             }
