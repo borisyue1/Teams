@@ -14,6 +14,10 @@ class FeedViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "All Sports"
+//        let addButton = UIBarButtonItem(image: #imageLiteral(resourceName: "plus"), style: .plain, target: self, action: nil)
+//        addButton.tintColor = UIColor.white
+//        self.navigationItem.setRightBarButton(addButton, animated: true)
         setUpTableView()
     }
     
@@ -22,8 +26,9 @@ class FeedViewController: UIViewController {
         tableView.register(FeedTableViewCell.self, forCellReuseIdentifier: "feedCell")
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.rowHeight = 120
-        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 150 / 2, right: 0)
+        tableView.rowHeight = view.frame.height / 5
+        tableView.separatorStyle = .none
+//        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 150 / 2, right: 0)
         tableView.tableFooterView = UIView() // gets rid of the extra cells beneath
         view.addSubview(tableView)
     }
@@ -40,4 +45,7 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.awakeFromNib()
+    }
 }
