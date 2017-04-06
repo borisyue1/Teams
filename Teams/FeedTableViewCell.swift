@@ -37,7 +37,7 @@ class FeedTableViewCell: UITableViewCell {
         //insert gray layer
         let layer = CALayer()
         layer.frame = CGRect(x: 0, y: 0, width: contentView.frame.width, height: contentView.frame.height)
-        layer.backgroundColor = UIColor(red: 0.98, green: 0.98, blue: 0.98, alpha: 0.55).cgColor
+        layer.backgroundColor = UIColor(red: 216/255, green: 216/255, blue: 216/255, alpha: 0.6).cgColor
         contentView.layer.insertSublayer(layer, at: 10)
     }
     

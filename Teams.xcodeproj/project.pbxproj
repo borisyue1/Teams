@@ -152,12 +152,12 @@
 				E13B0C971E94D36800C8FE18 /* Event.swift */,
 				B45A84B11E94C410008B34E4 /* FeedViewController.swift */,
 				E13B0C931E946ACE00C8FE18 /* FeedTableViewCell.swift */,
+				E13B0C9D1E95BF8B00C8FE18 /* DetailViewController.swift */,
 				B44EF3671E7E391E00E25F58 /* Main.storyboard */,
 				B44EF36A1E7E391E00E25F58 /* Assets.xcassets */,
 				B44EF36C1E7E391E00E25F58 /* LaunchScreen.storyboard */,
 				B44EF36F1E7E391E00E25F58 /* Info.plist */,
 				B44EF3911E7E39A500E25F58 /* GoogleService-Info.plist */,
-				E13B0C9D1E95BF8B00C8FE18 /* DetailViewController.swift */,
 			);
 			path = Teams;
 			sourceTree = "<group>";
