@@ -102,9 +102,6 @@ class DetailViewController: UIViewController {
     func setComments() {
         
     }
- 
-
-    
     
 }
 

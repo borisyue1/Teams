@@ -7,18 +7,21 @@
 //
 
 import UIKit
+import Firebase
 
 class FeedViewController: UIViewController {
-
+    
     var tableView: UITableView!
     var events: [Event] = []
+    var auth = FIRAuth.auth()
+    var eventsRef: FIRDatabaseReference = FIRDatabase.database().reference().child("Event")
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "All Sports"
-//        let addButton = UIBarButtonItem(image: #imageLiteral(resourceName: "plus"), style: .plain, target: self, action: nil)
-//        addButton.tintColor = UIColor.white
-//        self.navigationItem.setRightBarButton(addButton, animated: true)
+        let addButton = UIBarButtonItem(image: #imageLiteral(resourceName: "plus"), style: .plain, target: self, action: #selector(createEvent))
+        addButton.tintColor = UIColor.black
+        self.navigationItem.setRightBarButton(addButton, animated: true)
         generateRandomEvents()
         setUpTableView()
     }
@@ -44,9 +47,13 @@ class FeedViewController: UIViewController {
         tableView.dataSource = self
         tableView.rowHeight = view.frame.height / 5
         tableView.separatorStyle = .none
-//        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 150 / 2, right: 0)
+        //        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 150 / 2, right: 0)
         tableView.tableFooterView = UIView() // gets rid of the extra cells beneath
         view.addSubview(tableView)
+    }
+    
+    func createEvent() {
+        self.navigationController?.pushViewController(NewEventViewController(), animated: true)
     }
 }
 
@@ -55,7 +62,7 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return events.count
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "feedCell") as! FeedTableViewCell
         return cell
@@ -79,7 +86,7 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
         (cell as! FeedTableViewCell).pic.layer.shadowOpacity = 1
         (cell as! FeedTableViewCell).pic.layer.shadowOffset = CGSize(width: 0, height: 3)
         (cell as! FeedTableViewCell).pic.layer.shadowRadius = 1.5
-//        (cell as! FeedTableViewCell).contentView.addSubview((cell as! FeedTableViewCell).pic)
+        //        (cell as! FeedTableViewCell).contentView.addSubview((cell as! FeedTableViewCell).pic)
         (cell as! FeedTableViewCell).sportLabel.text = currentEvent.sport
         (cell as! FeedTableViewCell).timeLabel.text = currentEvent.date
         (cell as! FeedTableViewCell).descriptionLabel.text = currentEvent.description
