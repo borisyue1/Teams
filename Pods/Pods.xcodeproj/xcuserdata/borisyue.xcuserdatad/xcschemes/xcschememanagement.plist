@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>DropDown.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>GTMSessionFetcher.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -42,17 +47,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>5168099F2EBFC99A707C03C9EADE01A5</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>5FC490D7B31EAFCF4303D0DF4D331A6C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>6059FDE89A96A7D781CBE479062B33BA</key>
+		<key>C052BEBFBD0AB5218CC64BA3450F6547</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C052BEBFBD0AB5218CC64BA3450F6547</key>
+		<key>F99384A111EF7AF3E862A4A5C0CB6754</key>
 		<dict>
 			<key>primary</key>
 			<true/>

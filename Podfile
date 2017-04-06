@@ -8,6 +8,7 @@ target 'Teams' do
   pod 'Firebase/Auth'
   pod 'Firebase/Database'
   pod 'Firebase/Storage'
+  pod 'DropDown'
   # Pods for Teams
 
   target 'TeamsTests' do

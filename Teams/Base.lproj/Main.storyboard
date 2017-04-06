@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C68" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Nn6-dr-Y9g">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Nn6-dr-Y9g">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -25,10 +25,10 @@
             </objects>
             <point key="canvasLocation" x="-636" y="171"/>
         </scene>
-        <!--View Controller-->
+        <!--Select School View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Teams" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="SelectSchoolViewController" customModule="Teams" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -39,9 +39,73 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <navigationItem key="navigationItem" id="ZPu-IS-2xM"/>
+                    <connections>
+                        <segue destination="yyT-yo-cgy" kind="show" identifier="toLoginView" id="ALo-JM-Rrv"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="137" y="170"/>
+        </scene>
+        <!--Login View Controller-->
+        <scene sceneID="8cm-FW-6zK">
+            <objects>
+                <viewController id="yyT-yo-cgy" customClass="LoginViewController" customModule="Teams" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="WqL-Iq-ZS9"/>
+                        <viewControllerLayoutGuide type="bottom" id="lEf-bL-74J"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="0GT-fF-CB4">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <segue destination="O81-HV-gqM" kind="show" identifier="toOptionView" id="td5-lv-plV"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3Oj-Iz-ipk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="990" y="170"/>
+        </scene>
+        <!--Option View Controller-->
+        <scene sceneID="0Xa-av-31e">
+            <objects>
+                <viewController id="O81-HV-gqM" customClass="OptionViewController" customModule="Teams" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="VPb-c8-cTX"/>
+                        <viewControllerLayoutGuide type="bottom" id="V0n-of-9gy"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="UuG-rw-Tqd">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <segue destination="LPy-P3-0CF" kind="show" identifier="toFeedView" id="25e-u6-ibP"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fEk-Ed-BMA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1746" y="170"/>
+        </scene>
+        <!--Feed View Controller-->
+        <scene sceneID="IiW-UW-8Gd">
+            <objects>
+                <viewController id="LPy-P3-0CF" customClass="FeedViewController" customModule="Teams" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="gM8-TA-fxc"/>
+                        <viewControllerLayoutGuide type="bottom" id="bYd-8y-J6l"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="P7F-EB-2Io">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sVG-eL-tMR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2492" y="170"/>
         </scene>
     </scenes>
 </document>

@@ -10,6 +10,9 @@
 		2EDED1B441596217AA03FE06 /* Pods_TeamsUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A77CCC0AEB55EEDDC9164892 /* Pods_TeamsUITests.framework */; };
 		3567FC59F88763261FB20851 /* Pods_Teams.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF0241EBB394F9AD308C0D83 /* Pods_Teams.framework */; };
 		B40241AB1E95DD2E00E98597 /* NewEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40241AA1E95DD2E00E98597 /* NewEventViewController.swift */; };
+		B40241AD1E95E0CC00E98597 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40241AC1E95E0CC00E98597 /* LoginViewController.swift */; };
+		B40241AF1E95E0D200E98597 /* OptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40241AE1E95E0D200E98597 /* OptionViewController.swift */; };
+		B40241B11E95E0DA00E98597 /* SelectSchoolViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40241B01E95E0DA00E98597 /* SelectSchoolViewController.swift */; };
 		B44EF3641E7E391E00E25F58 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44EF3631E7E391E00E25F58 /* AppDelegate.swift */; };
 		B44EF3661E7E391E00E25F58 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44EF3651E7E391E00E25F58 /* ViewController.swift */; };
 		B44EF3691E7E391E00E25F58 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B44EF3671E7E391E00E25F58 /* Main.storyboard */; };
@@ -51,6 +54,9 @@
 		ADEAE4FCE7D03A99D40AB2DF /* Pods_TeamsTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TeamsTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF0241EBB394F9AD308C0D83 /* Pods_Teams.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Teams.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B40241AA1E95DD2E00E98597 /* NewEventViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewEventViewController.swift; sourceTree = "<group>"; };
+		B40241AC1E95E0CC00E98597 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		B40241AE1E95E0D200E98597 /* OptionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionViewController.swift; sourceTree = "<group>"; };
+		B40241B01E95E0DA00E98597 /* SelectSchoolViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectSchoolViewController.swift; sourceTree = "<group>"; };
 		B44EF3601E7E391E00E25F58 /* Teams.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Teams.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B44EF3631E7E391E00E25F58 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B44EF3651E7E391E00E25F58 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -156,6 +162,9 @@
 				E13B0C931E946ACE00C8FE18 /* FeedTableViewCell.swift */,
 				E13B0C9D1E95BF8B00C8FE18 /* DetailViewController.swift */,
 				B40241AA1E95DD2E00E98597 /* NewEventViewController.swift */,
+				B40241AC1E95E0CC00E98597 /* LoginViewController.swift */,
+				B40241AE1E95E0D200E98597 /* OptionViewController.swift */,
+				B40241B01E95E0DA00E98597 /* SelectSchoolViewController.swift */,
 				B44EF3671E7E391E00E25F58 /* Main.storyboard */,
 				B44EF36A1E7E391E00E25F58 /* Assets.xcassets */,
 				B44EF36C1E7E391E00E25F58 /* LaunchScreen.storyboard */,
@@ -467,8 +476,11 @@
 			files = (
 				E13B0C941E946ACE00C8FE18 /* FeedTableViewCell.swift in Sources */,
 				B44EF3661E7E391E00E25F58 /* ViewController.swift in Sources */,
+				B40241AF1E95E0D200E98597 /* OptionViewController.swift in Sources */,
 				B45A84B21E94C410008B34E4 /* FeedViewController.swift in Sources */,
+				B40241B11E95E0DA00E98597 /* SelectSchoolViewController.swift in Sources */,
 				E13B0C9E1E95BF8B00C8FE18 /* DetailViewController.swift in Sources */,
+				B40241AD1E95E0CC00E98597 /* LoginViewController.swift in Sources */,
 				B40241AB1E95DD2E00E98597 /* NewEventViewController.swift in Sources */,
 				E13B0C981E94D36800C8FE18 /* Event.swift in Sources */,
 				B44EF3641E7E391E00E25F58 /* AppDelegate.swift in Sources */,
