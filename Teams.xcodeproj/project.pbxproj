@@ -20,7 +20,6 @@
 		B45A84B21E94C410008B34E4 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45A84B11E94C410008B34E4 /* FeedViewController.swift */; };
 		E13B0C941E946ACE00C8FE18 /* FeedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13B0C931E946ACE00C8FE18 /* FeedTableViewCell.swift */; };
 		E13B0C981E94D36800C8FE18 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13B0C971E94D36800C8FE18 /* Event.swift */; };
-		E13B0C9C1E95AFFE00C8FE18 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13B0C9B1E95AFFE00C8FE18 /* DetailViewController.swift */; };
 		FFD4291AED687A0BFC3D453F /* Pods_TeamsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADEAE4FCE7D03A99D40AB2DF /* Pods_TeamsTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -67,7 +66,6 @@
 		C97070A3557C605DCD63FD7C /* Pods-TeamsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TeamsTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TeamsTests/Pods-TeamsTests.release.xcconfig"; sourceTree = "<group>"; };
 		E13B0C931E946ACE00C8FE18 /* FeedTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedTableViewCell.swift; sourceTree = "<group>"; };
 		E13B0C971E94D36800C8FE18 /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
-		E13B0C9B1E95AFFE00C8FE18 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		E4019AFCAE2AC71C944D4D1C /* Pods-TeamsUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TeamsUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TeamsUITests/Pods-TeamsUITests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -157,11 +155,6 @@
 				B44EF36C1E7E391E00E25F58 /* LaunchScreen.storyboard */,
 				B44EF36F1E7E391E00E25F58 /* Info.plist */,
 				B44EF3911E7E39A500E25F58 /* GoogleService-Info.plist */,
-<<<<<<< HEAD
-				E13B0C971E94D36800C8FE18 /* Event.swift */,
-				E13B0C9B1E95AFFE00C8FE18 /* DetailViewController.swift */,
-=======
->>>>>>> 1b2af5acaf16dcebffb3b41f9d07e895f91b6b1a
 			);
 			path = Teams;
 			sourceTree = "<group>";
@@ -469,7 +462,6 @@
 				E13B0C941E946ACE00C8FE18 /* FeedTableViewCell.swift in Sources */,
 				B44EF3661E7E391E00E25F58 /* ViewController.swift in Sources */,
 				B45A84B21E94C410008B34E4 /* FeedViewController.swift in Sources */,
-				E13B0C9C1E95AFFE00C8FE18 /* DetailViewController.swift in Sources */,
 				E13B0C981E94D36800C8FE18 /* Event.swift in Sources */,
 				B44EF3641E7E391E00E25F58 /* AppDelegate.swift in Sources */,
 			);
