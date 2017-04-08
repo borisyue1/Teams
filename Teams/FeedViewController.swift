@@ -69,27 +69,28 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let cell = cell as! FeedTableViewCell
         cell.awakeFromNib()
         let currentEvent = events[indexPath.row]
         switch currentEvent.sport! {
         case "Soccer":
-            (cell as! FeedTableViewCell).pic.image = #imageLiteral(resourceName: "soccer")
+            cell.pic.image = #imageLiteral(resourceName: "soccer")
         case "Football":
-            (cell as! FeedTableViewCell).pic.image = #imageLiteral(resourceName: "football")
+            cell.pic.image = #imageLiteral(resourceName: "football")
         case "Tennis":
-            (cell as! FeedTableViewCell).pic.image = #imageLiteral(resourceName: "tennis")
+            cell.pic.image = #imageLiteral(resourceName: "tennis")
         default:
-            (cell as! FeedTableViewCell).pic.image = #imageLiteral(resourceName: "frisbee")
+            cell.pic.image = #imageLiteral(resourceName: "frisbee")
             
         }
-        (cell as! FeedTableViewCell).pic.layer.shadowColor = UIColor.black.cgColor
-        (cell as! FeedTableViewCell).pic.layer.shadowOpacity = 1
-        (cell as! FeedTableViewCell).pic.layer.shadowOffset = CGSize(width: 0, height: 3)
-        (cell as! FeedTableViewCell).pic.layer.shadowRadius = 1.5
-        //        (cell as! FeedTableViewCell).contentView.addSubview((cell as! FeedTableViewCell).pic)
-        (cell as! FeedTableViewCell).sportLabel.text = currentEvent.sport
-        (cell as! FeedTableViewCell).timeLabel.text = currentEvent.date
-        (cell as! FeedTableViewCell).descriptionLabel.text = currentEvent.description
-        (cell as! FeedTableViewCell).locationLabel.text = "\(currentEvent.location!) - \(currentEvent.peopleGoing.count) going"
+        cell.pic.layer.shadowColor = UIColor.black.cgColor
+        cell.pic.layer.shadowOpacity = 1
+        cell.pic.layer.shadowOffset = CGSize(width: 0, height: 3)
+        cell.pic.layer.shadowRadius = 1.5
+        //        cell.contentView.addSubview(cell.pic)
+        cell.sportLabel.text = currentEvent.sport
+        cell.timeLabel.text = currentEvent.date
+        cell.descriptionLabel.text = currentEvent.description
+        cell.locationLabel.text = "\(currentEvent.location!) - \(currentEvent.peopleGoing.count) going"
     }
 }

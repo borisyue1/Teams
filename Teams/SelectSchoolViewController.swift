@@ -26,16 +26,7 @@ class SelectSchoolViewController: UIViewController {
         initDropDown()
         initNextButton()
         
-        
-        for family: String in UIFont.familyNames
-        {
-            print("\(family)")
-            for names: String in UIFont.fontNames(forFamilyName: family)
-            {
-                print("== \(names)")
-            }
-        }
-        
+
         self.view.backgroundColor = UIColor.init(red: 75/255, green: 184/255, blue: 147/255, alpha: 1.0)
 
         // Do any additional setup after loading the view.
@@ -115,19 +106,10 @@ class SelectSchoolViewController: UIViewController {
         if segue.identifier == "toLoginView" {
             let loginVC = segue.destination as! LoginViewController
             loginVC.school = button.titleLabel?.text
-            //pokemonsToPass = pokemonsToPass.sorted{$0.name < $1.name} //sort alphabetically
-            //listVC.pokemons = self.pokemonsToPass
+            
         }
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
+  
 
 }
