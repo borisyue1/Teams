@@ -49,7 +49,7 @@ class FeedTableViewCell: UITableViewCell {
     }
     
     func setUpTimeLabel() {
-        timeLabel = UILabel(frame: CGRect(x: contentView.frame.width - 90, y: contentView.frame.height / 11, width: 100, height: 30))
+        timeLabel = UILabel(frame: CGRect(x: contentView.frame.width - 200, y: contentView.frame.height / 11, width: 200, height: 30))
         timeLabel.textColor = UIColor.white
         timeLabel.font = UIFont.systemFont(ofSize: 18)
         contentView.addSubview(timeLabel)

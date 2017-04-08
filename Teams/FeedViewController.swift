@@ -22,8 +22,10 @@ class FeedViewController: UIViewController {
         let addButton = UIBarButtonItem(image: #imageLiteral(resourceName: "plus"), style: .plain, target: self, action: #selector(createEvent))
         addButton.tintColor = UIColor.black
         self.navigationItem.setRightBarButton(addButton, animated: true)
-        generateRandomEvents()
-        setUpTableView()
+//        generateRandomEvents()
+        fetchPosts {
+            self.setUpTableView()
+        }
     }
     
     //creating fake ones for now
@@ -41,7 +43,7 @@ class FeedViewController: UIViewController {
     }
     
     func setUpTableView() {
-        tableView = UITableView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height))
+        tableView = UITableView(frame: CGRect(x: 0, y: (navigationController?.navigationBar.frame.maxY)!, width: view.frame.width, height: view.frame.height))
         tableView.register(FeedTableViewCell.self, forCellReuseIdentifier: "feedCell")
         tableView.delegate = self
         tableView.dataSource = self
@@ -54,6 +56,16 @@ class FeedViewController: UIViewController {
     
     func createEvent() {
         performSegue(withIdentifier: "toNew", sender: self)
+    }
+    
+    func fetchPosts(withBlock: @escaping () -> ()) {
+        //TODO: Implement a method to fetch posts with Firebase!
+//        eventsRef.queryOrdered(byChild: "peopleGoing").obser
+        eventsRef.queryOrdered(byChild: "date").observe(.childAdded, with: { (snapshot) in
+            let post = Event(id: snapshot.key, postDict: snapshot.value as! [String : Any]?)
+            self.events.append(post)
+            withBlock() //ensures that next block is called
+        })
     }
 }
 
