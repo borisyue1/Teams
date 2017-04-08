@@ -103,9 +103,6 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <connections>
-                        <segue destination="LPy-P3-0CF" kind="show" identifier="toFeed" id="15f-RS-IW5"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fhF-rM-tfR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -124,6 +121,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <segue destination="pDB-DY-4nV" kind="show" identifier="toFeed" id="re2-hz-WGk"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sVG-eL-tMR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -131,6 +131,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="15f-RS-IW5"/>
+        <segue reference="re2-hz-WGk"/>
     </inferredMetricsTieBreakers>
 </document>
