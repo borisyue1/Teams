@@ -53,7 +53,7 @@ class FeedViewController: UIViewController {
     }
     
     func createEvent() {
-        performSegue(withIdentifier: "toFeed", sender: self)
+        performSegue(withIdentifier: "toNew", sender: self)
     }
 }
 
