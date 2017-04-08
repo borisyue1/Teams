@@ -90,8 +90,7 @@ class NewEventViewController: UIViewController {
         self.locationTextField.text = ""
         let description = descriptionField.text!
         self.descriptionField.text = ""
-
-        let newEvent = ["author": "Joe", "authorPhoneNumber": "5100000000", "sport": sport, "description": description, "peopleGoing": [], "date": date, "location": location] as [String : Any]
+        let newEvent = ["author": "Joe", "authorPhoneNumber": "5100000000", "sport": sport, "description": description, "peopleGoing": ["_"], "date": date, "location": location] as [String : Any]
         let key = eventsRef.childByAutoId().key
         let childUpdates = ["/\(key)/": newEvent]
         eventsRef.updateChildValues(childUpdates)

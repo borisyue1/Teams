@@ -52,6 +52,9 @@ class Event {
             if let peopleGoing = postDict!["peopleGoing"] as? [String] {
                 self.peopleGoing = peopleGoing
             }
+            if let location = postDict!["location"] as? String {
+                self.location = location
+            }
         }
     }
 }
