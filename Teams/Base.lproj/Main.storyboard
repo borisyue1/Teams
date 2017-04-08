@@ -83,11 +83,33 @@
                     </view>
                     <connections>
                         <segue destination="LPy-P3-0CF" kind="show" identifier="toFeedView" id="25e-u6-ibP"/>
+                        <segue destination="pDB-DY-4nV" kind="show" identifier="toNew" id="CRq-eC-RKw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fEk-Ed-BMA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1746" y="170"/>
+        </scene>
+        <!--New Event View Controller-->
+        <scene sceneID="kyF-7Z-UYQ">
+            <objects>
+                <viewController id="pDB-DY-4nV" customClass="NewEventViewController" customModule="Teams" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="uHQ-fx-76U"/>
+                        <viewControllerLayoutGuide type="bottom" id="rBO-ac-Z30"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Zn9-Bh-v6I">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <segue destination="LPy-P3-0CF" kind="show" identifier="toFeed" id="15f-RS-IW5"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fhF-rM-tfR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2585" y="-209"/>
         </scene>
         <!--Feed View Controller-->
         <scene sceneID="IiW-UW-8Gd">
@@ -105,7 +127,10 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sVG-eL-tMR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2492" y="170"/>
+            <point key="canvasLocation" x="2585" y="485"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="15f-RS-IW5"/>
+    </inferredMetricsTieBreakers>
 </document>

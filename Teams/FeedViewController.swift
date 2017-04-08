@@ -53,7 +53,7 @@ class FeedViewController: UIViewController {
     }
     
     func createEvent() {
-        self.navigationController?.pushViewController(NewEventViewController(), animated: true)
+        performSegue(withIdentifier: "toFeed", sender: self)
     }
 }
 

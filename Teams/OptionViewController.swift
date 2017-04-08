@@ -56,11 +56,11 @@ class OptionViewController: UIViewController {
     }
     
     func createTeamPressed() {
-        self.navigationController?.pushViewController(NewEventViewController(), animated: true)
+        performSegue(withIdentifier: "toNew", sender: self)
     }
     
     func joinTeamPressed() {
-        self.navigationController?.pushViewController(FeedViewController(), animated: true)
+        performSegue(withIdentifier: "toFeedView", sender: self)
     }
 
     override func didReceiveMemoryWarning() {
