@@ -49,3 +49,15 @@ extension UIColor {
         return NSString(format:"#%06x", rgb) as String
     }
 }
+
+extension UIViewController {
+    
+    func hideKeyboardWhenTappedAround() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+        view.addGestureRecognizer(tap)
+    }
+    
+    func dismissKeyboard() {
+        view.endEditing(true)
+    }
+}

@@ -25,8 +25,7 @@ class LoginViewController: UIViewController {
         initLoginButton()
         
         //Looks for single or multiple taps.
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(LoginViewController.dismissKeyboard))
-        view.addGestureRecognizer(tap)
+        self.hideKeyboardWhenTappedAround()
         
         // Do any additional setup after loading the view.
     }
@@ -36,11 +35,6 @@ class LoginViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    //Calls this function when the tap is recognized.
-    func dismissKeyboard() {
-        //Causes the view (or one of its embedded text fields) to resign the first responder status.
-        view.endEditing(true)
-    }
     
     func initNameField() {
         nameField = UITextField(frame: CGRect(x: 10, y: view.frame.height / 2 - 40, width: view.frame.width - 20, height: 40))

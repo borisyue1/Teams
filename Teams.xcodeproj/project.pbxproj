@@ -17,7 +17,6 @@
 		B40241AF1E95E0D200E98597 /* OptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40241AE1E95E0D200E98597 /* OptionViewController.swift */; };
 		B40241B11E95E0DA00E98597 /* SelectSchoolViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40241B01E95E0DA00E98597 /* SelectSchoolViewController.swift */; };
 		B44EF3641E7E391E00E25F58 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44EF3631E7E391E00E25F58 /* AppDelegate.swift */; };
-		B44EF3661E7E391E00E25F58 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44EF3651E7E391E00E25F58 /* ViewController.swift */; };
 		B44EF3691E7E391E00E25F58 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B44EF3671E7E391E00E25F58 /* Main.storyboard */; };
 		B44EF36B1E7E391E00E25F58 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B44EF36A1E7E391E00E25F58 /* Assets.xcassets */; };
 		B44EF36E1E7E391E00E25F58 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B44EF36C1E7E391E00E25F58 /* LaunchScreen.storyboard */; };
@@ -65,7 +64,6 @@
 		B40241B01E95E0DA00E98597 /* SelectSchoolViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectSchoolViewController.swift; sourceTree = "<group>"; };
 		B44EF3601E7E391E00E25F58 /* Teams.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Teams.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B44EF3631E7E391E00E25F58 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		B44EF3651E7E391E00E25F58 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		B44EF3681E7E391E00E25F58 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B44EF36A1E7E391E00E25F58 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B44EF36D1E7E391E00E25F58 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -125,13 +123,12 @@
 		15566F151E99883700D8F470 /* VCs */ = {
 			isa = PBXGroup;
 			children = (
-				B44EF3651E7E391E00E25F58 /* ViewController.swift */,
 				B45A84B11E94C410008B34E4 /* FeedViewController.swift */,
 				E13B0C9D1E95BF8B00C8FE18 /* DetailViewController.swift */,
 				B40241AA1E95DD2E00E98597 /* NewEventViewController.swift */,
+				B40241B01E95E0DA00E98597 /* SelectSchoolViewController.swift */,
 				B40241AC1E95E0CC00E98597 /* LoginViewController.swift */,
 				B40241AE1E95E0D200E98597 /* OptionViewController.swift */,
-				B40241B01E95E0DA00E98597 /* SelectSchoolViewController.swift */,
 			);
 			name = VCs;
 			sourceTree = "<group>";
@@ -517,7 +514,6 @@
 			files = (
 				15566F0F1E9985D500D8F470 /* NavigationController.swift in Sources */,
 				E13B0C941E946ACE00C8FE18 /* FeedTableViewCell.swift in Sources */,
-				B44EF3661E7E391E00E25F58 /* ViewController.swift in Sources */,
 				B40241AF1E95E0D200E98597 /* OptionViewController.swift in Sources */,
 				B45A84B21E94C410008B34E4 /* FeedViewController.swift in Sources */,
 				B40241B11E95E0DA00E98597 /* SelectSchoolViewController.swift in Sources */,

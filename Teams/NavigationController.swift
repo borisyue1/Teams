@@ -18,7 +18,8 @@ class NavigationController : UINavigationController {
         
         //next two lines to hide nav bar shadow and line
         self.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-        self.navigationBar.shadowImage = UIImage()    }
+        self.navigationBar.shadowImage = UIImage()
+    }
     
     
     
