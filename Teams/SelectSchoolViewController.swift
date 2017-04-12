@@ -9,6 +9,8 @@
 import UIKit
 import DropDown
 
+let defaults = UserDefaults.standard //set globally so all files can access
+
 class SelectSchoolViewController: UIViewController {
     
     var dropdown: DropDown!
@@ -26,7 +28,6 @@ class SelectSchoolViewController: UIViewController {
         initDropDown()
         initNextButton()
         
-
         self.view.backgroundColor = UIColor.init(red: 75/255, green: 184/255, blue: 147/255, alpha: 1.0)
 
         // Do any additional setup after loading the view.
@@ -91,6 +92,7 @@ class SelectSchoolViewController: UIViewController {
         dropdown.selectionAction = { [unowned self] (index: Int, item: String) in
             //self.dropdown.show()
             self.button.setTitle(item, for: .normal)
+            defaults.set(item, forKey: "school")
             print("Selected item: \(item) at index: \(index)")
         }
         dropdown.width = 230

@@ -17,12 +17,14 @@ class OptionViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         view.backgroundColor = UIColor.init(red: 234/255, green: 119/255, blue: 131/255, alpha: 1.0)
-        
         initButtons()
-
+        print(defaults.value(forKey: "name"))
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.navigationBar.tintColor = UIColor.white
     }
     
     func initButtons() {

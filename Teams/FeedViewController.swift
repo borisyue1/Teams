@@ -19,6 +19,7 @@ class FeedViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "All Sports"
+        self.navigationController?.navigationBar.tintColor = UIColor.black
         let addButton = UIBarButtonItem(image: #imageLiteral(resourceName: "plus"), style: .plain, target: self, action: #selector(createEvent))
         addButton.tintColor = UIColor.black
         self.navigationItem.setRightBarButton(addButton, animated: true)

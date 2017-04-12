@@ -19,11 +19,10 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = UIColor.init(red: 249/255, green: 170/255, blue: 97/255, alpha: 1.0)
-
         initNameField()
         initNameLabel()
         initLoginButton()
-        
+        self.navigationController?.navigationBar.tintColor = UIColor.white
         //Looks for single or multiple taps.
         self.hideKeyboardWhenTappedAround()
         
@@ -79,10 +78,9 @@ class LoginViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toOptionView" {
             let optionVC = segue.destination as! OptionViewController
+            defaults.set(nameField.text, forKey: "name")
             optionVC.school = self.school
             optionVC.name = self.nameField.text
-            //pokemonsToPass = pokemonsToPass.sorted{$0.name < $1.name} //sort alphabetically
-            //listVC.pokemons = self.pokemonsToPass
         }
     }
     

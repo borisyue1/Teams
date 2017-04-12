@@ -25,6 +25,7 @@ class NewEventViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()
+        self.navigationController?.navigationBar.tintColor = UIColor.black
         setupLayout()
         // Do any additional setup after loading the view.
     }
