@@ -61,8 +61,8 @@ class FeedViewController: UIViewController {
     
     func fetchPosts(withBlock: @escaping () -> ()) {
         //TODO: Implement a method to fetch posts with Firebase!
-//        eventsRef.queryOrdered(byChild: "peopleGoing").obser
-        eventsRef.queryOrdered(byChild: "date").observe(.childAdded, with: { (snapshot) in
+        let schoolRef = eventsRef.child(defaults.value(forKey: "school") as! String)
+        schoolRef.queryOrdered(byChild: "date").observe(.childAdded, with: { (snapshot) in
             let post = Event(id: snapshot.key, postDict: snapshot.value as! [String : Any]?)
             self.events.append(post)
             withBlock() //ensures that next block is called

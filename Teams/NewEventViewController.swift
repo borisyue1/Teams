@@ -92,12 +92,13 @@ class NewEventViewController: UIViewController {
         self.locationTextField.text = ""
         let description = descriptionField.text!
         self.descriptionField.text = ""
+        let schoolRef = eventsRef.child(defaults.value(forKey: "school") as! String)
         let newEvent = ["author": "Joe", "authorPhoneNumber": "5100000000", "sport": sport, "description": description, "peopleGoing": ["_"], "date": date, "location": location] as [String : Any]
-        let key = eventsRef.childByAutoId().key
+        let key = schoolRef.childByAutoId().key
         let childUpdates = ["/\(key)/": newEvent]
-        eventsRef.updateChildValues(childUpdates)
+        schoolRef.updateChildValues(childUpdates)
         
-        self.navigationController?.pushViewController(FeedViewController(), animated: true)
+        performSegue(withIdentifier: "newToFeed", sender: self)
     }
 }
 
