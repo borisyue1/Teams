@@ -73,9 +73,9 @@ class LoginViewController: UIViewController {
     
     func loginPressed() {
      
-    UserDefaults.standard.set(nameField.text, forKey: "name")
-    UserDefaults.standard.set(school, forKey: "school")
-    performSegue(withIdentifier: "toOptionView", sender: self)
+        UserDefaults.standard.set(nameField.text, forKey: "name")
+        UserDefaults.standard.set(school, forKey: "school")
+        performSegue(withIdentifier: "toOptionView", sender: self)
     }
     
     
