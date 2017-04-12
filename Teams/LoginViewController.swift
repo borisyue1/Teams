@@ -72,8 +72,12 @@ class LoginViewController: UIViewController {
     }
     
     func loginPressed() {
-        performSegue(withIdentifier: "toOptionView", sender: self)
+     
+    UserDefaults.standard.set(nameField.text, forKey: "name")
+    UserDefaults.standard.set(school, forKey: "school")
+    performSegue(withIdentifier: "toOptionView", sender: self)
     }
+    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toOptionView" {
