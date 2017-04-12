@@ -94,8 +94,9 @@ class NewEventViewController: UIViewController {
         let description = descriptionField.text!
         self.descriptionField.text = ""
         let schoolRef = eventsRef.child(defaults.value(forKey: "school") as! String)
-        peopleGoing = [UserDefaults.standard.string(forKey: "name")!]
-        let newEvent = ["author": UserDefaults.standard.string(forKey: "name"), "sport": sport, "description": description, "peopleGoing": peopleGoing, "date": date, "location": location] as [String : Any]
+        peopleGoing = []
+        peopleGoing.append(UserDefaults.standard.string(forKey: "name")!)
+        let newEvent = ["author": UserDefaults.standard.string(forKey: "name")!, "sport": sport, "description": description, "peopleGoing": peopleGoing, "date": date, "location": location] as [String : Any]
         let key = schoolRef.childByAutoId().key
         let childUpdates = ["/\(key)/": newEvent]
         schoolRef.updateChildValues(childUpdates)

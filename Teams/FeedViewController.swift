@@ -15,12 +15,16 @@ class FeedViewController: UIViewController {
     var events: [Event] = []
     var auth = FIRAuth.auth()
     var eventsRef: FIRDatabaseReference = FIRDatabase.database().reference().child("Event")
+    var plusSign: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "All Sports"
         self.navigationController?.navigationBar.tintColor = UIColor.black
-        let addButton = UIBarButtonItem(image: #imageLiteral(resourceName: "plus"), style: .plain, target: self, action: #selector(createEvent))
+        
+        let originalImage = UIImage(named: "plus.png")
+        let scaledIcon = UIImage(cgImage: originalImage!.cgImage!, scale: 5, orientation: originalImage!.imageOrientation)
+        let addButton = UIBarButtonItem(image: scaledIcon, style: .plain, target: self, action: #selector(createEvent))
         addButton.tintColor = UIColor.black
         self.navigationItem.setRightBarButton(addButton, animated: true)
 //        generateRandomEvents()
