@@ -21,6 +21,7 @@ class NewEventViewController: UIViewController {
     var sport: String!
     var auth = FIRAuth.auth()
     var eventsRef: FIRDatabaseReference = FIRDatabase.database().reference().child("Event")
+    var peopleGoing: [String]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -93,7 +94,8 @@ class NewEventViewController: UIViewController {
         let description = descriptionField.text!
         self.descriptionField.text = ""
         let schoolRef = eventsRef.child(defaults.value(forKey: "school") as! String)
-        let newEvent = ["author": UserDefaults.standard.string(forKey: "name"), "authorPhoneNumber": "5100000000", "sport": sport, "description": description, "peopleGoing": ["_"], "date": date, "location": location] as [String : Any]
+        peopleGoing = [UserDefaults.standard.string(forKey: "name")!]
+        let newEvent = ["author": UserDefaults.standard.string(forKey: "name"), "sport": sport, "description": description, "peopleGoing": peopleGoing, "date": date, "location": location] as [String : Any]
         let key = schoolRef.childByAutoId().key
         let childUpdates = ["/\(key)/": newEvent]
         schoolRef.updateChildValues(childUpdates)
