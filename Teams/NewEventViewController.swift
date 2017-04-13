@@ -93,7 +93,7 @@ class NewEventViewController: UIViewController {
         self.locationTextField.text = ""
         let description = descriptionField.text!
         self.descriptionField.text = ""
-        let schoolRef = eventsRef.child(defaults.value(forKey: "school") as! String)
+        let schoolRef = eventsRef.child(UserDefaults.standard.value(forKey: "school") as! String)
         peopleGoing = []
         peopleGoing.append(UserDefaults.standard.string(forKey: "name")!)
         let newEvent = ["author": UserDefaults.standard.string(forKey: "name")!, "sport": sport, "description": description, "peopleGoing": peopleGoing, "date": date, "location": location] as [String : Any]

@@ -22,9 +22,9 @@ class FeedViewController: UIViewController {
         self.title = "All Sports"
         self.navigationController?.navigationBar.tintColor = UIColor.black
         
-        let originalImage = UIImage(named: "plus.png")
-        let scaledIcon = UIImage(cgImage: originalImage!.cgImage!, scale: 5, orientation: originalImage!.imageOrientation)
-        let addButton = UIBarButtonItem(image: scaledIcon, style: .plain, target: self, action: #selector(createEvent))
+        let originalImage = UIImage(named: "add.png")
+//        let scaledIcon = UIImage(cgImage: originalImage!.cgImage!, scale: 5, orientation: originalImage!.imageOrientation)
+        let addButton = UIBarButtonItem(image: originalImage, style: .plain, target: self, action: #selector(createEvent))
         addButton.tintColor = UIColor.black
         self.navigationItem.setRightBarButton(addButton, animated: true)
 //        generateRandomEvents()
@@ -65,7 +65,7 @@ class FeedViewController: UIViewController {
     
     func fetchPosts(withBlock: @escaping () -> ()) {
         //TODO: Implement a method to fetch posts with Firebase!
-        let schoolRef = eventsRef.child(defaults.value(forKey: "school") as! String)
+        let schoolRef = eventsRef.child(UserDefaults.standard.value(forKey: "school") as! String)
         schoolRef.queryOrdered(byChild: "date").observe(.childAdded, with: { (snapshot) in
             let post = Event(id: snapshot.key, postDict: snapshot.value as! [String : Any]?)
             self.events.append(post)

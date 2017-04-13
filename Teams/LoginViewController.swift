@@ -26,24 +26,18 @@ class LoginViewController: UIViewController {
         //Looks for single or multiple taps.
         self.hideKeyboardWhenTappedAround()
         
-        // Do any additional setup after loading the view.
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     
     func initNameField() {
+        UITextField.appearance().tintColor = UIColor.white //sets cursor to white 
         nameField = UITextField(frame: CGRect(x: 10, y: view.frame.height / 2 - 40, width: view.frame.width - 20, height: 40))
         nameField.textColor = UIColor.white
-        nameField.placeholder = "Your name"
         nameField.font = UIFont(name: "Lato-Medium", size: 20.0)
         nameField.layer.borderColor = UIColor.white.cgColor
         nameField.layer.borderWidth = 2
         nameField.textAlignment = NSTextAlignment.center
-        
+        nameField.attributedPlaceholder = NSAttributedString(string: "Your Name",
+                                                             attributes: [NSForegroundColorAttributeName: UIColor.white])
         view.addSubview(nameField)
     }
     
@@ -54,7 +48,6 @@ class LoginViewController: UIViewController {
         nameLabel.font = UIFont(name: "Lato-Light", size: 16.0)
         nameLabel.textColor = UIColor.white
         nameLabel.textAlignment = NSTextAlignment.center
-        
         view.addSubview(nameLabel)
     }
     
@@ -72,31 +65,22 @@ class LoginViewController: UIViewController {
     }
     
     func loginPressed() {
-     
-        UserDefaults.standard.set(nameField.text, forKey: "name")
-        UserDefaults.standard.set(school, forKey: "school")
-        performSegue(withIdentifier: "toOptionView", sender: self)
+        if nameField.text != "" {
+            UserDefaults.standard.set(nameField.text, forKey: "name")
+            performSegue(withIdentifier: "toOptionView", sender: self)
+        } else {
+            self.displayError(withMessage: "Please input your name.")
+        }
+        
     }
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toOptionView" {
             let optionVC = segue.destination as! OptionViewController
-            defaults.set(nameField.text, forKey: "name")
             optionVC.school = self.school
             optionVC.name = self.nameField.text
         }
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

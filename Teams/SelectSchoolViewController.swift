@@ -9,18 +9,15 @@
 import UIKit
 import DropDown
 
-let defaults = UserDefaults.standard //set globally so all files can access
-
 class SelectSchoolViewController: UIViewController {
     
     var dropdown: DropDown!
-    var button: UIButton!
     var selectLabel: UILabel!
     var nextButton: UIButton!
+    var button: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         print("MOTHERFUCKER")
         
         initButton()
@@ -30,13 +27,6 @@ class SelectSchoolViewController: UIViewController {
         
         self.view.backgroundColor = UIColor.init(red: 75/255, green: 184/255, blue: 147/255, alpha: 1.0)
 
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-        
     }
     
     func initLabel() {
@@ -77,7 +67,6 @@ class SelectSchoolViewController: UIViewController {
     }
     
     func buttonPressed() {
-        print("button fucking presesd")
         self.dropdown.show()
     }
     
@@ -87,12 +76,13 @@ class SelectSchoolViewController: UIViewController {
         //dropdown = DropDown.init(frame: CGRect(x: 10, y: 300, width: 200, height: 100))
         
         dropdown.anchorView = button
-        dropdown.dataSource = ["UC Berkeley", "UCLA", "UT Austin", "Loyola University", "Stanford University"]
+        dropdown.dataSource = ["UC Berkeley", "UCLA", "UC Irvine", "UC Santa Barbara", "UC Riverside", "UC Merced", "UC Davis", "USC", "Stanford"]
         dropdown.bottomOffset = CGPoint(x: 0, y: button.bounds.height)
+        dropdown.direction = .bottom
         dropdown.selectionAction = { [unowned self] (index: Int, item: String) in
             //self.dropdown.show()
             self.button.setTitle(item, for: .normal)
-            defaults.set(item, forKey: "school")
+            UserDefaults.standard.set(item, forKey: "school")
             print("Selected item: \(item) at index: \(index)")
         }
         dropdown.width = 230
@@ -101,7 +91,11 @@ class SelectSchoolViewController: UIViewController {
     }
     
     func nextPressed() {
-        performSegue(withIdentifier: "toLoginView", sender: self)
+        if let _ = UserDefaults.standard.value(forKey: "school") {
+            performSegue(withIdentifier: "toLoginView", sender: self)
+        } else {
+            self.displayError(withMessage: "Please select a school first.")
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
