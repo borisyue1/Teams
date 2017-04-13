@@ -123,12 +123,12 @@
 		15566F151E99883700D8F470 /* VCs */ = {
 			isa = PBXGroup;
 			children = (
-				B45A84B11E94C410008B34E4 /* FeedViewController.swift */,
-				E13B0C9D1E95BF8B00C8FE18 /* DetailViewController.swift */,
-				B40241AA1E95DD2E00E98597 /* NewEventViewController.swift */,
 				B40241B01E95E0DA00E98597 /* SelectSchoolViewController.swift */,
 				B40241AC1E95E0CC00E98597 /* LoginViewController.swift */,
 				B40241AE1E95E0D200E98597 /* OptionViewController.swift */,
+				B45A84B11E94C410008B34E4 /* FeedViewController.swift */,
+				E13B0C9D1E95BF8B00C8FE18 /* DetailViewController.swift */,
+				B40241AA1E95DD2E00E98597 /* NewEventViewController.swift */,
 			);
 			name = VCs;
 			sourceTree = "<group>";

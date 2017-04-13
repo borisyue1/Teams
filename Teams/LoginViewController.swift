@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, UITextFieldDelegate {
     
     var school: String?
     var nameLabel: UILabel!
@@ -26,11 +26,18 @@ class LoginViewController: UIViewController {
         //Looks for single or multiple taps.
         self.hideKeyboardWhenTappedAround()
         
+        
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        loginPressed()
+        return true
     }
     
     func initNameField() {
         UITextField.appearance().tintColor = UIColor.white //sets cursor to white 
         nameField = UITextField(frame: CGRect(x: 10, y: view.frame.height / 2 - 40, width: view.frame.width - 20, height: 40))
+        nameField.delegate = self
         nameField.textColor = UIColor.white
         nameField.font = UIFont(name: "Lato-Medium", size: 20.0)
         nameField.layer.borderColor = UIColor.white.cgColor
@@ -38,6 +45,7 @@ class LoginViewController: UIViewController {
         nameField.textAlignment = NSTextAlignment.center
         nameField.attributedPlaceholder = NSAttributedString(string: "Your Name",
                                                              attributes: [NSForegroundColorAttributeName: UIColor.white])
+        nameField.returnKeyType = .go
         view.addSubview(nameField)
     }
     
