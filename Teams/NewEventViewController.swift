@@ -39,7 +39,7 @@ class NewEventViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func dismissKeyboard() {
+    override func dismissKeyboard() {
         //Causes the view (or one of its embedded text fields) to resign the first responder status.
         view.endEditing(true)
     }
