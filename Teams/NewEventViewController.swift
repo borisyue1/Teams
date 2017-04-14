@@ -104,6 +104,10 @@ class NewEventViewController: UIViewController {
     }
     
     func addNewEvent() {
+        if (date == nil) {
+            getDate(sender: self.datePicker)
+        }
+        sport = sportsList[sportPicker.selectedRow(inComponent: 0)]
         let location = locationTextField.text!
         self.locationTextField.text = ""
         let description = descriptionField.text!

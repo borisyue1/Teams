@@ -19,12 +19,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        UserDefaults.standard.removeObject(forKey: "name")
 //        UserDefaults.standard.removeObject(forKey: "school")
 //        UserDefaults.standard.synchronize()
-//        if let _ = UserDefaults.standard.value(forKey: "name") {
-//            if let _1 = UserDefaults.standard.value(forKey: "school") {
-//                //if name and school already inputted, skip to optionview
-//                self.window?.rootViewController = OptionViewController()
-//            }
-//        }
+        if let _ = UserDefaults.standard.value(forKey: "name") {
+            if let _1 = UserDefaults.standard.value(forKey: "school") {
+                //if name and school already inputted, skip to optionview
+                self.window?.rootViewController = OptionViewController()
+            }
+        }
         return true
     }
 
