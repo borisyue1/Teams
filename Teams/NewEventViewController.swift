@@ -47,7 +47,7 @@ class NewEventViewController: UIViewController {
     func setupLayout() {
         view.backgroundColor = UIColor.init(red: 249/255, green: 170/255, blue: 97/255, alpha: 1.0)
         
-        createTeamLabel = UILabel(frame: CGRect(x: 0, y: (navigationController?.navigationBar.frame.maxY)! + 10, width: view.frame.width, height: 75))
+        createTeamLabel = UILabel(frame: CGRect(x: 0, y: (navigationController?.navigationBar.frame.maxY)! + 10, width: view.frame.width, height: view.frame.height/13))
         createTeamLabel.textAlignment = .center
         createTeamLabel.text = "Create a Team"
         createTeamLabel.font = UIFont(name: "ArialMT", size: 30)
@@ -69,7 +69,7 @@ class NewEventViewController: UIViewController {
         locationTextField.textAlignment = .center
         locationTextField.textColor = UIColor.white
         
-        descriptionField = UITextView(frame: CGRect(x: 0, y: locationTextField.frame.maxY + 20, width: view.frame.width, height: 100))
+        descriptionField = UITextView(frame: CGRect(x: 0, y: locationTextField.frame.maxY + 20, width: view.frame.width, height: view.frame.height/10))
         descriptionField.text = "Description of Event"
         descriptionField.textAlignment = .center
         descriptionField.textContainer.maximumNumberOfLines = 2
@@ -79,7 +79,7 @@ class NewEventViewController: UIViewController {
         descriptionField.delegate = self
         descriptionField.backgroundColor = UIColor.init(red: 249/255, green: 170/255, blue: 97/255, alpha: 1.0)
         
-        postButton = UIButton(frame: CGRect(x: view.frame.width/5, y: descriptionField.frame.maxY + 10, width: view.frame.width * (3/5), height: 60))
+        postButton = UIButton(frame: CGRect(x: view.frame.width/5, y: descriptionField.frame.maxY + 10, width: view.frame.width * (3/5), height: view.frame.height/11))
         postButton.setTitle("Post", for: .normal)
         postButton.setTitleColor(UIColor.white, for: .normal)
         postButton.titleLabel?.font = UIFont(name: (postButton.titleLabel?.font.fontName)!, size: 20)
