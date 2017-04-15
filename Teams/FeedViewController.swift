@@ -19,19 +19,21 @@ class FeedViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = UIColor.white
+        
         self.title = "All Sports"
         self.navigationController?.navigationBar.tintColor = UIColor.black
-        
+        self.navigationItem.setHidesBackButton(true, animated: true) //hide back button
         let originalImage = UIImage(named: "add.png")
 //        let scaledIcon = UIImage(cgImage: originalImage!.cgImage!, scale: 5, orientation: originalImage!.imageOrientation)
         let addButton = UIBarButtonItem(image: originalImage, style: .plain, target: self, action: #selector(createEvent))
         addButton.tintColor = UIColor.black
         self.navigationItem.setRightBarButton(addButton, animated: true)
-//        generateRandomEvents()
         fetchPosts {
             self.setUpTableView()
         }
     }
+
     
     //creating fake ones for now
     func generateRandomEvents() {
@@ -60,7 +62,9 @@ class FeedViewController: UIViewController {
     }
     
     func createEvent() {
-        performSegue(withIdentifier: "toNew", sender: self)
+//        performSegue(withIdentifier: "toNew", sender: self)
+//        self.navigationController?.pushViewController(NewEventViewController(), animated: true)
+        self.present(NewEventViewController(), animated: true, completion: nil)
     }
     
     func fetchPosts(withBlock: @escaping () -> ()) {

@@ -92,7 +92,8 @@ class SelectSchoolViewController: UIViewController {
     
     func nextPressed() {
         if let _ = UserDefaults.standard.value(forKey: "school") {
-            performSegue(withIdentifier: "toLoginView", sender: self)
+//            performSegue(withIdentifier: "toLoginView", sender: self)
+            self.navigationController?.pushViewController(LoginViewController(), animated: true)
         } else {
             self.displayError(withMessage: "Please select a school first.")
         }

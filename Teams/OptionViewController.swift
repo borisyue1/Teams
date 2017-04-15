@@ -14,6 +14,7 @@ class OptionViewController: UIViewController {
     var joinTeam: UIButton!
     var school: String?
     var name: String?
+    static var shouldGoToFeed = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +25,10 @@ class OptionViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.navigationBar.tintColor = UIColor.white
+        if OptionViewController.shouldGoToFeed {
+            self.navigationController?.pushViewController(FeedViewController(), animated: true)
+            OptionViewController.shouldGoToFeed = false
+        }
     }
     
     func initButtons() {
@@ -57,16 +62,13 @@ class OptionViewController: UIViewController {
     }
     
     func createTeamPressed() {
-        performSegue(withIdentifier: "toNew", sender: self)
+//        performSegue(withIdentifier: "toNew", sender: self)
+        self.present(NewEventViewController(), animated: true, completion: nil)
     }
     
     func joinTeamPressed() {
-        performSegue(withIdentifier: "toFeedView", sender: self)
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+//        performSegue(withIdentifier: "toFeedView", sender: self)
+        self.navigationController?.pushViewController(FeedViewController(), animated: true)
     }
 
 }
