@@ -24,6 +24,7 @@
 		B44EF3841E7E391E00E25F58 /* TeamsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44EF3831E7E391E00E25F58 /* TeamsUITests.swift */; };
 		B44EF3921E7E39A500E25F58 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B44EF3911E7E39A500E25F58 /* GoogleService-Info.plist */; };
 		B45A84B21E94C410008B34E4 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45A84B11E94C410008B34E4 /* FeedViewController.swift */; };
+		B4E61B9A1EA2C56D0003E2DA /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E61B991EA2C56D0003E2DA /* SettingsViewController.swift */; };
 		E13B0C941E946ACE00C8FE18 /* FeedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13B0C931E946ACE00C8FE18 /* FeedTableViewCell.swift */; };
 		E13B0C981E94D36800C8FE18 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13B0C971E94D36800C8FE18 /* Event.swift */; };
 		E1E425E61EA2A36A0098BB7F /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E425E51EA2A36A0098BB7F /* CommentViewController.swift */; };
@@ -76,6 +77,7 @@
 		B44EF3851E7E391E00E25F58 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B44EF3911E7E39A500E25F58 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B45A84B11E94C410008B34E4 /* FeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
+		B4E61B991EA2C56D0003E2DA /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		C97070A3557C605DCD63FD7C /* Pods-TeamsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TeamsTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TeamsTests/Pods-TeamsTests.release.xcconfig"; sourceTree = "<group>"; };
 		E13B0C931E946ACE00C8FE18 /* FeedTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedTableViewCell.swift; sourceTree = "<group>"; };
 		E13B0C971E94D36800C8FE18 /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
@@ -129,6 +131,7 @@
 				B45A84B11E94C410008B34E4 /* FeedViewController.swift */,
 				E1E425E51EA2A36A0098BB7F /* CommentViewController.swift */,
 				B40241AA1E95DD2E00E98597 /* NewEventViewController.swift */,
+				B4E61B991EA2C56D0003E2DA /* SettingsViewController.swift */,
 			);
 			name = VCs;
 			sourceTree = "<group>";
@@ -522,6 +525,7 @@
 				15566F111E99864C00D8F470 /* Extensions.swift in Sources */,
 				B40241AD1E95E0CC00E98597 /* LoginViewController.swift in Sources */,
 				B40241AB1E95DD2E00E98597 /* NewEventViewController.swift in Sources */,
+				B4E61B9A1EA2C56D0003E2DA /* SettingsViewController.swift in Sources */,
 				E13B0C981E94D36800C8FE18 /* Event.swift in Sources */,
 				B44EF3641E7E391E00E25F58 /* AppDelegate.swift in Sources */,
 			);

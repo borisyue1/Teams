@@ -23,12 +23,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let _ = UserDefaults.standard.value(forKey: "name") {
             if let _1 = UserDefaults.standard.value(forKey: "school") {
                 //if name and school already inputted, skip to optionview
-                mainView = OptionViewController()
+                mainView = SettingsViewController()
+                mainView.view.backgroundColor = UIColor.white
             }
         } else {
             mainView = SelectSchoolViewController()
         }
-        
         self.window = UIWindow(frame: UIScreen.main.bounds)
         let nav = NavigationController(rootViewController: mainView)
         self.window!.rootViewController = nav
