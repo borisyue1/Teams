@@ -55,11 +55,19 @@ class FeedViewController: UIViewController {
         tableView.register(FeedTableViewCell.self, forCellReuseIdentifier: "feedCell")
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.rowHeight = view.frame.height / 5
+        tableView.rowHeight = rowHeight()
         tableView.separatorStyle = .none
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: view.frame.height / 10, right: 0)
         tableView.tableFooterView = UIView() // gets rid of the extra cells beneath
         view.addSubview(tableView)
+    }
+    
+    func rowHeight() -> CGFloat {
+        if view.frame.width / 1.8 < 200 {
+            return 200
+        } else {
+            return view.frame.width / 1.8
+        }
     }
     
     func createEvent() {
@@ -116,11 +124,12 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
         cell.pic.layer.shadowOffset = CGSize(width: 0, height: 3)
         cell.pic.layer.shadowRadius = 1.5
         //        cell.contentView.addSubview(cell.pic)
-        cell.sportLabel.text = currentEvent.sport
-        cell.timeLabel.text = currentEvent.date
+        cell.sportLabel.text = " is playing " + currentEvent.sport!
+        //cell.timeLabel.text = currentEvent.date
         cell.descriptionLabel.text = currentEvent.description
-        cell.locationLabel.text = "\(currentEvent.location!) - \(currentEvent.peopleGoing.count) going"
+        cell.location = "\(currentEvent.location!) - \(currentEvent.peopleGoing.count) going"
     }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         passedEvent = events[events.count - 1 - indexPath.row]
         self.performSegue(withIdentifier: "toComments", sender: self)

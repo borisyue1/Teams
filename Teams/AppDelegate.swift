@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let _ = UserDefaults.standard.value(forKey: "name") {
             if let _1 = UserDefaults.standard.value(forKey: "school") {
                 //if name and school already inputted, skip to optionview
-                mainView = OptionViewController()
+                mainView = FeedViewController()
             }
         } else {
             mainView = SelectSchoolViewController()
