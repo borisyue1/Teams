@@ -73,7 +73,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     func loginPressed() {
         if nameField.text != "" {
             UserDefaults.standard.set(nameField.text, forKey: "name")
-            performSegue(withIdentifier: "toOptionView", sender: self)
+//            performSegue(withIdentifier: "toOptionView", sender: self)
+            self.navigationController?.pushViewController(OptionViewController(), animated: true)
         } else {
             self.displayError(withMessage: "Please input your name.")
         }

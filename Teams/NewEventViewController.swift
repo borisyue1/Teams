@@ -26,7 +26,6 @@ class NewEventViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()
-        self.navigationController?.navigationBar.tintColor = UIColor.black
         setupLayout()
         
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
@@ -47,7 +46,7 @@ class NewEventViewController: UIViewController {
     func setupLayout() {
         view.backgroundColor = UIColor.init(red: 249/255, green: 170/255, blue: 97/255, alpha: 1.0)
         
-        createTeamLabel = UILabel(frame: CGRect(x: 0, y: (navigationController?.navigationBar.frame.maxY)! + 10, width: view.frame.width, height: view.frame.height/13))
+        createTeamLabel = UILabel(frame: CGRect(x: 0, y: view.frame.height / 8.5, width: view.frame.width, height: view.frame.height/13))
         createTeamLabel.textAlignment = .center
         createTeamLabel.text = "Create a Team"
         createTeamLabel.font = UIFont(name: "ArialMT", size: 30)
@@ -120,7 +119,13 @@ class NewEventViewController: UIViewController {
         let childUpdates = ["/\(key)/": newEvent]
         schoolRef.updateChildValues(childUpdates)
         
-        performSegue(withIdentifier: "newToFeed", sender: self)
+//        performSegue(withIdentifier: "newToFeed", sender: self)
+//        self.navigationController?.pushViewController(FeedViewController(), animated: true)
+//        if presentingViewController is OptionViewController {
+//        }
+        let presentingViewController = self.presentingViewController
+        OptionViewController.shouldGoToFeed = true
+        self.dismiss(animated: true, completion: nil)
     }
 }
 
