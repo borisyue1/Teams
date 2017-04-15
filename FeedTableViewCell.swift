@@ -101,7 +101,7 @@ class FeedTableViewCell: UITableViewCell {
     func setUpRectView() {
         let inset = contentView.frame.width / 15
         let width = contentView.frame.width - (2 * inset)
-        rectView = UIView(frame: CGRect(x: inset, y: contentView.frame.height / 3, width: width, height: contentView.frame.height / 2))
+        rectView = UIView(frame: CGRect(x: inset, y: 60, width: width, height: contentView.frame.height - 60 - 25))
         rectView.backgroundColor = UIColor.white
         
         rectView.layer.borderColor = UIColor(red: 229/255, green: 229/255, blue: 229/255, alpha: 1.0).cgColor
@@ -186,7 +186,7 @@ class FeedTableViewCell: UITableViewCell {
     
     func setUpSportLabel() {
         
-        isPlayingLabel = UILabel(frame: CGRect(x: rectView.frame.minX, y: contentView.frame.height / 11, width: 0, height: 16.0))
+        isPlayingLabel = UILabel(frame: CGRect(x: rectView.frame.minX, y: 20, width: 0, height: 16.0))
         isPlayingLabel.text = author
         isPlayingLabel.font = UIFont(name: "Lato-Medium", size: 14.0)
         isPlayingLabel.sizeToFit()
@@ -194,7 +194,7 @@ class FeedTableViewCell: UITableViewCell {
         
         contentView.addSubview(isPlayingLabel)
         
-        sportLabel = UILabel(frame: CGRect(x: isPlayingLabel.frame.maxX, y: contentView.frame.height / 11, width: 0, height: 16.0))
+        sportLabel = UILabel(frame: CGRect(x: isPlayingLabel.frame.maxX, y: 20, width: 0, height: 16.0))
         sportLabel.text = " is playing " + sport
         sportLabel.textColor = UIColor.black
         sportLabel.font = UIFont(name: "Lato-Light", size: 14.0)
