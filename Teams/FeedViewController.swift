@@ -16,6 +16,7 @@ class FeedViewController: UIViewController {
     var auth = FIRAuth.auth()
     var eventsRef: FIRDatabaseReference = FIRDatabase.database().reference().child("Event")
     var plusSign: UIImageView!
+    var passedEvent: Event?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,6 +73,12 @@ class FeedViewController: UIViewController {
             withBlock() //ensures that next block is called
         })
     }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toComments" {
+            let comments = segue.destination as! CommentViewController
+            comments.curr = passedEvent
+        }
+    }
 }
 
 extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
@@ -109,5 +116,11 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
         cell.timeLabel.text = currentEvent.date
         cell.descriptionLabel.text = currentEvent.description
         cell.locationLabel.text = "\(currentEvent.location!) - \(currentEvent.peopleGoing.count) going"
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        passedEvent = events[events.count - 1 - indexPath.row]
+        self.performSegue(withIdentifier: "toComments", sender: self)
+        tableView.deselectRow(at: indexPath, animated: true)
+        
     }
 }
