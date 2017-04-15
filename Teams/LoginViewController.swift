@@ -25,8 +25,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         self.navigationController?.navigationBar.tintColor = UIColor.white
         //Looks for single or multiple taps.
         self.hideKeyboardWhenTappedAround()
-        
-        
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
