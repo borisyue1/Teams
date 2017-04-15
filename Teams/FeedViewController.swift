@@ -55,7 +55,7 @@ class FeedViewController: UIViewController {
         tableView.register(FeedTableViewCell.self, forCellReuseIdentifier: "feedCell")
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.rowHeight = view.frame.height / 5
+        tableView.rowHeight = 200
         tableView.separatorStyle = .none
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: view.frame.height / 10, right: 0)
         tableView.tableFooterView = UIView() // gets rid of the extra cells beneath

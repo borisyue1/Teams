@@ -16,6 +16,9 @@
 		B40241AD1E95E0CC00E98597 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40241AC1E95E0CC00E98597 /* LoginViewController.swift */; };
 		B40241AF1E95E0D200E98597 /* OptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40241AE1E95E0D200E98597 /* OptionViewController.swift */; };
 		B40241B11E95E0DA00E98597 /* SelectSchoolViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40241B01E95E0DA00E98597 /* SelectSchoolViewController.swift */; };
+		B44B00831EA2E33C0074A18E /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B44B00821EA2E33C0074A18E /* Lato-Bold.ttf */; };
+		B44B00851EA2E3460074A18E /* Lato-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B44B00841EA2E3460074A18E /* Lato-Medium.ttf */; };
+		B44B00871EA2E34F0074A18E /* Lato-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B44B00861EA2E34F0074A18E /* Lato-Light.ttf */; };
 		B44EF3641E7E391E00E25F58 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44EF3631E7E391E00E25F58 /* AppDelegate.swift */; };
 		B44EF3691E7E391E00E25F58 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B44EF3671E7E391E00E25F58 /* Main.storyboard */; };
 		B44EF36B1E7E391E00E25F58 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B44EF36A1E7E391E00E25F58 /* Assets.xcassets */; };
@@ -63,6 +66,9 @@
 		B40241AC1E95E0CC00E98597 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		B40241AE1E95E0D200E98597 /* OptionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionViewController.swift; sourceTree = "<group>"; };
 		B40241B01E95E0DA00E98597 /* SelectSchoolViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectSchoolViewController.swift; sourceTree = "<group>"; };
+		B44B00821EA2E33C0074A18E /* Lato-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Bold.ttf"; sourceTree = "<group>"; };
+		B44B00841EA2E3460074A18E /* Lato-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Medium.ttf"; sourceTree = "<group>"; };
+		B44B00861EA2E34F0074A18E /* Lato-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Light.ttf"; sourceTree = "<group>"; };
 		B44EF3601E7E391E00E25F58 /* Teams.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Teams.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B44EF3631E7E391E00E25F58 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B44EF3681E7E391E00E25F58 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -202,6 +208,9 @@
 			children = (
 				B44EF3631E7E391E00E25F58 /* AppDelegate.swift */,
 				15566F0E1E9985D500D8F470 /* NavigationController.swift */,
+				B44B00821EA2E33C0074A18E /* Lato-Bold.ttf */,
+				B44B00841EA2E3460074A18E /* Lato-Medium.ttf */,
+				B44B00861EA2E34F0074A18E /* Lato-Light.ttf */,
 				15566F151E99883700D8F470 /* VCs */,
 				15566F171E99884C00D8F470 /* Models */,
 				15566F161E99884700D8F470 /* Views */,
@@ -350,9 +359,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				B44EF36E1E7E391E00E25F58 /* LaunchScreen.storyboard in Resources */,
+				B44B00851EA2E3460074A18E /* Lato-Medium.ttf in Resources */,
+				B44B00831EA2E33C0074A18E /* Lato-Bold.ttf in Resources */,
 				B44EF3921E7E39A500E25F58 /* GoogleService-Info.plist in Resources */,
 				B44EF36B1E7E391E00E25F58 /* Assets.xcassets in Resources */,
 				B44EF3691E7E391E00E25F58 /* Main.storyboard in Resources */,
+				B44B00871EA2E34F0074A18E /* Lato-Light.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
