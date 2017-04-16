@@ -72,7 +72,18 @@ class OptionViewController: UIViewController {
 //        performSegue(withIdentifier: "toFeedView", sender: self)
         joinTeam.backgroundColor = UIColor.white
         joinTeam.setTitleColor(UIColor(red: 234/255, green: 119/255, blue: 131/255, alpha: 1.0), for: .normal)
-        self.navigationController?.pushViewController(FeedViewController(), animated: true)
+//        self.navigationController?.pushViewController(FeedViewController(), animated: true)
+
+//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//        let rVC = storyboard.instantiateViewController(withIdentifier: "FrontVC")
+//        print(revealViewController())
+//        revealViewController().setFront(rVC, animated: true)
+    
+        
+        let sb = UIStoryboard(name: "Main", bundle: nil)
+        let controller = sb.instantiateViewController(withIdentifier: "FrontVC")
+        
+        revealViewController().setFront(controller, animated: true)
     }
 
 }

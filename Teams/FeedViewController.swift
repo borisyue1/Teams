@@ -18,6 +18,10 @@ class FeedViewController: UIViewController {
     var plusSign: UIImageView!
     var currKey: String?
     var postIds: [String] = []
+    var passedEvent: Event?
+    var menuButton: UIBarButtonItem!
+    static var sortedItem: String = "date"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.white
@@ -33,6 +37,10 @@ class FeedViewController: UIViewController {
         fetchPosts {
             self.setUpTableView()
         }
+        
+        setupSideBarButton()
+        setUpSideBar()
+        
     }
 
 
@@ -49,8 +57,23 @@ class FeedViewController: UIViewController {
         view.addSubview(tableView)
     }
     
+    func setUpSideBar() {
+        if self.revealViewController() != nil {
+            revealViewController().rearViewRevealWidth = view.frame.width/4
+            menuButton.target = revealViewController()
+            menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
+            revealViewController().tapGestureRecognizer()
+            revealViewController().panGestureRecognizer()
+        }
+    }
+    
     func rowHeight() -> CGFloat {
         return 200
+    }
+    
+    func setupSideBarButton() {
+        menuButton = UIBarButtonItem(title: "Sort", style: .plain, target: self.revealViewController(), action: "revealToggle:")
+        navigationItem.leftBarButtonItem = menuButton
     }
     
     func createEvent() {
@@ -62,7 +85,7 @@ class FeedViewController: UIViewController {
     func fetchPosts(withBlock: @escaping () -> ()) {
         //TODO: Implement a method to fetch posts with Firebase!
         let schoolRef = eventsRef.child(UserDefaults.standard.value(forKey: "school") as! String)
-        schoolRef.queryOrdered(byChild: "date").observe(.childAdded, with: { (snapshot) in
+        schoolRef.queryOrdered(byChild: FeedViewController.sortedItem).observe(.childAdded, with: { (snapshot) in
             let post = Event(id: snapshot.key, postDict: snapshot.value as! [String : Any]?)
             self.events.append(post)
             self.postIds.append(snapshot.key)
@@ -135,5 +158,12 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
         commentView.currKey = currKey
         self.present(commentView, animated: true, completion: nil)
         
+    }
+}
+
+extension FeedViewController: FeedTableDelegate {
+    func reloadFeed() {
+        print("fuckkkk")
+        tableView.reloadData()
     }
 }

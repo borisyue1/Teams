@@ -19,20 +19,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        UserDefaults.standard.removeObject(forKey: "name")
 //        UserDefaults.standard.removeObject(forKey: "school")
 //        UserDefaults.standard.synchronize()
-        var mainView: UIViewController!
-        if let _ = UserDefaults.standard.value(forKey: "name") {
-            if let _1 = UserDefaults.standard.value(forKey: "school") {
-                //if name and school already inputted, skip to optionview
-                mainView = OptionViewController()
-            }
-        } else {
-            mainView = SelectSchoolViewController()
-        }
-        
-        self.window = UIWindow(frame: UIScreen.main.bounds)
-        let nav = NavigationController(rootViewController: mainView)
-        self.window!.rootViewController = nav
-        self.window?.makeKeyAndVisible()
+//        var mainView: UIViewController!
+//        if let _ = UserDefaults.standard.value(forKey: "name") {
+//            if let _1 = UserDefaults.standard.value(forKey: "school") {
+//                //if name and school already inputted, skip to optionview
+//                mainView = FeedViewController()
+//            }
+//        } else {
+//            mainView = SelectSchoolViewController()
+//        }
+//        mainView = SelectSchoolViewController()
+//
+//        self.window = UIWindow(frame: UIScreen.main.bounds)
+//        let nav = NavigationController(rootViewController: mainView)
+//        self.window!.rootViewController = nav
+//        self.window?.makeKeyAndVisible()
+                
         return true
     }
 
