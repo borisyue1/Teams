@@ -32,8 +32,8 @@ class OptionViewController: UIViewController {
     }
     
     func initButtons() {
-        createTeam = UIButton(frame: CGRect(x: view.frame.width / 2 - (230 / 2), y: view.frame.height / 2 - 55, width: 230, height: 50))
-        joinTeam = UIButton(frame: CGRect(x: view.frame.width / 2 - (230 / 2), y: view.frame.height / 2 + 5, width: 230, height: 50))
+        createTeam = UIButton(frame: CGRect(x: view.frame.width / 2 - (230 / 2), y: view.frame.height / 2 - 70, width: 230, height: 50))
+        joinTeam = UIButton(frame: CGRect(x: view.frame.width / 2 - (230 / 2), y: view.frame.height / 2 - 10, width: 230, height: 50))
         
         createTeam.setTitle("Create a Team", for: .normal)
         createTeam.addTarget(self, action: #selector(createTeamPressed), for: UIControlEvents.touchUpInside)
@@ -63,11 +63,15 @@ class OptionViewController: UIViewController {
     
     func createTeamPressed() {
 //        performSegue(withIdentifier: "toNew", sender: self)
+        createTeam.backgroundColor = UIColor.white
+        createTeam.setTitleColor(UIColor(red: 234/255, green: 119/255, blue: 131/255, alpha: 1.0), for: .normal)
         self.present(NewEventViewController(), animated: true, completion: nil)
     }
     
     func joinTeamPressed() {
 //        performSegue(withIdentifier: "toFeedView", sender: self)
+        joinTeam.backgroundColor = UIColor.white
+        joinTeam.setTitleColor(UIColor(red: 234/255, green: 119/255, blue: 131/255, alpha: 1.0), for: .normal)
         self.navigationController?.pushViewController(FeedViewController(), animated: true)
     }
 

@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import MapKit
 
 class NewEventViewController: UIViewController {
     var createTeamLabel: UILabel!
@@ -22,7 +23,9 @@ class NewEventViewController: UIViewController {
     var auth = FIRAuth.auth()
     var eventsRef: FIRDatabaseReference = FIRDatabase.database().reference().child("Event")
     var peopleGoing: [String]!
-    
+    var addressCompleter = MKLocalSearchCompleter()
+    var comments: [String]!
+    //dsfsdf
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()
@@ -31,16 +34,6 @@ class NewEventViewController: UIViewController {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
         view.addGestureRecognizer(tap)
         // Do any additional setup after loading the view.
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    override func dismissKeyboard() {
-        //Causes the view (or one of its embedded text fields) to resign the first responder status.
-        view.endEditing(true)
     }
     
     func setupLayout() {
@@ -53,13 +46,13 @@ class NewEventViewController: UIViewController {
         createTeamLabel.adjustsFontSizeToFitWidth = true
         createTeamLabel.textColor = UIColor.white
         
-        sportPicker = UIPickerView(frame: CGRect(x: 0, y: createTeamLabel.frame.maxY + 10, width: view.frame.width, height: 120))
+        sportPicker = UIPickerView(frame: CGRect(x: 50, y: createTeamLabel.frame.maxY + 10, width: view.frame.width - 100, height: 120))
         sportPicker.delegate = self
         sportPicker.dataSource = self
         
         sportsList = ["Soccer", "Basketball", "Football", "Ultimate Frisbee", "Tennis", "Volleyball", "Golf", "Spikeball"]
         
-        datePicker = UIDatePicker(frame: CGRect(x: 0, y: sportPicker.frame.maxY + 20, width: view.frame.width, height: 125))
+        datePicker = UIDatePicker(frame: CGRect(x: 50, y: sportPicker.frame.maxY + 20, width: view.frame.width - 100, height: 125))
         datePicker.addTarget(self, action: #selector(getDate), for: .valueChanged)
         datePicker.setValue(UIColor.white, forKey: "textColor")
         
@@ -114,7 +107,8 @@ class NewEventViewController: UIViewController {
         let schoolRef = eventsRef.child(UserDefaults.standard.value(forKey: "school") as! String)
         peopleGoing = []
         peopleGoing.append(UserDefaults.standard.string(forKey: "name")!)
-        let newEvent = ["author": UserDefaults.standard.string(forKey: "name")!, "sport": sport, "description": description, "peopleGoing": peopleGoing, "date": date, "location": location] as [String : Any]
+        comments = []
+        let newEvent = ["author": UserDefaults.standard.string(forKey: "name")!, "sport": sport, "description": description, "peopleGoing": peopleGoing, "date": date, "location": location, "comments": comments] as [String : Any]
         let key = schoolRef.childByAutoId().key
         let childUpdates = ["/\(key)/": newEvent]
         schoolRef.updateChildValues(childUpdates)
@@ -123,7 +117,7 @@ class NewEventViewController: UIViewController {
 //        self.navigationController?.pushViewController(FeedViewController(), animated: true)
 //        if presentingViewController is OptionViewController {
 //        }
-        let presentingViewController = self.presentingViewController
+//        let presentingViewController = self.presentingViewController
         OptionViewController.shouldGoToFeed = true
         self.dismiss(animated: true, completion: nil)
     }
