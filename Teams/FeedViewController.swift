@@ -55,7 +55,7 @@ class FeedViewController: UIViewController {
         tableView.register(FeedTableViewCell.self, forCellReuseIdentifier: "feedCell")
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.rowHeight = rowHeight()
+        tableView.rowHeight = 200
         tableView.separatorStyle = .none
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: view.frame.height / 10, right: 0)
         tableView.tableFooterView = UIView() // gets rid of the extra cells beneath
@@ -85,12 +85,12 @@ class FeedViewController: UIViewController {
             withBlock() //ensures that next block is called
         })
     }
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toComments" {
-            let comments = segue.destination as! CommentViewController
-            comments.curr = passedEvent
-        }
-    }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == "toComments" {
+//            let comments = segue.destination as! CommentViewController
+//            comments.curr = passedEvent
+//        }
+//    }
 }
 
 extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
@@ -110,24 +110,32 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
         let currentEvent = events[indexPath.row]
         switch currentEvent.sport! {
         case "Soccer":
-            cell.pic.image = #imageLiteral(resourceName: "soccer")
+            //cell.pic.image = #imageLiteral(resourceName: "soccer")
+            //cell.pic.image = #imageLiteral(resourceName: "basketball")
+            cell.pic.image = #imageLiteral(resourceName: "soccer_new")
         case "Football":
-            cell.pic.image = #imageLiteral(resourceName: "football")
+            //cell.pic.image = #imageLiteral(resourceName: "football")
+            cell.pic.image = #imageLiteral(resourceName: "football_alternate")
         case "Tennis":
-            cell.pic.image = #imageLiteral(resourceName: "tennis")
+            //cell.pic.image = #imageLiteral(resourceName: "tennis")
+            cell.pic.image = #imageLiteral(resourceName: "tennis_new")
         default:
-            cell.pic.image = #imageLiteral(resourceName: "frisbee")
+            //frisbee
+            cell.pic.image = #imageLiteral(resourceName: "basketball")
             
         }
-        cell.pic.layer.shadowColor = UIColor.black.cgColor
-        cell.pic.layer.shadowOpacity = 1
-        cell.pic.layer.shadowOffset = CGSize(width: 0, height: 3)
-        cell.pic.layer.shadowRadius = 1.5
+        //cell.pic.layer.shadowColor = UIColor.black.cgColor
+        //cell.pic.layer.shadowOpacity = 1
+        //cell.pic.layer.shadowOffset = CGSize(width: 0, height: 3)
+        //cell.pic.layer.shadowRadius = 1.5
         //        cell.contentView.addSubview(cell.pic)
         cell.sportLabel.text = " is playing " + currentEvent.sport!
+        cell.timeLabel.text = currentEvent.time
+        cell.numGoingLabel.text = "\(currentEvent.peopleGoing.count) going"
+        cell.numGoingLabel.sizeToFit()
         //cell.timeLabel.text = currentEvent.date
         cell.descriptionLabel.text = currentEvent.description
-        cell.location = "\(currentEvent.location!) - \(currentEvent.peopleGoing.count) going"
+
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
