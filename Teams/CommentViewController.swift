@@ -45,8 +45,6 @@ class CommentViewController: UIViewController {
         })
     }
     
-
-
 }
 extension CommentViewController: UITableViewDelegate, UITableViewDataSource {
     
@@ -66,6 +64,5 @@ extension CommentViewController: UITableViewDelegate, UITableViewDataSource {
         cell.name.text = UserDefaults.standard.string(forKey: "name")
         cell.comment.text = currentComment
     }
-    
     
 }

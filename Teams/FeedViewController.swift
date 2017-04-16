@@ -13,6 +13,7 @@ class FeedViewController: UIViewController {
     
     var tableView: UITableView!
     var events: [Event] = []
+    var sortedEvents: [Event] = []
     var auth = FIRAuth.auth()
     var eventsRef: FIRDatabaseReference = FIRDatabase.database().reference().child("Event")
     var plusSign: UIImageView!
@@ -20,12 +21,12 @@ class FeedViewController: UIViewController {
     var postIds: [String] = []
     var passedEvent: Event?
     var menuButton: UIBarButtonItem!
-    static var sortedItem: String = "date"
+    static var shouldUpdateFeed = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.white
-        
+        MenuViewController.feedTableDelegate = self
         self.title = "All Sports"
         self.navigationController?.navigationBar.tintColor = UIColor.black
         self.navigationItem.setHidesBackButton(true, animated: true) //hide back button
@@ -42,8 +43,17 @@ class FeedViewController: UIViewController {
         setUpSideBar()
         
     }
-
-
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if FeedViewController.shouldUpdateFeed {
+            print("Updating feed")
+            FeedViewController.shouldUpdateFeed = false
+            fetchPosts {
+                self.tableView.reloadData()
+            }
+        }
+    }
     
     func setUpTableView() {
         tableView = UITableView(frame: CGRect(x: 0, y: (navigationController?.navigationBar.frame.maxY)!, width: view.frame.width, height: view.frame.height))
@@ -84,14 +94,30 @@ class FeedViewController: UIViewController {
     
     func fetchPosts(withBlock: @escaping () -> ()) {
         //TODO: Implement a method to fetch posts with Firebase!
+        sortedEvents.removeAll()
+        events.removeAll()
+        
         let schoolRef = eventsRef.child(UserDefaults.standard.value(forKey: "school") as! String)
-        schoolRef.queryOrdered(byChild: FeedViewController.sortedItem).observe(.childAdded, with: { (snapshot) in
-            let post = Event(id: snapshot.key, postDict: snapshot.value as! [String : Any]?)
+        schoolRef.observe(.childAdded, with: { (snapshot) in
+            print("queryorderedbychile")
+            var post = Event(id: snapshot.key, postDict: snapshot.value as! [String : Any]?)
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateStyle = DateFormatter.Style.medium
+            dateFormatter.timeStyle = DateFormatter.Style.short
+            post.NSDate = dateFormatter.date(from: post.date!)
+                
+            self.sortedEvents.append(post)
             self.events.append(post)
             self.postIds.append(snapshot.key)
             print(snapshot.key)
             withBlock() //ensures that next block is called
         })
+    }
+    
+    func sortValues() {
+        sortedEvents = sortedEvents.sorted{
+            $0.sport! < $1.sport!
+        }
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -105,7 +131,7 @@ class FeedViewController: UIViewController {
 extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return events.count
+        return sortedEvents.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -115,14 +141,15 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let cell = cell as! FeedTableViewCell
-        let currentEvent = events[indexPath.row]
+        let currentEvent = sortedEvents[indexPath.row]
         cell.sport = currentEvent.sport
         cell.author = currentEvent.author
         
         cell.school = UserDefaults.standard.value(forKey: "school") as! String
         
         var dateString: String!
-        dateString = currentEvent.date!
+//        dateString = currentEvent.date!
+        dateString = "Apr 11, 2017, 1:22 PM"
         
         cell.month = dateString.substring(to: dateString.index(dateString.startIndex, offsetBy: 3)).uppercased()
         
@@ -152,7 +179,7 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        currKey = postIds[events.count - 1 - indexPath.row]
+        currKey = postIds[sortedEvents.count - 1 - indexPath.row]
         
         let commentView = CommentViewController()
         commentView.currKey = currKey
@@ -162,8 +189,21 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension FeedViewController: FeedTableDelegate {
-    func reloadFeed() {
+    func reloadFeed(sortedItem: String) {
         print("fuckkkk")
-        tableView.reloadData()
+        if sortedItem == "sport" {
+            sortedEvents = sortedEvents.sorted {
+                $0.sport! < $1.sport!
+
+            }
+            
+        } else {
+            sortedEvents = sortedEvents.sorted {
+                $0.NSDate! < $1.NSDate!
+            }
+            
+        }
+        self.tableView.reloadData()
+
     }
 }

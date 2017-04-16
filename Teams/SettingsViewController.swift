@@ -117,8 +117,9 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
         if nameField.text != "" {
             UserDefaults.standard.set(nameField.text, forKey: "name")
         }
+        FeedViewController.shouldUpdateFeed = true
         UserDefaults.standard.set(schoolButton.titleLabel?.text, forKey: "school")
-        //        self.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
 }
