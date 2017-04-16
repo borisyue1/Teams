@@ -163,13 +163,18 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
         
         switch currentEvent.sport! {
         case "Soccer":
-            cell.pic.image = #imageLiteral(resourceName: "soccer")
+            //cell.pic.image = #imageLiteral(resourceName: "soccer")
+            //cell.pic.image = #imageLiteral(resourceName: "basketball")
+            cell.pic.image = #imageLiteral(resourceName: "soccer_new")
         case "Football":
-            cell.pic.image = #imageLiteral(resourceName: "football")
+            //cell.pic.image = #imageLiteral(resourceName: "football")
+            cell.pic.image = #imageLiteral(resourceName: "football_alternate")
         case "Tennis":
-            cell.pic.image = #imageLiteral(resourceName: "tennis")
+            //cell.pic.image = #imageLiteral(resourceName: "tennis")
+            cell.pic.image = #imageLiteral(resourceName: "tennis_new")
         default:
-            cell.pic.image = #imageLiteral(resourceName: "frisbee")
+            //frisbee
+            cell.pic.image = #imageLiteral(resourceName: "basketball")
             
         }
         cell.numGoingLabel.text = "\(currentEvent.peopleGoing.count) going"
