@@ -8,6 +8,13 @@
 
 import UIKit
 
+protocol FeedCellDelegate {
+    
+    func addInterestedUser(forCell: FeedTableViewCell, withName: String)
+    func removeInterestedUser(forCell: FeedTableViewCell, withName: String)
+    
+}
+
 class FeedTableViewCell: UITableViewCell {
     
     var event: Event!
@@ -50,6 +57,8 @@ class FeedTableViewCell: UITableViewCell {
     
     var contactButton: UIButton!
     var joinButton: UIButton!
+    var delegate: FeedCellDelegate?
+    var buttonIsSelected: Bool! //for joining
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -201,7 +210,7 @@ class FeedTableViewCell: UITableViewCell {
         
         locationLabel.text = location
         locationLabel.textColor = UIColor.black
-        locationLabel.font = UIFont(name: "Lato-Medium", size: 18.0)
+        locationLabel.font = UIFont(name: "Lato-Medium", size: 16.0)
         
         rectView.addSubview(locationLabel)
     }
@@ -279,14 +288,29 @@ class FeedTableViewCell: UITableViewCell {
     
     func initJoinButton() {
         joinButton = UIButton(frame: CGRect(x: contactButton.frame.maxX, y: rectView.frame.maxY - 40, width: rectView.frame.width / 2, height: 40))
-        joinButton.setTitle("Join", for: .normal)
+        if !buttonIsSelected {
+            joinButton.setTitle("Join", for: .normal)
+        } else {
+            joinButton.setTitle("Unjoin", for: .normal)
+        }
         joinButton.titleLabel?.font = UIFont(name: "Lato-Light", size: 14.0)
         joinButton.setTitleColor(UIColor.black, for: .normal)
-        
         joinButton.backgroundColor = UIColor(red: 235/255, green: 235/255, blue: 235/255, alpha: 1.0)
-        
         joinButton.contentHorizontalAlignment = .center
-        
+        joinButton.addTarget(self, action: #selector(joinTeam), for: .touchUpInside)
+        joinButton.isSelected = false
         contentView.addSubview(joinButton)
+    }
+    
+    func joinTeam() {
+        print(buttonIsSelected)
+        if !buttonIsSelected {
+            joinButton.setTitle("Unjoin", for: .selected)
+            delegate?.addInterestedUser(forCell: self, withName: UserDefaults.standard.value(forKey: "name") as! String)
+        } else {
+            joinButton.setTitle("Join", for: .normal)
+            delegate?.removeInterestedUser(forCell: self, withName: UserDefaults.standard.value(forKey: "name") as! String)
+        }
+        buttonIsSelected = !buttonIsSelected
     }
 }

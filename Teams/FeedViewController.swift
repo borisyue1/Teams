@@ -15,6 +15,7 @@ class FeedViewController: UIViewController {
     var events: [Event] = []
     var auth = FIRAuth.auth()
     var eventsRef: FIRDatabaseReference = FIRDatabase.database().reference().child("Event")
+    var schoolRef: FIRDatabaseReference!
     var plusSign: UIImageView!
     var currKey: String?
     var postIds: [String] = []
@@ -61,7 +62,7 @@ class FeedViewController: UIViewController {
     
     func fetchPosts(withBlock: @escaping () -> ()) {
         //TODO: Implement a method to fetch posts with Firebase!
-        let schoolRef = eventsRef.child(UserDefaults.standard.value(forKey: "school") as! String)
+        schoolRef = eventsRef.child(UserDefaults.standard.value(forKey: "school") as! String)
         schoolRef.queryOrdered(byChild: "date").observe(.childAdded, with: { (snapshot) in
             let post = Event(id: snapshot.key, postDict: snapshot.value as! [String : Any]?)
             self.events.append(post)
@@ -92,6 +93,7 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let cell = cell as! FeedTableViewCell
+        cell.delegate = self
         let currentEvent = events[indexPath.row]
         cell.sport = currentEvent.sport
         cell.author = currentEvent.author
@@ -107,8 +109,15 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
         cell.time = dateString.substring(from: dateString.index(dateString.startIndex, offsetBy: 13))
         cell.eventDescription = currentEvent.description
         cell.location = currentEvent.location
+        let array = UserDefaults.standard.array(forKey: "events") as! [String]
+        if !array.contains(currentEvent.id!) {
+            cell.buttonIsSelected = false
+        } else {
+            cell.buttonIsSelected = true
+        }
         cell.awakeFromNib()
-        
+        cell.joinButton.tag = indexPath.row //for joining events
+
         print("SPORT: ", cell.sport)
         
         switch currentEvent.sport! {
@@ -122,10 +131,16 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
             cell.pic.image = #imageLiteral(resourceName: "frisbee")
             
         }
-        cell.numGoingLabel.text = "\(currentEvent.peopleGoing.count) going"
-        cell.numGoingLabel.sizeToFit()
         //        cell.contentView.addSubview(cell.pic)
         //cell.timeLabel.text = currentEvent.date
+        schoolRef.child("\(currentEvent.id!)").observe(.value, with: { snapshot in
+            let value = snapshot.value as? NSDictionary
+            let idArray = value?["peopleGoing"] as? [String] ?? []
+            DispatchQueue.main.async {
+                cell.numGoingLabel.text = "\(currentEvent.peopleGoing.count) going"
+                cell.numGoingLabel.sizeToFit()
+            }
+        })
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -136,4 +151,16 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
         self.present(commentView, animated: true, completion: nil)
         
     }
+}
+
+extension FeedViewController: FeedCellDelegate {
+    
+    func addInterestedUser(forCell: FeedTableViewCell, withName: String) {
+        events[forCell.tag].addInterestedUser(name: withName)
+    }
+    
+    func removeInterestedUser(forCell: FeedTableViewCell, withName: String) {
+        events[forCell.tag].removeInterestedUser(name: withName)
+    }
+    
 }

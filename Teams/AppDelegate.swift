@@ -19,11 +19,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        UserDefaults.standard.removeObject(forKey: "name")
 //        UserDefaults.standard.removeObject(forKey: "school")
 //        UserDefaults.standard.synchronize()
+        if UserDefaults.standard.array(forKey: "events") == nil {
+            UserDefaults.standard.set([], forKey: "events")
+        }
         var mainView: UIViewController!
         if let _ = UserDefaults.standard.value(forKey: "name") {
             if let _1 = UserDefaults.standard.value(forKey: "school") {
                 //if name and school already inputted, skip to optionview
-                mainView = OptionViewController()
+                mainView = FeedViewController()
             }
         } else {
             mainView = SelectSchoolViewController()
