@@ -16,14 +16,14 @@ class CommentViewController: UIViewController {
     var currKey: String?
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        fetchComments {
+        setUpTableView()
+       /* fetchComments {
             self.setUpTableView()
-        }
+        }*/
         
     }
     func setUpTableView() {
-        tableView = UITableView(frame: CGRect(x: 0, y: ((navigationController?.navigationBar.frame.maxY)! - 100), width: view.frame.width, height: view.frame.height))
+        tableView = UITableView(frame: CGRect(x: 0, y: 20, width: view.frame.width, height: view.frame.height - 50))
         tableView.register(CommentTableViewCell.self, forCellReuseIdentifier: "commentCell")
         tableView.delegate = self
         tableView.dataSource = self
@@ -35,11 +35,11 @@ class CommentViewController: UIViewController {
     
     func fetchComments(withBlock: @escaping () -> ()) {
         //TODO: Implement a method to fetch posts with Firebase!
-      //  let schoolRef = eventsRef.child(UserDefaults.standard.value(forKey: "school") as! String)
-        //schoolRef.child("comments").observe(.childAdded, with: { (snapshot) in
-          //  self.comments = snapshot.value as! [String]!
-           // withBlock() //ensures that next block is called
-      //  })
+        let schoolRef = eventsRef.child(UserDefaults.standard.value(forKey: "school") as! String)
+        schoolRef.child("comments").observe(.childAdded, with: { (snapshot) in
+            self.comments = snapshot.value as! [String]!
+            withBlock() //ensures that next block is called
+        })
     }
     
 
@@ -48,7 +48,8 @@ class CommentViewController: UIViewController {
 extension CommentViewController: UITableViewDelegate, UITableViewDataSource {
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return comments.count
+        //return comments.count
+        return 6
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
