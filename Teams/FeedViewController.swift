@@ -66,6 +66,7 @@ class FeedViewController: UIViewController {
             let post = Event(id: snapshot.key, postDict: snapshot.value as! [String : Any]?)
             self.events.append(post)
             self.postIds.append(snapshot.key)
+            print(snapshot.key)
             withBlock() //ensures that next block is called
         })
     }
@@ -124,7 +125,6 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
             
         }
         
-        print("DATE: ", currentEvent.date)
         
         cell.pic.layer.shadowColor = UIColor.black.cgColor
         cell.pic.layer.shadowOpacity = 1
@@ -139,7 +139,10 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         currKey = postIds[events.count - 1 - indexPath.row]
-        self.present(CommentViewController(), animated: true, completion: nil)
+        
+        let commentView = CommentViewController()
+        commentView.currKey = currKey
+        self.present(commentView, animated: true, completion: nil)
         
     }
 }

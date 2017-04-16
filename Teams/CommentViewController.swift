@@ -11,15 +11,14 @@ import Firebase
 
 class CommentViewController: UIViewController {
     var eventsRef: FIRDatabaseReference = FIRDatabase.database().reference().child("Event")
-    var comments: [String]!
+    var comments: [String]! = []
     var tableView: UITableView!
     var currKey: String?
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUpTableView()
-       /* fetchComments {
+        fetchComments {
             self.setUpTableView()
-        }*/
+        }
         
     }
     func setUpTableView() {
@@ -36,8 +35,12 @@ class CommentViewController: UIViewController {
     func fetchComments(withBlock: @escaping () -> ()) {
         //TODO: Implement a method to fetch posts with Firebase!
         let schoolRef = eventsRef.child(UserDefaults.standard.value(forKey: "school") as! String)
-        schoolRef.child("comments").observe(.childAdded, with: { (snapshot) in
-            self.comments = snapshot.value as! [String]!
+        print("AYyyyyyyy")
+        schoolRef.child(currKey!).child("comments").observe(.childAdded, with: { (snapshot) in
+            print("TEST")
+            print(snapshot.value as! String)
+            
+            self.comments.append(snapshot.value as! String)
             withBlock() //ensures that next block is called
         })
     }
@@ -48,8 +51,7 @@ class CommentViewController: UIViewController {
 extension CommentViewController: UITableViewDelegate, UITableViewDataSource {
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //return comments.count
-        return 6
+        return comments.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -60,9 +62,9 @@ extension CommentViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let cell = cell as! CommentTableViewCell
         cell.awakeFromNib()
-       /* let currentComment = comments[indexPath.row]
+        let currentComment = comments[indexPath.row]
         cell.name.text = UserDefaults.standard.string(forKey: "name")
-        cell.comment.text = currentComment */
+        cell.comment.text = currentComment
     }
     
     
