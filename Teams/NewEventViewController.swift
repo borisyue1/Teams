@@ -9,8 +9,11 @@
 import UIKit
 import Firebase
 import MapKit
+import DropDown
 
-class NewEventViewController: UIViewController {
+class NewEventViewController: UIViewController, UITextFieldDelegate {
+    
+    var navBar: UINavigationBar!
     var createTeamLabel: UILabel!
     var sportPicker: UIPickerView!
     var sportsList: [String]!
@@ -23,18 +26,61 @@ class NewEventViewController: UIViewController {
     var auth = FIRAuth.auth()
     var eventsRef: FIRDatabaseReference = FIRDatabase.database().reference().child("Event")
     var peopleGoing: [String]!
-    var addressCompleter = MKLocalSearchCompleter()
     var comments: [String]!
-    //dsfsdf
+    var addressCompleter = MKLocalSearchCompleter()
+    var dropdown = DropDown() //for location search
+    var locations: [String] = [] //for location search
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()
+        setUpNavBar()
         setupLayout()
-        
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
-        view.addGestureRecognizer(tap)
-        // Do any additional setup after loading the view.
+        initDropDown()
+        locationTextField.delegate = self
+        addressCompleter.delegate = self
+//        addressCompleter.region = MKCoordinateRegionMakeWithDistance(currentCoordinate, 10_000, 10_000)
     }
+    
+    func setUpNavBar() {
+        navBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height * 0.09))
+        navBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white]
+        navBar.tintColor = UIColor.white
+        navBar.backgroundColor = UIColor.init(red: 249/255, green: 170/255, blue: 97/255, alpha: 1.0)
+        navBar.barTintColor = UIColor.clear
+        navBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        navBar.shadowImage = UIImage()
+        let navItem = UINavigationItem()
+        navItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(goBack))
+        navBar.items = [navItem]
+        view.addSubview(navBar)
+        
+    }
+    
+    func goBack() {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func initDropDown() {
+        dropdown.anchorView = locationTextField
+        dropdown.dataSource = locations
+        dropdown.bottomOffset = CGPoint(x: 0, y: locationTextField.bounds.height - 20)
+        dropdown.direction = .bottom
+        dropdown.width = locationTextField.frame.width
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        addressCompleter.queryFragment = textField.text!
+        dropdown.selectionAction = { [unowned self] (index: Int, item: String) in
+            //self.dropdown.show()
+            self.locationTextField.text = item
+            print("Selected item: \(item) at index: \(index)")
+        }
+        dropdown.show()
+        locations.removeAll() //reset results
+        return true
+    }
+    
     
     func setupLayout() {
         view.backgroundColor = UIColor.init(red: 249/255, green: 170/255, blue: 97/255, alpha: 1.0)
@@ -42,7 +88,7 @@ class NewEventViewController: UIViewController {
         createTeamLabel = UILabel(frame: CGRect(x: 0, y: view.frame.height / 8.5, width: view.frame.width, height: view.frame.height/13))
         createTeamLabel.textAlignment = .center
         createTeamLabel.text = "Create a Team"
-        createTeamLabel.font = UIFont(name: "ArialMT", size: 30)
+        createTeamLabel.font = UIFont(name: "Lato-Bold", size: 30)
         createTeamLabel.adjustsFontSizeToFitWidth = true
         createTeamLabel.textColor = UIColor.white
         
@@ -56,12 +102,12 @@ class NewEventViewController: UIViewController {
         datePicker.addTarget(self, action: #selector(getDate), for: .valueChanged)
         datePicker.setValue(UIColor.white, forKey: "textColor")
         
-        locationTextField = UITextField(frame: CGRect(x: 0, y: datePicker.frame.maxY + 20, width: view.frame.width, height: 75))
+        locationTextField = UITextField(frame: CGRect(x: 50, y: datePicker.frame.maxY + 20, width: view.frame.width - 100, height: 75))
         locationTextField.placeholder = "Enter Location"
         locationTextField.textAlignment = .center
         locationTextField.textColor = UIColor.white
         
-        descriptionField = UITextView(frame: CGRect(x: 0, y: locationTextField.frame.maxY + 20, width: view.frame.width, height: view.frame.height/10))
+        descriptionField = UITextView(frame: CGRect(x: 50, y: locationTextField.frame.maxY + 20, width: view.frame.width - 100, height: view.frame.height/10))
         descriptionField.text = "Description of Event"
         descriptionField.textAlignment = .center
         descriptionField.textContainer.maximumNumberOfLines = 2
@@ -147,6 +193,18 @@ extension NewEventViewController: UIPickerViewDataSource, UIPickerViewDelegate, 
     func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
         let attributedString = NSAttributedString(string: sportsList[row], attributes: [NSForegroundColorAttributeName : UIColor.white])
         return attributedString
+    }
+}
+
+extension NewEventViewController: MKLocalSearchCompleterDelegate {
+    
+    func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
+        completer.results.map { result in
+            print(result.title)
+            locations.append(result.title)
+            dropdown.dataSource = locations
+        }
+        // use addresses, e.g. update model and call `tableView.reloadData()
     }
 }
 
