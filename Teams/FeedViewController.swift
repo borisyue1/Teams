@@ -70,12 +70,12 @@ class FeedViewController: UIViewController {
             withBlock() //ensures that next block is called
         })
     }
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toComments" {
-            let view = segue.destination as! CommentViewController
-            view.currKey = currKey
-        }
-    }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == "toComments" {
+//            let view = segue.destination as! CommentViewController
+//            view.currKey = currKey
+//        }
+//    }
 }
 
 extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
@@ -140,9 +140,13 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         currKey = postIds[events.count - 1 - indexPath.row]
         
-        let commentView = CommentViewController()
-        commentView.currKey = currKey
-        self.present(commentView, animated: true, completion: nil)
+//        let commentVC = self.storyboard?.instantiateViewController(withIdentifier: "commentVC") as! CommentViewController
+       let commentVC = CommentViewController()
+        commentVC.currKey = currKey
+//        commentView.currKey = currKey
+        
+        //self.navigationController?.pushViewController(commentVC, animated: true)
+        self.present(commentVC, animated: true, completion: nil)
         
     }
 }

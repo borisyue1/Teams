@@ -30,7 +30,13 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
         initSchoolButton()
         initDropDown()
     }
-    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "commentCell") as! CommentTableViewCell
+        let button = UIButton(frame: CGRect(x: 200, y: 30, width: view.frame.width / 2, height: 50))
+        
+        return cell
+    }
+
     func initTitle() {
         settingsTitle = UILabel(frame: CGRect(x: 0, y: view.frame.width / 4.5, width: 100, height: 40))
         settingsTitle.text = "Settings"

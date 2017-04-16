@@ -126,7 +126,7 @@
                     </view>
                     <connections>
                         <segue destination="pDB-DY-4nV" kind="show" identifier="toNew" id="re2-hz-WGk"/>
-                        <segue destination="rya-P6-QRy" kind="show" identifier="toComments" id="zGw-Ak-WEW"/>
+                        <segue destination="rya-P6-QRy" kind="show" identifier="toComments" id="B8e-Tx-ztF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sVG-eL-tMR" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -136,7 +136,7 @@
         <!--Comment View Controller-->
         <scene sceneID="8nF-L8-PHF">
             <objects>
-                <viewController id="rya-P6-QRy" customClass="CommentViewController" customModule="Teams" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="commentVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="rya-P6-QRy" customClass="CommentViewController" customModule="Teams" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Xuh-bi-WnJ"/>
                         <viewControllerLayoutGuide type="bottom" id="ykk-YB-lar"/>
@@ -153,7 +153,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Q4E-Jo-nAf"/>
+        <segue reference="25e-u6-ibP"/>
         <segue reference="re2-hz-WGk"/>
     </inferredMetricsTieBreakers>
 </document>

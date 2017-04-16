@@ -13,8 +13,8 @@ class CommentTableViewCell: UITableViewCell {
     var name: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
-        name = UILabel(frame: CGRect(x: 10, y: 10, width: 50, height: 50))
-        comment = UILabel(frame: CGRect(x: 10, y: 30, width: 50, height: 50))
+        name = UILabel(frame: CGRect(x: 10, y: 2, width: 500, height: 50))
+        comment = UILabel(frame: CGRect(x: 10, y: 29, width: 500, height: 50))
         contentView.addSubview(name)
         contentView.addSubview(comment)
         
