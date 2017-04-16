@@ -68,7 +68,18 @@ class OptionViewController: UIViewController {
     
     func joinTeamPressed() {
 //        performSegue(withIdentifier: "toFeedView", sender: self)
-        self.navigationController?.pushViewController(FeedViewController(), animated: true)
+//        self.navigationController?.pushViewController(FeedViewController(), animated: true)
+
+//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//        let rVC = storyboard.instantiateViewController(withIdentifier: "FrontVC")
+//        print(revealViewController())
+//        revealViewController().setFront(rVC, animated: true)
+    
+        
+        let sb = UIStoryboard(name: "Main", bundle: nil)
+        let controller = sb.instantiateViewController(withIdentifier: "FrontVC")
+        
+        revealViewController().setFront(controller, animated: true)
     }
 
 }

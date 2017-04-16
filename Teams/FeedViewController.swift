@@ -17,6 +17,8 @@ class FeedViewController: UIViewController {
     var eventsRef: FIRDatabaseReference = FIRDatabase.database().reference().child("Event")
     var plusSign: UIImageView!
     var passedEvent: Event?
+    var menuButton: UIBarButtonItem!
+    static var sortedItem: String = "date"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +35,10 @@ class FeedViewController: UIViewController {
         fetchPosts {
             self.setUpTableView()
         }
+        
+        setupSideBarButton()
+        setUpSideBar()
+        
     }
 
     
@@ -62,12 +68,27 @@ class FeedViewController: UIViewController {
         view.addSubview(tableView)
     }
     
+    func setUpSideBar() {
+        if self.revealViewController() != nil {
+            revealViewController().rearViewRevealWidth = view.frame.width/4
+            menuButton.target = revealViewController()
+            menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
+            revealViewController().tapGestureRecognizer()
+            revealViewController().panGestureRecognizer()
+        }
+    }
+    
     func rowHeight() -> CGFloat {
         if view.frame.width / 1.8 < 200 {
             return 200
         } else {
             return view.frame.width / 1.8
         }
+    }
+    
+    func setupSideBarButton() {
+        menuButton = UIBarButtonItem(title: "Sort", style: .plain, target: self.revealViewController(), action: "revealToggle:")
+        navigationItem.leftBarButtonItem = menuButton
     }
     
     func createEvent() {
@@ -79,7 +100,7 @@ class FeedViewController: UIViewController {
     func fetchPosts(withBlock: @escaping () -> ()) {
         //TODO: Implement a method to fetch posts with Firebase!
         let schoolRef = eventsRef.child(UserDefaults.standard.value(forKey: "school") as! String)
-        schoolRef.queryOrdered(byChild: "date").observe(.childAdded, with: { (snapshot) in
+        schoolRef.queryOrdered(byChild: FeedViewController.sortedItem).observe(.childAdded, with: { (snapshot) in
             let post = Event(id: snapshot.key, postDict: snapshot.value as! [String : Any]?)
             self.events.append(post)
             withBlock() //ensures that next block is called
@@ -135,5 +156,12 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
         self.performSegue(withIdentifier: "toComments", sender: self)
         tableView.deselectRow(at: indexPath, animated: true)
         
+    }
+}
+
+extension FeedViewController: FeedTableDelegate {
+    func reloadFeed() {
+        print("fuckkkk")
+        tableView.reloadData()
     }
 }

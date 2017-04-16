@@ -20,6 +20,17 @@ class SelectSchoolViewController: UIViewController {
         super.viewDidLoad()
         print("MOTHERFUCKER")
         
+        if let _1 = UserDefaults.standard.value(forKey: "name") {
+            if let _1 = UserDefaults.standard.value(forKey: "school") {
+                //if name and school already inputted, skip to optionview
+                let sb = UIStoryboard(name: "Main", bundle: nil)
+                let controller = sb.instantiateViewController(withIdentifier: "FrontVC")
+                
+                revealViewController().setFront(controller, animated: true)
+
+            }
+        }
+        
         initButton()
         initLabel()
         initDropDown()
