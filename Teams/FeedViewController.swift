@@ -13,16 +13,21 @@ class FeedViewController: UIViewController {
     
     var tableView: UITableView!
     var events: [Event] = []
+    var sortedEvents: [Event] = []
     var auth = FIRAuth.auth()
     var eventsRef: FIRDatabaseReference = FIRDatabase.database().reference().child("Event")
     var schoolRef: FIRDatabaseReference!
     var plusSign: UIImageView!
     var currKey: String?
     var postIds: [String] = []
+    var passedEvent: Event?
+    var menuButton: UIBarButtonItem!
+    static var shouldUpdateFeed = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.white
-        
+        MenuViewController.feedTableDelegate = self
         self.title = "All Sports"
         self.navigationController?.navigationBar.tintColor = UIColor.black
         self.navigationItem.setHidesBackButton(true, animated: true) //hide back button
@@ -34,9 +39,22 @@ class FeedViewController: UIViewController {
         fetchPosts {
             self.setUpTableView()
         }
+        
+        setupSideBarButton()
+        setUpSideBar()
+        
     }
-
-
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if FeedViewController.shouldUpdateFeed {
+            print("Updating feed")
+            FeedViewController.shouldUpdateFeed = false
+            fetchPosts {
+                self.tableView.reloadData()
+            }
+        }
+    }
     
     func setUpTableView() {
         tableView = UITableView(frame: CGRect(x: 0, y: (navigationController?.navigationBar.frame.maxY)!, width: view.frame.width, height: view.frame.height))
@@ -50,8 +68,24 @@ class FeedViewController: UIViewController {
         view.addSubview(tableView)
     }
     
+    func setUpSideBar() {
+        if self.revealViewController() != nil {
+            print("revreal not nil")
+            revealViewController().rearViewRevealWidth = view.frame.width/4
+            menuButton.target = revealViewController()
+            menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
+            revealViewController().tapGestureRecognizer()
+            revealViewController().panGestureRecognizer()
+        }
+    }
+    
     func rowHeight() -> CGFloat {
         return 200
+    }
+    
+    func setupSideBarButton() {
+        menuButton = UIBarButtonItem(title: "Sort", style: .plain, target: self.revealViewController(), action: "revealToggle:")
+        navigationItem.leftBarButtonItem = menuButton
     }
     
     func createEvent() {
@@ -62,14 +96,34 @@ class FeedViewController: UIViewController {
     
     func fetchPosts(withBlock: @escaping () -> ()) {
         //TODO: Implement a method to fetch posts with Firebase!
+
+        sortedEvents.removeAll()
+        events.removeAll()
+        
         schoolRef = eventsRef.child(UserDefaults.standard.value(forKey: "school") as! String)
-        schoolRef.queryOrdered(byChild: "date").observe(.childAdded, with: { (snapshot) in
-            let post = Event(id: snapshot.key, postDict: snapshot.value as! [String : Any]?)
+        schoolRef.observe(.childAdded, with: { (snapshot) in
+            print("queryorderedbychile")
+            print(snapshot.key)
+            var post = Event(id: snapshot.key, postDict: snapshot.value as! [String : Any]?)
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateStyle = DateFormatter.Style.medium
+            dateFormatter.timeStyle = DateFormatter.Style.short
+            post.NSDate = dateFormatter.date(from: post.date!)
+            
+            self.sortedEvents.append(post)
             self.events.append(post)
             self.postIds.append(snapshot.key)
             print(snapshot.key)
             withBlock() //ensures that next block is called
+            
+            
         })
+    }
+    
+    func sortValues() {
+        sortedEvents = sortedEvents.sorted{
+            $0.sport! < $1.sport!
+        }
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -83,7 +137,7 @@ class FeedViewController: UIViewController {
 extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return events.count
+        return sortedEvents.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -94,14 +148,13 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let cell = cell as! FeedTableViewCell
         cell.delegate = self
-        let currentEvent = events[indexPath.row]
+        let currentEvent = sortedEvents[indexPath.row]
         cell.sport = currentEvent.sport
         cell.author = currentEvent.author
         
         cell.school = UserDefaults.standard.value(forKey: "school") as! String
         
-        var dateString: String!
-        dateString = currentEvent.date!
+        var dateString: String! = currentEvent.date!
         
         cell.month = dateString.substring(to: dateString.index(dateString.startIndex, offsetBy: 3)).uppercased()
         
@@ -110,25 +163,33 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
         cell.eventDescription = currentEvent.description
         cell.location = currentEvent.location
         let array = UserDefaults.standard.array(forKey: "events") as! [String]
+        print("current", currentEvent.id!)
         if !array.contains(currentEvent.id!) {
             cell.buttonIsSelected = false
         } else {
             cell.buttonIsSelected = true
+
         }
         cell.awakeFromNib()
-        cell.joinButton.tag = indexPath.row //for joining events
+
+        cell.tag = indexPath.row
 
         print("SPORT: ", cell.sport)
         
         switch currentEvent.sport! {
         case "Soccer":
-            cell.pic.image = #imageLiteral(resourceName: "soccer")
+            //cell.pic.image = #imageLiteral(resourceName: "soccer")
+            //cell.pic.image = #imageLiteral(resourceName: "basketball")
+            cell.pic.image = #imageLiteral(resourceName: "soccer_new")
         case "Football":
-            cell.pic.image = #imageLiteral(resourceName: "football")
+            //cell.pic.image = #imageLiteral(resourceName: "football")
+            cell.pic.image = #imageLiteral(resourceName: "football_alternate")
         case "Tennis":
-            cell.pic.image = #imageLiteral(resourceName: "tennis")
+            //cell.pic.image = #imageLiteral(resourceName: "tennis")
+            cell.pic.image = #imageLiteral(resourceName: "tennis_new")
         default:
-            cell.pic.image = #imageLiteral(resourceName: "frisbee")
+            //frisbee
+            cell.pic.image = #imageLiteral(resourceName: "basketball")
             
         }
         //        cell.contentView.addSubview(cell.pic)
@@ -137,14 +198,14 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
             let value = snapshot.value as? NSDictionary
             let idArray = value?["peopleGoing"] as? [String] ?? []
             DispatchQueue.main.async {
-                cell.numGoingLabel.text = "\(currentEvent.peopleGoing.count) going"
+                cell.numGoingLabel.text = "\(idArray.count) going"
                 cell.numGoingLabel.sizeToFit()
             }
         })
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        currKey = postIds[events.count - 1 - indexPath.row]
+        currKey = postIds[sortedEvents.count - 1 - indexPath.row]
         
         let commentView = CommentViewController()
         commentView.currKey = currKey
@@ -156,11 +217,29 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
 extension FeedViewController: FeedCellDelegate {
     
     func addInterestedUser(forCell: FeedTableViewCell, withName: String) {
-        events[forCell.tag].addInterestedUser(name: withName)
+        sortedEvents[forCell.tag].addInterestedUser(name: withName)
     }
     
     func removeInterestedUser(forCell: FeedTableViewCell, withName: String) {
-        events[forCell.tag].removeInterestedUser(name: withName)
+        sortedEvents[forCell.tag].removeInterestedUser(name: withName)
     }
-    
+}
+extension FeedViewController: FeedTableDelegate {
+    func reloadFeed(sortedItem: String) {
+        print("fuckkkk")
+        if sortedItem == "sport" {
+            sortedEvents = sortedEvents.sorted {
+                $0.sport! < $1.sport!
+
+            }
+            
+        } else {
+            sortedEvents = sortedEvents.sorted {
+                $0.NSDate! < $1.NSDate!
+            }
+            
+        }
+        self.tableView.reloadData()
+
+    }
 }

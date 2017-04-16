@@ -26,6 +26,8 @@ class Event {
     var comments: [String] = []
     let schoolRef = FIRDatabase.database().reference().child("Event").child(UserDefaults.standard.value(forKey: "school") as! String)
     
+    var NSDate: Date? //change name later
+    
     //used to create fake events
     init(author: String, sport: String, description: String, peopleGoing: [String], date: String, location: String) {
         self.author = author
@@ -71,9 +73,12 @@ class Event {
     
     func addInterestedUser(name: String) {
         self.peopleGoing.append(name)
-        var array = UserDefaults.standard.array(forKey: "events")
-        array?.append(self.id!)
+        var array = UserDefaults.standard.array(forKey: "events")!
+        array.append(self.id!)
+        print("setting event to defaults: ", self.id!)
+        print(array)
         UserDefaults.standard.set(array, forKey: "events")
+       print(UserDefaults.standard.synchronize())
         let childUpdates = ["\(self.id!)/peopleGoing": self.peopleGoing]
         schoolRef.updateChildValues(childUpdates) //update interested array
     }
@@ -83,6 +88,8 @@ class Event {
         var array: [String] = UserDefaults.standard.array(forKey: "events") as! [String]
         array.remove(at: array.index(of: self.id!)!)
         UserDefaults.standard.set(array, forKey: "events")
+        UserDefaults.standard.synchronize()
+        print("removed", array)
         let childUpdates = ["\(self.id!)/peopleGoing": self.peopleGoing]
         schoolRef.updateChildValues(childUpdates) //update interested array
     }

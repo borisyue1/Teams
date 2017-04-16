@@ -15,27 +15,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        FIRApp.configure()
-//        UserDefaults.standard.removeObject(forKey: "name")
-//        UserDefaults.standard.removeObject(forKey: "school")
-//        UserDefaults.standard.synchronize()
+//        print("SF", UserDefaults.standard.array(forKey: "events")!)
         if UserDefaults.standard.array(forKey: "events") == nil {
-            UserDefaults.standard.set([], forKey: "events")
+            print("setting empty events array")
+            let emptyArr: [String] = []
+            UserDefaults.standard.set(emptyArr, forKey: "events")
         }
-        var mainView: UIViewController!
-        if let _ = UserDefaults.standard.value(forKey: "name") {
-            if let _1 = UserDefaults.standard.value(forKey: "school") {
-                //if name and school already inputted, skip to optionview
-                mainView = FeedViewController()
-            }
-        } else {
-            mainView = SelectSchoolViewController()
-        }
-        
-        self.window = UIWindow(frame: UIScreen.main.bounds)
-        let nav = NavigationController(rootViewController: mainView)
-        self.window!.rootViewController = nav
-        self.window?.makeKeyAndVisible()
+        FIRApp.configure()
+
         return true
     }
 

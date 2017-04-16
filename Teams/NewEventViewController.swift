@@ -145,27 +145,37 @@ class NewEventViewController: UIViewController, UITextFieldDelegate {
         if (date == nil) {
             getDate(sender: self.datePicker)
         }
-        sport = sportsList[sportPicker.selectedRow(inComponent: 0)]
-        let location = locationTextField.text!
-        self.locationTextField.text = ""
-        let description = descriptionField.text!
-        self.descriptionField.text = ""
-        let schoolRef = eventsRef.child(UserDefaults.standard.value(forKey: "school") as! String)
-        peopleGoing = []
-        peopleGoing.append(UserDefaults.standard.string(forKey: "name")!)
-        comments = []
-        let newEvent = ["author": UserDefaults.standard.string(forKey: "name")!, "sport": sport, "description": description, "peopleGoing": peopleGoing, "date": date, "location": location, "comments": comments] as [String : Any]
-        let key = schoolRef.childByAutoId().key
-        let childUpdates = ["/\(key)/": newEvent]
-        schoolRef.updateChildValues(childUpdates)
         
-//        performSegue(withIdentifier: "newToFeed", sender: self)
-//        self.navigationController?.pushViewController(FeedViewController(), animated: true)
-//        if presentingViewController is OptionViewController {
-//        }
-//        let presentingViewController = self.presentingViewController
-        OptionViewController.shouldGoToFeed = true
-        self.dismiss(animated: true, completion: nil)
+        let location = locationTextField.text!
+        let description = descriptionField.text!
+        
+        if description == "" || location == "" {
+            let alert = UIAlertController(title: "Error", message: "Please fill out all fields", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        } else {
+            sport = sportsList[sportPicker.selectedRow(inComponent: 0)]
+            
+            self.locationTextField.text = ""
+            
+            self.descriptionField.text = ""
+            let schoolRef = eventsRef.child(UserDefaults.standard.value(forKey: "school") as! String)
+            peopleGoing = []
+            peopleGoing.append(UserDefaults.standard.string(forKey: "name")!)
+            comments = []
+        
+        
+            let newEvent = ["author": UserDefaults.standard.string(forKey: "name")!, "sport": sport, "description": description, "peopleGoing": peopleGoing, "date": date, "location": location, "comments": comments] as [String : Any]
+            let key = schoolRef.childByAutoId().key
+            let childUpdates = ["/\(key)/": newEvent]
+            schoolRef.updateChildValues(childUpdates)
+            var array = UserDefaults.standard.array(forKey: "events")!
+            array.append(key)
+            UserDefaults.standard.set(array, forKey: "events")
+            OptionViewController.shouldGoToFeed = true
+            self.dismiss(animated: true, completion: nil)
+        }
+
     }
 }
 
