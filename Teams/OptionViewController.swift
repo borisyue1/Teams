@@ -24,6 +24,8 @@ class OptionViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        createTeam.backgroundColor = UIColor(red: 234/255, green: 119/255, blue: 131/255, alpha: 1.0)
+        createTeam.setTitleColor(UIColor.white, for: .normal)
         self.navigationController?.navigationBar.tintColor = UIColor.white
         if OptionViewController.shouldGoToFeed {
             self.navigationController?.pushViewController(FeedViewController(), animated: true)

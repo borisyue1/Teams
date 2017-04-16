@@ -157,7 +157,7 @@ class FeedTableViewCell: UITableViewCell {
     }
     
     func initAtLabel() {
-        atLabel = UILabel(frame: CGRect(x: rectView.frame.width / 2 - 10, y: sportLabel.frame.minY - 3, width: 20, height: 24))
+        atLabel = UILabel(frame: CGRect(x: rectView.frame.width / 2 - 2, y: sportLabel.frame.minY - 3, width: 20, height: 24))
         atLabel.text = "@"
         atLabel.textColor = UIColor.black
         atLabel.textAlignment = NSTextAlignment.center
