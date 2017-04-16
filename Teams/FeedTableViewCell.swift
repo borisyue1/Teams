@@ -72,10 +72,12 @@ class FeedTableViewCell: UITableViewCell {
         setupGoingLabel()
         setUpDescriptionLabel()
         
-        initLine()
+        
         
         initContactButton()
         initJoinButton()
+        
+        initLine()
     }
     
     func initTestValues() {
@@ -101,7 +103,7 @@ class FeedTableViewCell: UITableViewCell {
     func setUpRectView() {
         let inset = contentView.frame.width / 15
         let width = contentView.frame.width - (2 * inset)
-        rectView = UIView(frame: CGRect(x: inset, y: 60, width: width, height: contentView.frame.height - 60 - 25))
+        rectView = UIView(frame: CGRect(x: inset, y: 20, width: width, height: contentView.frame.height - 40))
         rectView.backgroundColor = UIColor.white
         
         rectView.layer.borderColor = UIColor(red: 229/255, green: 229/255, blue: 229/255, alpha: 1.0).cgColor
@@ -157,7 +159,7 @@ class FeedTableViewCell: UITableViewCell {
     }
     
     func setUpDateLabel() {
-        monthLabel = UILabel(frame: CGRect(x: 15, y: 12, width: 34, height: 14))
+        monthLabel = UILabel(frame: CGRect(x: 15, y: isPlayingLabel.frame.maxY + 15, width: 34, height: 14))
         monthLabel.text = month
         monthLabel.font = UIFont(name: "Lato-Light", size: 14.0)
         monthLabel.textColor = UIColor(red: 240/255, green: 0/255, blue: 0/255, alpha: 1.0)
@@ -185,23 +187,20 @@ class FeedTableViewCell: UITableViewCell {
     }
     
     func setUpSportLabel() {
-        
-        isPlayingLabel = UILabel(frame: CGRect(x: rectView.frame.minX, y: 20, width: 0, height: 16.0))
+        isPlayingLabel = UILabel(frame: CGRect(x: 15, y: 12, width: 0, height: 16.0))
         isPlayingLabel.text = author
         isPlayingLabel.font = UIFont(name: "Lato-Medium", size: 14.0)
         isPlayingLabel.sizeToFit()
-        //isPlayingLabel.layer.borderWidth = 1.0
         
-        contentView.addSubview(isPlayingLabel)
+        rectView.addSubview(isPlayingLabel)
         
-        sportLabel = UILabel(frame: CGRect(x: isPlayingLabel.frame.maxX, y: 20, width: 0, height: 16.0))
+        sportLabel = UILabel(frame: CGRect(x: isPlayingLabel.frame.maxX, y: 12, width: 0, height: 16.0))
         sportLabel.text = " is playing " + sport
         sportLabel.textColor = UIColor.black
         sportLabel.font = UIFont(name: "Lato-Light", size: 14.0)
         sportLabel.sizeToFit()
         
-        
-        contentView.addSubview(sportLabel)
+        rectView.addSubview(sportLabel)
     }
     
     func setUpTimeLabel() {
@@ -219,16 +218,6 @@ class FeedTableViewCell: UITableViewCell {
         locationLabel.text = location
         locationLabel.textColor = UIColor.black
         locationLabel.font = UIFont(name: "Lato-Medium", size: 18.0)
-        
-        //locationLabel.layer.borderWidth = 1.0
-        
-        //locationLabel.sizeToFit()
-        
-        //locationLabel = UILabel(frame: CGRect(x: contentView.frame.width / 11.5, y: contentView.frame.height / 3, width: 200, height: 30))
-        //locationLabel.textColor = UIColor.black
-        //locationLabel.font = UIFont.systemFont(ofSize: 16)
-        
-        //locationLabel.isHidden = true
         
         rectView.addSubview(locationLabel)
     }
@@ -254,14 +243,21 @@ class FeedTableViewCell: UITableViewCell {
     func initLine() {
         
         var aPath = UIBezierPath()
+        var bPath = UIBezierPath()
         
-        aPath.move(to: CGPoint(x:rectView.frame.minX + 5, y:rectView.frame.maxY - 40))
+        aPath.move(to: CGPoint(x:rectView.frame.minX, y:rectView.frame.maxY - 40))
+        aPath.addLine(to: CGPoint(x:rectView.frame.maxX, y:rectView.frame.maxY - 40))
         
-        aPath.addLine(to: CGPoint(x:rectView.frame.maxX - 5, y:rectView.frame.maxY - 40))
+        aPath.move(to: CGPoint(x:rectView.frame.minX + rectView.frame.width / 2, y:rectView.frame.maxY - 40))
+        aPath.addLine(to: CGPoint(x:rectView.frame.minX + rectView.frame.width / 2, y:rectView.frame.maxY))
+        
+        bPath.move(to: CGPoint(x:rectView.frame.minX + 15, y:sportLabel.frame.maxY + rectView.frame.minY + 7))
+        bPath.addLine(to: CGPoint(x:rectView.frame.maxX - 15, y:sportLabel.frame.maxY + rectView.frame.minY + 7))
         
         //Keep using the method addLineToPoint until you get to the one where about to close the path
         
         aPath.close()
+        bPath.close()
         
         //If you want to stroke it with a red color
         UIColor.lightGray.set()
@@ -269,12 +265,21 @@ class FeedTableViewCell: UITableViewCell {
         //If you want to fill it as well
         aPath.fill()
         
+        bPath.stroke()
+        bPath.fill()
+        
         var shapeLayer = CAShapeLayer()
         shapeLayer.path = aPath.cgPath
         shapeLayer.strokeColor = UIColor(red: 220/255, green: 220/255, blue: 220/255, alpha: 1.0).cgColor
-        shapeLayer.lineWidth = 0.5
+        shapeLayer.lineWidth = 1.0
+        
+        var shapeLayer2 = CAShapeLayer()
+        shapeLayer2.path = bPath.cgPath
+        shapeLayer2.strokeColor = UIColor(red: 220/255, green: 220/255, blue: 220/255, alpha: 1.0).cgColor
+        shapeLayer2.lineWidth = 0.5
         
         contentView.layer.addSublayer(shapeLayer)
+        contentView.layer.addSublayer(shapeLayer2)
     }
     
     func initContactButton() {
@@ -282,6 +287,7 @@ class FeedTableViewCell: UITableViewCell {
         contactButton.setTitle("Contact", for: .normal)
         contactButton.titleLabel?.font = UIFont(name: "Lato-Light", size: 14.0)
         contactButton.setTitleColor(UIColor.black, for: .normal)
+        contactButton.backgroundColor = UIColor(red: 235/255, green: 235/255, blue: 235/255, alpha: 1.0)
         
         contactButton.contentHorizontalAlignment = .center
         
@@ -289,10 +295,12 @@ class FeedTableViewCell: UITableViewCell {
     }
     
     func initJoinButton() {
-        joinButton = UIButton(frame: CGRect(x: rectView.frame.width / 2, y: rectView.frame.maxY - 40, width: rectView.frame.width / 2, height: 40))
+        joinButton = UIButton(frame: CGRect(x: contactButton.frame.maxX, y: rectView.frame.maxY - 40, width: rectView.frame.width / 2, height: 40))
         joinButton.setTitle("Join", for: .normal)
         joinButton.titleLabel?.font = UIFont(name: "Lato-Light", size: 14.0)
         joinButton.setTitleColor(UIColor.black, for: .normal)
+        
+        joinButton.backgroundColor = UIColor(red: 235/255, green: 235/255, blue: 235/255, alpha: 1.0)
         
         joinButton.contentHorizontalAlignment = .center
         

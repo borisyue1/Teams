@@ -141,7 +141,7 @@
                         <viewControllerLayoutGuide type="top" id="Xuh-bi-WnJ"/>
                         <viewControllerLayoutGuide type="bottom" id="ykk-YB-lar"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="vYF-Oa-NNQ">
+                    <view key="view" contentMode="scaleToFill" id="vYF-Oa-NNQ" customClass="ADBannerView">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -149,7 +149,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f2G-gt-XeV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3559" y="445"/>
+            <point key="canvasLocation" x="3159" y="1212"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>

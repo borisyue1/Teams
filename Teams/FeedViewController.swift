@@ -16,8 +16,8 @@ class FeedViewController: UIViewController {
     var auth = FIRAuth.auth()
     var eventsRef: FIRDatabaseReference = FIRDatabase.database().reference().child("Event")
     var plusSign: UIImageView!
-    var passedEvent: Event?
-    
+    var currKey: String?
+    var postIds: [String] = []
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.white
@@ -63,11 +63,7 @@ class FeedViewController: UIViewController {
     }
     
     func rowHeight() -> CGFloat {
-        if view.frame.width / 1.8 < 200 {
-            return 200
-        } else {
-            return view.frame.width / 1.8
-        }
+        return 200
     }
     
     func createEvent() {
@@ -82,13 +78,14 @@ class FeedViewController: UIViewController {
         schoolRef.queryOrdered(byChild: "date").observe(.childAdded, with: { (snapshot) in
             let post = Event(id: snapshot.key, postDict: snapshot.value as! [String : Any]?)
             self.events.append(post)
+            self.postIds.append(snapshot.key)
             withBlock() //ensures that next block is called
         })
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toComments" {
-            let comments = segue.destination as! CommentViewController
-            comments.curr = passedEvent
+            let view = segue.destination as! CommentViewController
+            view.currKey = currKey
         }
     }
 }
@@ -131,9 +128,8 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        passedEvent = events[events.count - 1 - indexPath.row]
-        self.performSegue(withIdentifier: "toComments", sender: self)
-        tableView.deselectRow(at: indexPath, animated: true)
+        currKey = postIds[events.count - 1 - indexPath.row]
+        self.present(CommentViewController(), animated: true, completion: nil)
         
     }
 }
