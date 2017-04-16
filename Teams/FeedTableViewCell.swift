@@ -52,7 +52,35 @@ class FeedTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        initTestValues()
+        //initTestValues()
+        setUpImage()
+        setUpRectView()
+        setUpSportLabel()
+        //setUpTimeLabel()
+        //        setUpLocationLabel()
+        
+        
+        //descriptionLabel.isHidden = true
+        //locationLabel.isHidden = true
+        
+        setUpDateLabel()
+        setupSchoolLabel()
+        setupTeamNameLabel()
+        setUpLocationLabel()
+        initAtLabel()
+        
+        setupGoingLabel()
+        setUpDescriptionLabel()
+        
+        
+        
+        initContactButton()
+        initJoinButton()
+        
+        initLine()
+    }
+    
+    func initValues() {
         setUpImage()
         setUpRectView()
         setUpSportLabel()
@@ -200,6 +228,8 @@ class FeedTableViewCell: UITableViewCell {
         sportLabel.font = UIFont(name: "Lato-Light", size: 14.0)
         sportLabel.sizeToFit()
         
+        //print("FUCKING SPORT: ", author)
+        
         rectView.addSubview(sportLabel)
     }
     
@@ -234,7 +264,7 @@ class FeedTableViewCell: UITableViewCell {
     func setupGoingLabel() {
         numGoingLabel = UILabel(frame: CGRect(x: dayLabel.frame.minX, y: dayLabel.frame.maxY + 5, width: 0, height: 15))
         numGoingLabel.font = UIFont(name: "Lato-Light", size: 12.0)
-        numGoingLabel.text = String(numGoing) + " going"
+        numGoingLabel.text = String(2) + " going"   //String(numGoing)
         numGoingLabel.sizeToFit()
         
         rectView.addSubview(numGoingLabel)

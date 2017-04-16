@@ -21,6 +21,7 @@ class Event {
     var date: String?
     var location: String?
     var comments: [String] = []
+    
     //used to create fake events
     init(author: String, sport: String, description: String, peopleGoing: [String], date: String, location: String) {
         self.author = author

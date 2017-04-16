@@ -35,20 +35,7 @@ class FeedViewController: UIViewController {
         }
     }
 
-    
-    //creating fake ones for now
-    func generateRandomEvents() {
-        let event1 = Event(author: "Boris Yue", sport: "Soccer", description: "everyone is welcome!!!", peopleGoing: ["Mark", "Amy"], date: "4:20 pm", location: "Edwards Stadium")
-        events.append(event1)
-        let event2 = Event(author: "Boris Yue", sport: "Football", description: "looking for casual game", peopleGoing: ["Mark", "Amy", "Shireen", "Harambe", "a"], date: "5:30 pm", location: "Memorial Glade")
-        events.append(event2)
-        let event3 = Event(author: "Boris Yue", sport: "Tennis", description: "need some hitting practice", peopleGoing: ["Mark", "Amy"], date: "6:00 pm", location: "Fullman Courts")
-        events.append(event3)
-        let event4 = Event(author: "Boris Yue", sport: "Frisbee", description: "we all suck", peopleGoing: ["Mark", "Amy", "a", "b", "c", "d", "e", "f"], date: "6:43 pm", location: "Memorial Glade")
-        events.append(event4)
-        let event5 = Event(author: "Boris Yue", sport: "Soccer", description: "everyone is welcome!!!", peopleGoing: ["Mark", "Amy"], date: "8:20 pm", location: "Edwards Stadium")
-        events.append(event5)
-    }
+
     
     func setUpTableView() {
         tableView = UITableView(frame: CGRect(x: 0, y: (navigationController?.navigationBar.frame.maxY)!, width: view.frame.width, height: view.frame.height))
@@ -103,9 +90,29 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let cell = cell as! FeedTableViewCell
-        cell.awakeFromNib()
         let currentEvent = events[indexPath.row]
+        cell.sport = currentEvent.sport
+        cell.author = currentEvent.author
+        
+        let schoolRef = eventsRef.child(UserDefaults.standard.value(forKey: "school") as! String)
+        
+        cell.school = UserDefaults.standard.value(forKey: "school") as! String
+        
+        var dateString: String!
+        dateString = currentEvent.date!
+        
+        cell.month = dateString.substring(to: dateString.index(dateString.startIndex, offsetBy: 3)).uppercased()
+        
+        cell.day = Int(dateString.substring(to: dateString.index(dateString.startIndex, offsetBy: 6)).substring(from: dateString.index(dateString.startIndex, offsetBy: 4)))
+        
+        cell.awakeFromNib()
+        
+        
+        
+        print("SPORT: ", cell.sport)
+        
         switch currentEvent.sport! {
+            
         case "Soccer":
             cell.pic.image = #imageLiteral(resourceName: "soccer")
         case "Football":
@@ -116,6 +123,9 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
             cell.pic.image = #imageLiteral(resourceName: "frisbee")
             
         }
+        
+        print("DATE: ", currentEvent.date)
+        
         cell.pic.layer.shadowColor = UIColor.black.cgColor
         cell.pic.layer.shadowOpacity = 1
         cell.pic.layer.shadowOffset = CGSize(width: 0, height: 3)
@@ -124,7 +134,7 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
         cell.sportLabel.text = " is playing " + currentEvent.sport!
         //cell.timeLabel.text = currentEvent.date
         cell.descriptionLabel.text = currentEvent.description
-        cell.location = "\(currentEvent.location!) - \(currentEvent.peopleGoing.count) going"
+        cell.location = currentEvent.location
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
