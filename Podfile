@@ -10,6 +10,7 @@ target 'Teams' do
   pod 'Firebase/Storage'
   pod ‘Firebase/Messaging’
   pod 'DropDown'
+  pod 'SideMenuController'
   # Pods for Teams
 
   target 'TeamsTests' do

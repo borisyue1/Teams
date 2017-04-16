@@ -50,6 +50,7 @@ PODS:
   - GoogleToolboxForMac/NSString+URLArguments (2.1.1)
   - GTMSessionFetcher/Core (1.1.8)
   - Protobuf (3.2.1)
+  - SideMenuController (0.2.4)
 
 DEPENDENCIES:
   - DropDown
@@ -58,6 +59,7 @@ DEPENDENCIES:
   - Firebase/Database
   - Firebase/Messaging
   - Firebase/Storage
+  - SideMenuController
 
 SPEC CHECKSUMS:
   DropDown: 744784d9c9aa505100e942c16acd05430cbb2f0a
@@ -72,7 +74,8 @@ SPEC CHECKSUMS:
   GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
   GTMSessionFetcher: 6f8d8b28b7e345549ac471071608170b31cb4977
   Protobuf: 2ccbaf193f6c65adc67745453ca0c13234c32796
+  SideMenuController: b463d2b3aa58e2afe57f57a07938fa9a647894ca
 
-PODFILE CHECKSUM: 0016c93a0a20367e2ae36dacbb89336da07be76b
+PODFILE CHECKSUM: 2406bd1518b3f41b97d465eb9a8d293058bd86e8
 
 COCOAPODS: 1.2.0
