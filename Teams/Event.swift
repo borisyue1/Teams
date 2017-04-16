@@ -19,9 +19,11 @@ class Event {
     var id: String?
     var peopleGoing: [String] = []
     var location: String?
-    var month: String?
-    var day: String?
-    var time: String?
+    var date: String?
+//    var month: String?
+//    var day: String?
+//    var time: String?
+    var comments: [String] = []
     
     //used to create fake events
     init(author: String, sport: String, description: String, peopleGoing: [String], date: String, location: String) {
@@ -29,7 +31,7 @@ class Event {
         self.sport = sport
         self.description = description
         self.peopleGoing = peopleGoing
-        self.month = date
+        self.date = date
         self.location = location
     }
     
@@ -49,11 +51,12 @@ class Event {
                 self.sport = sport
             }
             if let date = postDict!["date"] as? String {
-                let split1 = date.components(separatedBy: ", ")
-                self.time = split1[2] //get time
-                let split2 = split1[0].components(separatedBy: " ")
-                self.month = split2[0] //get month
-                self.day = split2[1] //get day
+                self.date = date
+//                let split1 = date.components(separatedBy: ", ")
+//                self.time = split1[2] //get time
+//                let split2 = split1[0].components(separatedBy: " ")
+//                self.month = split2[0] //get month
+//                self.day = split2[1] //get day
 
             }
             if let peopleGoing = postDict!["peopleGoing"] as? [String] {

@@ -24,6 +24,7 @@ class NewEventViewController: UIViewController {
     var eventsRef: FIRDatabaseReference = FIRDatabase.database().reference().child("Event")
     var peopleGoing: [String]!
     var addressCompleter = MKLocalSearchCompleter()
+    var comments: [String]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -106,7 +107,8 @@ class NewEventViewController: UIViewController {
         let schoolRef = eventsRef.child(UserDefaults.standard.value(forKey: "school") as! String)
         peopleGoing = []
         peopleGoing.append(UserDefaults.standard.string(forKey: "name")!)
-        let newEvent = ["author": UserDefaults.standard.string(forKey: "name")!, "sport": sport, "description": description, "peopleGoing": peopleGoing, "date": date, "location": location] as [String : Any]
+        comments = []
+        let newEvent = ["author": UserDefaults.standard.string(forKey: "name")!, "sport": sport, "description": description, "peopleGoing": peopleGoing, "date": date, "location": location, "comments": comments] as [String : Any]
         let key = schoolRef.childByAutoId().key
         let childUpdates = ["/\(key)/": newEvent]
         schoolRef.updateChildValues(childUpdates)
