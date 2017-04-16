@@ -9,14 +9,14 @@
 import UIKit
 
 protocol FeedTableDelegate {
-    func reloadFeed()
+    func reloadFeed(sortedItem: String)
 }
 
 class MenuViewController: UIViewController {
     var tableView: UITableView!
-    let labels: [String] = ["Sport", "Time", "Date"]
+    let labels: [String] = ["Sport", "Date"]
     var settingsButton: UIButton!
-    var delegate: FeedTableDelegate? = nil
+    static var feedTableDelegate: FeedTableDelegate?
     var indexSelected: IndexPath!
 
     override func viewDidLoad() {
@@ -33,7 +33,7 @@ class MenuViewController: UIViewController {
     
     func setupTableView(){
         //Initialize TableView Object here
-        tableView = UITableView(frame: CGRect(x: 0, y: UIApplication.shared.statusBarFrame.maxY, width: view.frame.width/4, height: 150))
+        tableView = UITableView(frame: CGRect(x: 0, y: UIApplication.shared.statusBarFrame.maxY, width: view.frame.width/4, height: 100))
         
         //Register the tableViewCell you are using
         tableView.register(MenuTableViewCell.self, forCellReuseIdentifier: "menuCell")
@@ -48,8 +48,9 @@ class MenuViewController: UIViewController {
         view.addSubview(tableView)
     }
 
-    func reloadTableFeed() {
-        delegate?.reloadFeed()
+    func reloadTableFeed(sortedItem: String) {
+        print("reloadTableFeed")
+        MenuViewController.feedTableDelegate?.reloadFeed(sortedItem: sortedItem)
     }
     
     func setupSettings() {
@@ -62,14 +63,14 @@ class MenuViewController: UIViewController {
     }
     
     func goToSettings() {
-        
+        present(SettingsViewController(), animated: true, completion: nil)
     }
 }
 
 extension MenuViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return 2
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -87,15 +88,14 @@ extension MenuViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        var sortedItem: String = ""
+
         switch indexPath.row {
         case 0:
-            FeedViewController.sortedItem = "sport"
+            sortedItem = "sport"
             
         case 1:
-            FeedViewController.sortedItem = "time"
-            
-        case 2:
-            FeedViewController.sortedItem = "date"
+            sortedItem = "date"
             
         case 3:
             print("hi")
@@ -107,7 +107,7 @@ extension MenuViewController: UITableViewDataSource, UITableViewDelegate {
         }
         tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
         indexSelected = indexPath
-        reloadTableFeed()
+        reloadTableFeed(sortedItem: sortedItem)
     }
     
 }
