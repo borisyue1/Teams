@@ -25,7 +25,7 @@ class NewEventViewController: UIViewController {
     var peopleGoing: [String]!
     var addressCompleter = MKLocalSearchCompleter()
     var comments: [String]!
-    
+    //dsfsdf
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()
