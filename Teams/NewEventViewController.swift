@@ -23,7 +23,7 @@ class NewEventViewController: UIViewController {
     var eventsRef: FIRDatabaseReference = FIRDatabase.database().reference().child("Event")
     var peopleGoing: [String]!
     var comments: [String]!
-    
+    //dsfsdf
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()
