@@ -30,6 +30,7 @@ class NewEventViewController: UIViewController, UITextFieldDelegate {
     var addressCompleter = MKLocalSearchCompleter()
     var dropdown = DropDown() //for location search
     var locations: [String] = [] //for location search
+    var descriptionPressed = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,6 +41,25 @@ class NewEventViewController: UIViewController, UITextFieldDelegate {
         locationTextField.delegate = self
         addressCompleter.delegate = self
 //        addressCompleter.region = MKCoordinateRegionMakeWithDistance(currentCoordinate, 10_000, 10_000)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+    }
+    
+    func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y == 0{
+                self.view.frame.origin.y -= (keyboardSize.height - postButton.frame.height - 10)
+            }
+        }
+    }
+    
+    func keyboardWillHide(notification: NSNotification) {
+        descriptionPressed = false
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y != 0{
+                self.view.frame.origin.y += (keyboardSize.height - postButton.frame.height - 10)
+            }
+        }
     }
     
     func setUpNavBar() {
@@ -198,6 +218,7 @@ extension NewEventViewController: UIPickerViewDataSource, UIPickerViewDelegate, 
     
     func textViewDidBeginEditing(_ textView: UITextView) {
         descriptionField.text = ""
+        descriptionPressed = true
     }
     
     func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
