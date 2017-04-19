@@ -9,7 +9,7 @@
 import UIKit
 import DropDown
 
-class SettingsViewController: UIViewController, UITextFieldDelegate {
+class SettingsViewController: UIViewController {
     
     var settingsTitle: UILabel!
     var doneButton: UIButton!
@@ -24,6 +24,8 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
         
         self.hideKeyboardWhenTappedAround()
         self.view.backgroundColor = UIColor(red: 75/255, green: 184/255, blue: 147/255, alpha: 1.0)
+        self.hideKeyboardWhenTappedAround()
+        UITextField.appearance().tintColor = UIColor.white //sets cursor to white
         initTitle()
         initDoneButton()
         initNameLabel()
@@ -73,7 +75,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
         nameField.textAlignment = NSTextAlignment.center
         nameField.attributedPlaceholder = NSAttributedString(string: UserDefaults.standard.value(forKey: "name") as! String,
                                                              attributes: [NSForegroundColorAttributeName: UIColor.white])
-        nameField.returnKeyType = .go
+        nameField.returnKeyType = .done
         view.addSubview(nameField)
     }
     
@@ -88,7 +90,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
     
     func initSchoolButton() {
         schoolButton = UIButton(frame: CGRect(x: self.view.frame.width / 2 - (230 / 2), y: schoolLabel.frame.maxY + 10, width: 230, height: 50))
-        schoolButton.setTitle(UserDefaults.standard.value(forKey: "school") as! String, for: .normal)
+        schoolButton.setTitle(UserDefaults.standard.value(forKey: "school") as? String, for: .normal)
         schoolButton.addTarget(self, action: #selector(schoolPressed), for: UIControlEvents.touchUpInside)
         schoolButton.titleLabel?.font = UIFont(name: "Lato-Medium", size: 24.0)
         schoolButton.setTitleColor(UIColor.white, for: .normal)
@@ -124,4 +126,13 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
         self.dismiss(animated: true, completion: nil)
     }
 
+}
+
+extension SettingsViewController: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        // Try to find next responder
+        self.view.endEditing(true)
+        return false
+    }
 }

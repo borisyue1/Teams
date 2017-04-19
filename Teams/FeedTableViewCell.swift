@@ -12,6 +12,7 @@ protocol FeedCellDelegate {
     
     func addInterestedUser(forCell: FeedTableViewCell, withName: String)
     func removeInterestedUser(forCell: FeedTableViewCell, withName: String)
+    func goToComments(forCell: FeedTableViewCell)
     
 }
 
@@ -62,17 +63,10 @@ class FeedTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        //initTestValues()
         setUpImage()
         setUpRectView()
         setUpAuthorLabel()
         setUpTimeLabel()
-        //        setUpLocationLabel()
-        
-        
-        //descriptionLabel.isHidden = true
-        //locationLabel.isHidden = true
-        
         setUpDateLabel()
         setupSportLabel()
 //        setupTeamNameLabel()
@@ -280,9 +274,8 @@ class FeedTableViewCell: UITableViewCell {
         contactButton.titleLabel?.font = UIFont(name: "Lato-Light", size: 14.0)
         contactButton.setTitleColor(UIColor.black, for: .normal)
         contactButton.backgroundColor = UIColor(red: 235/255, green: 235/255, blue: 235/255, alpha: 1.0)
-        
         contactButton.contentHorizontalAlignment = .center
-        
+        contactButton.addTarget(self, action: #selector(commentPressed), for: .touchUpInside)
         contentView.addSubview(contactButton)
     }
     
@@ -317,4 +310,9 @@ class FeedTableViewCell: UITableViewCell {
             delegate?.removeInterestedUser(forCell: self, withName: UserDefaults.standard.value(forKey: "name") as! String)
         }
     }
+    
+    func commentPressed() {
+        delegate?.goToComments(forCell: self)
+    }
+    
 }
