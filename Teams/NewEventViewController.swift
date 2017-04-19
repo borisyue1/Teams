@@ -30,7 +30,6 @@ class NewEventViewController: UIViewController, UITextFieldDelegate {
     var addressCompleter = MKLocalSearchCompleter()
     var dropdown = DropDown() //for location search
     var locations: [String] = [] //for location search
-    var descriptionPressed = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,7 +53,6 @@ class NewEventViewController: UIViewController, UITextFieldDelegate {
     }
     
     func keyboardWillHide(notification: NSNotification) {
-        descriptionPressed = false
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
             if self.view.frame.origin.y != 0{
                 self.view.frame.origin.y += (keyboardSize.height - postButton.frame.height - 10)
@@ -218,7 +216,6 @@ extension NewEventViewController: UIPickerViewDataSource, UIPickerViewDelegate, 
     
     func textViewDidBeginEditing(_ textView: UITextView) {
         descriptionField.text = ""
-        descriptionPressed = true
     }
     
     func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
