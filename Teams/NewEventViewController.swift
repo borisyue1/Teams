@@ -39,6 +39,7 @@ class NewEventViewController: UIViewController {
         setUpNavBar()
         setupLayout()
         initDropDown()
+        addressCompleter.delegate = self
 //        addressCompleter.region = MKCoordinateRegionMakeWithDistance(currentCoordinate, 10_000, 10_000)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
@@ -82,7 +83,7 @@ class NewEventViewController: UIViewController {
     func initDropDown() {
         dropdown.anchorView = locationTextField
         dropdown.dataSource = locations
-        dropdown.bottomOffset = CGPoint(x: 0, y: locationTextField.bounds.height - 20)
+        dropdown.bottomOffset = CGPoint(x: 0, y: locationTextField.bounds.height)
         dropdown.direction = .bottom
         dropdown.width = locationTextField.frame.width
     }
@@ -126,8 +127,9 @@ class NewEventViewController: UIViewController {
         locationTextField.font = UIFont.systemFont(ofSize: 20)
         locationTextField.attributedPlaceholder = NSAttributedString(string: "Enter Location",
                                                              attributes: [NSForegroundColorAttributeName: UIColor.white])
-        locationTextField.tag = 0
         locationTextField.delegate = self
+        
+        locationTextField.tag = 0
         
         descriptionField = UITextView(frame: CGRect(x: 25, y: locationTextField.frame.maxY + 10, width: view.frame.width - 50, height: view.frame.height/10))
         descriptionField.text = "Description of Event"
@@ -136,11 +138,10 @@ class NewEventViewController: UIViewController {
         descriptionField.textColor = UIColor.white
         descriptionField.font = UIFont.systemFont(ofSize: 18)
         descriptionField.isUserInteractionEnabled = true
-        descriptionField.delegate = self
         descriptionField.backgroundColor = UIColor.init(red: 249/255, green: 170/255, blue: 97/255, alpha: 1.0)
         descriptionField.tag = 1
         descriptionField.returnKeyType = .go
-
+        descriptionField.delegate = self
         
         postButton = UIButton(frame: CGRect(x: view.frame.width/5, y: descriptionField.frame.maxY + 10, width: view.frame.width * (3/5), height: view.frame.height/11))
         postButton.setTitle("Post", for: .normal)
@@ -177,6 +178,8 @@ class NewEventViewController: UIViewController {
         if description == "Description of Event" || description == "" || location == "" {
             self.displayError(withMessage: "Please fill out all fields.")
         } else {
+            postButton.backgroundColor = UIColor.white
+            postButton.setTitleColor(UIColor.init(red: 249/255, green: 170/255, blue: 97/255, alpha: 1.0), for: .normal)
             sport = sportsList[sportPicker.selectedRow(inComponent: 0)]
             self.locationTextField.text = ""
             self.descriptionField.text = ""
@@ -245,7 +248,6 @@ extension NewEventViewController: UIPickerViewDataSource, UIPickerViewDelegate, 
         if descriptionField.text.isEmpty { //if finished editing and text is empty, return to placeholder
             descriptionField.text = "Event Description"
         }
-//        scrollTextField = nil
     }
     
     func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
@@ -258,6 +260,7 @@ extension NewEventViewController: MKLocalSearchCompleterDelegate {
     
     func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
         completer.results.map { result in
+            print(result.title)
             locations.append(result.title)
             dropdown.dataSource = locations
         }
