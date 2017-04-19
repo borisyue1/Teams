@@ -25,12 +25,12 @@ class CommentViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("commentsVC viewdidload")
         self.hideKeyboardWhenTappedAround()
         self.navigationController?.navigationBar.tintColor = UIColor.black
-        self.view.backgroundColor = UIColor.white
+        view.backgroundColor = UIColor(red: 234/255, green: 119/255, blue: 131/255, alpha: 1.0)
+        self.setupExitButton()
+        
         fetchComments {
-            self.setupExitButton()
             self.setUpTableView()
         }
         
@@ -69,15 +69,12 @@ class CommentViewController: UIViewController {
     }
     
     func setUpTableView() {
-        print("setting up table view")
         tableView = UITableView(frame: CGRect(x: 0, y: exitButton.frame.maxY, width: view.frame.width, height: view.frame.height - exitButton.frame.maxY - exitButton.frame.height -
         postButton.frame.height))
         tableView.register(CommentTableViewCell.self, forCellReuseIdentifier: "commentCell")
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        
-        view.backgroundColor = UIColor.white
+        tableView.backgroundColor = UIColor(red: 234/255, green: 119/255, blue: 131/255, alpha: 1.0)
         
         view.addSubview(tableView)
     }
@@ -85,7 +82,7 @@ class CommentViewController: UIViewController {
     func fetchComments(withBlock: @escaping () -> ()) {
         //TODO: Implement a method to fetch posts with Firebase!
         let schoolRef = eventsRef.child(UserDefaults.standard.value(forKey: "school") as! String)
-        print("AYyyyyyyy")
+        
         schoolRef.child(currKey!).child("comments").observe(.childAdded, with: { (snapshot) in
             
             var dict = snapshot.value as! [String: Any]
@@ -97,7 +94,6 @@ class CommentViewController: UIViewController {
             
             print(self.commentsArray)
             
-            //self.comments.append(snapshot.value as! String)
             withBlock() //ensures that next block is called
         })
     }
@@ -108,7 +104,7 @@ class CommentViewController: UIViewController {
         
         postButton = UIButton(frame: CGRect(x: textField.frame.maxX, y: view.frame.maxY - 40, width: 60, height: 40))
         postButton.setTitle("Post", for: .normal)
-        postButton.setTitleColor(UIColor.black, for: .normal)
+        postButton.setTitleColor(UIColor.white, for: .normal)
         
         postButton.addTarget(self, action: #selector(postComment), for: .touchUpInside)
         
@@ -119,7 +115,6 @@ class CommentViewController: UIViewController {
     func postComment() {
         let schoolRef = eventsRef.child(UserDefaults.standard.value(forKey: "school") as! String).child(currKey!).child("comments")
         print("AYyyyyyyy")
-        textField.text = "Post a comment..."
         let key = schoolRef.childByAutoId().key
         self.dismissKeyboard()
         
@@ -127,6 +122,8 @@ class CommentViewController: UIViewController {
         
         let childUpdates = ["/\(key)/": newComment]
         schoolRef.updateChildValues(childUpdates)
+        textField.text = "Post a comment..."
+        textField.textColor = UIColor.lightGray
     }
 }
 extension CommentViewController: UITableViewDelegate, UITableViewDataSource {
@@ -152,13 +149,6 @@ extension CommentViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
-//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-//        let cell = cell as! CommentTableViewCell
-//        let currentComment = commentsArray[indexPath.row]
-//        
-//        cell.name.text = currentComment.author
-//        cell.comment.text = currentComment.text
-//    }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 70
     }

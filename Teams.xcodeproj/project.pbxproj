@@ -346,7 +346,7 @@
 				TargetAttributes = {
 					B44EF35F1E7E391E00E25F58 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = F5L844KYJ2;
+						DevelopmentTeam = 2R645SJG33;
 						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 					};
@@ -727,10 +727,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = F5L844KYJ2;
+				DEVELOPMENT_TEAM = 2R645SJG33;
 				INFOPLIST_FILE = Teams/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.borisyue.Teams;
+				PRODUCT_BUNDLE_IDENTIFIER = com.shireen.Teams;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Teams-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -744,10 +744,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = F5L844KYJ2;
+				DEVELOPMENT_TEAM = 2R645SJG33;
 				INFOPLIST_FILE = Teams/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.borisyue.Teams;
+				PRODUCT_BUNDLE_IDENTIFIER = com.shireen.Teams;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Teams-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;

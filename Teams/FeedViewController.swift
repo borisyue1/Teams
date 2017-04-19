@@ -32,7 +32,6 @@ class FeedViewController: UIViewController {
         self.navigationController?.navigationBar.tintColor = UIColor.black
         self.navigationItem.setHidesBackButton(true, animated: true) //hide back button
         let originalImage = UIImage(named: "add.png")
-//        let scaledIcon = UIImage(cgImage: originalImage!.cgImage!, scale: 5, orientation: originalImage!.imageOrientation)
         let addButton = UIBarButtonItem(image: originalImage, style: .plain, target: self, action: #selector(createEvent))
         addButton.tintColor = UIColor.black
         self.navigationItem.setRightBarButton(addButton, animated: true)
@@ -47,7 +46,6 @@ class FeedViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if FeedViewController.shouldUpdateFeed {
-            print("Updating feed")
             FeedViewController.shouldUpdateFeed = false
             fetchPosts {
                 self.tableView.reloadData()
@@ -88,8 +86,6 @@ class FeedViewController: UIViewController {
     }
     
     func createEvent() {
-//        performSegue(withIdentifier: "toNew", sender: self)
-//        self.navigationController?.pushViewController(NewEventViewController(), animated: true)
         self.present(NewEventViewController(), animated: true, completion: nil)
     }
     
@@ -114,8 +110,6 @@ class FeedViewController: UIViewController {
             self.postIds.append(snapshot.key)
             print(snapshot.key)
             withBlock() //ensures that next block is called
-            
-            
         })
     }
     
@@ -175,17 +169,12 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
         
         switch currentEvent.sport! {
         case "Soccer":
-            //cell.pic.image = #imageLiteral(resourceName: "soccer")
-            //cell.pic.image = #imageLiteral(resourceName: "basketball")
             cell.pic.image = #imageLiteral(resourceName: "soccer_new")
         case "Football":
-            //cell.pic.image = #imageLiteral(resourceName: "football")
             cell.pic.image = #imageLiteral(resourceName: "football_alternate")
         case "Tennis":
-            //cell.pic.image = #imageLiteral(resourceName: "tennis")
             cell.pic.image = #imageLiteral(resourceName: "tennis_new")
         default:
-            //frisbee
             cell.pic.image = #imageLiteral(resourceName: "basketball")
             
         }
@@ -199,14 +188,6 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
         })
     }
     
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        currKey = postIds[sortedEvents.count - 1 - indexPath.row]
-//        
-//        let commentView = CommentViewController()
-//        commentView.currKey = currKey
-//        self.present(commentView, animated: true, completion: nil)
-//        
-//    }
 }
 
 extension FeedViewController: FeedCellDelegate {
@@ -228,7 +209,6 @@ extension FeedViewController: FeedCellDelegate {
 }
 extension FeedViewController: FeedTableDelegate {
     func reloadFeed(sortedItem: String) {
-        print("fuckkkk")
         if sortedItem == "sport" {
             sortedEvents = sortedEvents.sorted {
                 $0.sport! < $1.sport!

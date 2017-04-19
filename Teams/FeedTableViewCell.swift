@@ -56,7 +56,7 @@ class FeedTableViewCell: UITableViewCell {
     
     var atLabel: UILabel!
     
-    var contactButton: UIButton!
+    var commentButton: UIButton!
     var joinButton: UIButton!
     var delegate: FeedCellDelegate?
     var buttonIsSelected: Bool! //for joining
@@ -69,14 +69,13 @@ class FeedTableViewCell: UITableViewCell {
         setUpTimeLabel()
         setUpDateLabel()
         setupSportLabel()
-//        setupTeamNameLabel()
         setUpLocationLabel()
         initAtLabel()
         
         setupGoingLabel()
         setUpDescriptionLabel()
         
-        initContactButton()
+        initCommentButton()
         initJoinButton()
         
         initLine()
@@ -268,19 +267,19 @@ class FeedTableViewCell: UITableViewCell {
         contentView.layer.addSublayer(shapeLayer2)
     }
     
-    func initContactButton() {
-        contactButton = UIButton(frame: CGRect(x: rectView.frame.minX, y: rectView.frame.maxY - 40, width: rectView.frame.width / 2, height: 40))
-        contactButton.setTitle("Comment", for: .normal)
-        contactButton.titleLabel?.font = UIFont(name: "Lato-Light", size: 14.0)
-        contactButton.setTitleColor(UIColor.black, for: .normal)
-        contactButton.backgroundColor = UIColor(red: 235/255, green: 235/255, blue: 235/255, alpha: 1.0)
-        contactButton.contentHorizontalAlignment = .center
-        contactButton.addTarget(self, action: #selector(commentPressed), for: .touchUpInside)
-        contentView.addSubview(contactButton)
+    func initCommentButton() {
+        commentButton = UIButton(frame: CGRect(x: rectView.frame.minX, y: rectView.frame.maxY - 40, width: rectView.frame.width / 2, height: 40))
+        commentButton.setTitle("Comments", for: .normal)
+        commentButton.titleLabel?.font = UIFont(name: "Lato-Light", size: 14.0)
+        commentButton.setTitleColor(UIColor.black, for: .normal)
+        commentButton.backgroundColor = UIColor(red: 235/255, green: 235/255, blue: 235/255, alpha: 1.0)
+        commentButton.contentHorizontalAlignment = .center
+        commentButton.addTarget(self, action: #selector(commentPressed), for: .touchUpInside)
+        contentView.addSubview(commentButton)
     }
     
     func initJoinButton() {
-        joinButton = UIButton(frame: CGRect(x: contactButton.frame.maxX, y: rectView.frame.maxY - 40, width: rectView.frame.width / 2, height: 40))
+        joinButton = UIButton(frame: CGRect(x: commentButton.frame.maxX, y: rectView.frame.maxY - 40, width: rectView.frame.width / 2, height: 40))
         joinButton.isSelected = buttonIsSelected
         if !buttonIsSelected {
             joinButton.backgroundColor = UIColor(red: 235/255, green: 235/255, blue: 235/255, alpha: 1.0)

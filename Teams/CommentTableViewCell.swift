@@ -18,13 +18,15 @@ class CommentTableViewCell: UITableViewCell {
     }
     
     func setupLayout() {
-        name = UILabel(frame: CGRect(x: 10, y: 0, width: contentView.frame.width, height: contentView.frame.height/2))
-        name.textColor = UIColor.blue
+        contentView.backgroundColor = UIColor(red: 234/255, green: 119/255, blue: 131/255, alpha: 1.0)
+        
+        name = UILabel(frame: CGRect(x: 30, y: 0, width: contentView.frame.width, height: contentView.frame.height/2))
+        name.textColor = UIColor.white
         name.adjustsFontSizeToFitWidth = true
         name.font = UIFont(name: "HelveticaNeue-Bold", size: 15)
         
-        comment = UILabel(frame: CGRect(x: 10, y: name.frame.maxY, width: contentView.frame.width, height: contentView.frame.height/2))
-        comment.textColor = UIColor.black
+        comment = UILabel(frame: CGRect(x: 30, y: name.frame.maxY, width: contentView.frame.width, height: contentView.frame.height/2))
+        comment.textColor = UIColor.white
         comment.adjustsFontSizeToFitWidth = true
         comment.font = UIFont(name: "HelveticaNeue-Thin", size: 15)
 
