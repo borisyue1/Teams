@@ -10,15 +10,19 @@ import UIKit
 
 class MenuTableViewCell: UITableViewCell {
     var nameLabel: UILabel!
+    var labelIcon: UIImageView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        nameLabel = UILabel(frame: CGRect(x: contentView.frame.minX + 10, y: 0, width: contentView.frame.width, height: contentView.frame.height))
+        labelIcon = UIImageView(frame: CGRect(x: 20, y: 10, width: 30, height: 30))
+        
+        nameLabel = UILabel(frame: CGRect(x: labelIcon.frame.maxX + 10, y: 0, width: contentView.frame.width - (labelIcon.frame.maxX + labelIcon.frame.width + 10), height: contentView.frame.height))
         nameLabel.textColor = UIColor.black
         nameLabel.adjustsFontSizeToFitWidth = true
         
         contentView.addSubview(nameLabel)
+        contentView.addSubview(labelIcon)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

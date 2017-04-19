@@ -15,14 +15,16 @@ protocol FeedTableDelegate {
 class MenuViewController: UIViewController {
     var tableView: UITableView!
     let labels: [String] = ["Sport", "Date"]
+    let labelIcon: [UIImage] = [#imageLiteral(resourceName: "sport"), #imageLiteral(resourceName: "date")]
+    var appLabel: UILabel!
     var settingsButton: UIButton!
     static var feedTableDelegate: FeedTableDelegate?
     var indexSelected: IndexPath!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupUI()
         setupTableView()
-        setupSettings()
         // Do any additional setup after loading the view.
     }
 
@@ -33,7 +35,7 @@ class MenuViewController: UIViewController {
     
     func setupTableView(){
         //Initialize TableView Object here
-        tableView = UITableView(frame: CGRect(x: 0, y: UIApplication.shared.statusBarFrame.maxY, width: view.frame.width/4, height: 100))
+        tableView = UITableView(frame: CGRect(x: 0, y: appLabel.frame.maxY + 30, width: view.frame.width * (2/5), height: 100))
         
         //Register the tableViewCell you are using
         tableView.register(MenuTableViewCell.self, forCellReuseIdentifier: "menuCell")
@@ -49,16 +51,24 @@ class MenuViewController: UIViewController {
     }
 
     func reloadTableFeed(sortedItem: String) {
-        print("reloadTableFeed")
         MenuViewController.feedTableDelegate?.reloadFeed(sortedItem: sortedItem)
     }
     
-    func setupSettings() {
-        settingsButton = UIButton(frame: CGRect(x: 0, y: view.frame.maxY - 30, width: view.frame.width/4, height: 30))
-        settingsButton.setTitle("Settings", for: .normal)
-        settingsButton.setTitleColor(UIColor.black, for: .normal)
-        settingsButton.addTarget(self, action: #selector(goToSettings), for: .touchUpInside)
+    func setupUI() {
+        appLabel = UILabel(frame: CGRect(x: 0, y: UIApplication.shared.statusBarFrame.maxY, width: view.frame.width * (2/5), height: 50))
+        appLabel.text = "Sportify"
+        appLabel.textAlignment = .center
+        appLabel.textColor = UIColor.white
+        appLabel.backgroundColor = UIColor(red: 75/255, green: 184/255, blue: 147/255, alpha: 1.0)
         
+        settingsButton = UIButton(frame: CGRect(x: 0, y: view.frame.maxY - 50, width: view.frame.width * (2/5), height: 50))
+        settingsButton.setTitle("Settings", for: .normal)
+        settingsButton.titleLabel?.textAlignment = .center
+        settingsButton.setTitleColor(UIColor.white, for: .normal)
+        settingsButton.addTarget(self, action: #selector(goToSettings), for: .touchUpInside)
+        settingsButton.backgroundColor = UIColor(red: 234/255, green: 119/255, blue: 131/255, alpha: 1.0)
+        
+        view.addSubview(appLabel)
         view.addSubview(settingsButton)
     }
     
@@ -81,8 +91,10 @@ extension MenuViewController: UITableViewDataSource, UITableViewDelegate {
         }
         
         cell.awakeFromNib()
+        cell.selectionStyle = .none
         
         cell.nameLabel.text = labels[indexPath.row]
+        cell.labelIcon.image = labelIcon[indexPath.row]
         
         return cell
     }
@@ -98,10 +110,13 @@ extension MenuViewController: UITableViewDataSource, UITableViewDelegate {
         default:
             print("hi")
         }
+        
         if indexSelected != nil {
-            tableView.cellForRow(at: indexSelected)?.accessoryType = .none
+            tableView.cellForRow(at: indexSelected)?.contentView.backgroundColor = UIColor.white
         }
+        
         tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
+        tableView.cellForRow(at: indexPath)?.contentView.backgroundColor = UIColor.init(red: 249/255, green: 170/255, blue: 97/255, alpha: 1.0)
         indexSelected = indexPath
         reloadTableFeed(sortedItem: sortedItem)
     }

@@ -69,7 +69,7 @@ class FeedViewController: UIViewController {
     func setUpSideBar() {
         if self.revealViewController() != nil {
             print("revreal not nil")
-            revealViewController().rearViewRevealWidth = view.frame.width/4
+            revealViewController().rearViewRevealWidth = view.frame.width * (2/5)
             menuButton.target = revealViewController()
             menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
             revealViewController().tapGestureRecognizer()

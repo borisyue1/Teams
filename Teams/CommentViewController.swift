@@ -88,11 +88,8 @@ class CommentViewController: UIViewController {
             var dict = snapshot.value as! [String: Any]
             
             for item in dict {
-                print(item)
                 self.commentsArray.append(Comment(author: item.key, text: item.value as! String))
             }
-            
-            print(self.commentsArray)
             
             withBlock() //ensures that next block is called
         })
