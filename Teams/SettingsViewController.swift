@@ -21,6 +21,8 @@ class SettingsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.hideKeyboardWhenTappedAround()
         self.view.backgroundColor = UIColor(red: 75/255, green: 184/255, blue: 147/255, alpha: 1.0)
         self.hideKeyboardWhenTappedAround()
         UITextField.appearance().tintColor = UIColor.white //sets cursor to white
@@ -123,7 +125,7 @@ class SettingsViewController: UIViewController {
         UserDefaults.standard.set(schoolButton.titleLabel?.text, forKey: "school")
         self.dismiss(animated: true, completion: nil)
     }
-    
+
 }
 
 extension SettingsViewController: UITextFieldDelegate {

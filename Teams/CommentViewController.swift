@@ -26,6 +26,7 @@ class CommentViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print("commentsVC viewdidload")
+        self.hideKeyboardWhenTappedAround()
         self.navigationController?.navigationBar.tintColor = UIColor.black
         self.view.backgroundColor = UIColor.white
         fetchComments {
@@ -37,7 +38,28 @@ class CommentViewController: UIViewController {
         exitButton.setImage(UIImage(named: "exit"), for: .normal)
         view.addSubview(exitButton)
         
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        
         initPostFields()
+    }
+    
+    func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y == 0{
+                print("FUCKING COME ON")
+                self.view.frame.origin.y -= (keyboardSize.height - textField.frame.height)
+            }
+        }
+    }
+    
+    func keyboardWillHide(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y != 0{
+                print("FUCK yOU")
+                self.view.frame.origin.y += (keyboardSize.height - textField.frame.height)
+            }
+        }
     }
     
     func exitPressed() {

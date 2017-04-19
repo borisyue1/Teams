@@ -159,6 +159,7 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
         let split2 = split1[0].components(separatedBy: " ")
         cell.month = split2[0] //get month
         cell.day = Int(split2[1]) //get day
+
         cell.eventDescription = currentEvent.description
         cell.location = currentEvent.location
         let array = UserDefaults.standard.array(forKey: "events") as! [String]
@@ -171,8 +172,6 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
         cell.awakeFromNib()
 
         cell.tag = indexPath.row
-
-        print("SPORT: ", cell.sport)
         
         switch currentEvent.sport! {
         case "Soccer":
