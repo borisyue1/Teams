@@ -116,10 +116,11 @@ class FeedTableViewCell: UITableViewCell {
     }
     
     func setupSportLabel() {
-        sportLabel = UILabel(frame: CGRect(x: monthLabel.frame.maxX + 10, y: rectView.frame.height / 2 - 30, width: 0, height: 0))
+        sportLabel = UILabel(frame: CGRect(x: monthLabel.frame.maxX + 10, y: rectView.frame.height / 2 - 30, width: 100, height: 100))
         sportLabel.font = UIFont(name: "Lato-Medium", size: 16.0)
         sportLabel.textColor = UIColor.black
         sportLabel.text = sport
+        sportLabel.numberOfLines = 0
         sportLabel.sizeToFit()
         rectView.addSubview(sportLabel)
     }
@@ -160,7 +161,7 @@ class FeedTableViewCell: UITableViewCell {
     }
     
     func initAtLabel() {
-        atLabel = UILabel(frame: CGRect(x: rectView.frame.width / 2 - 2, y: sportLabel.frame.minY - 3, width: 20, height: 24))
+        atLabel = UILabel(frame: CGRect(x: rectView.frame.width / 2 - 10, y: sportLabel.frame.minY - 3, width: 20, height: 24))
         atLabel.text = "@"
         atLabel.textColor = UIColor.black
         atLabel.textAlignment = NSTextAlignment.center
@@ -198,10 +199,9 @@ class FeedTableViewCell: UITableViewCell {
     }
     
     func setUpLocationLabel() {
-        
-        locationLabel = UILabel(frame: CGRect(x: rectView.frame.width / 2, y: sportLabel.frame.minY, width: rectView.frame.width / 2 - 15, height: 24))
+        locationLabel = UILabel(frame: CGRect(x: rectView.frame.width / 2 + 8, y: sportLabel.frame.minY - 20, width: rectView.frame.width / 2 - 20, height: 60))
         locationLabel.textAlignment = NSTextAlignment.right
-        
+        locationLabel.numberOfLines = 0
         locationLabel.text = location
         locationLabel.textColor = UIColor.black
         locationLabel.font = UIFont(name: "Lato-Medium", size: 16.0)

@@ -47,7 +47,6 @@ class FeedViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if FeedViewController.shouldUpdateFeed {
-            print("Updating feed")
             FeedViewController.shouldUpdateFeed = false
             fetchPosts {
                 self.tableView.reloadData()
@@ -64,6 +63,7 @@ class FeedViewController: UIViewController {
         tableView.separatorStyle = .none
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: view.frame.height / 10, right: 0)
         tableView.tableFooterView = UIView() // gets rid of the extra cells beneath
+        tableView.allowsSelection = false
         view.addSubview(tableView)
     }
     
@@ -94,15 +94,11 @@ class FeedViewController: UIViewController {
     }
     
     func fetchPosts(withBlock: @escaping () -> ()) {
-        //TODO: Implement a method to fetch posts with Firebase!
-
         sortedEvents.removeAll()
         events.removeAll()
-        
         schoolRef = eventsRef.child(UserDefaults.standard.value(forKey: "school") as! String)
         schoolRef.observe(.childAdded, with: { (snapshot) in
-            print("queryorderedbychile")
-            print(snapshot.key)
+            print("queryorderedbychild")
             var post = Event(id: snapshot.key, postDict: snapshot.value as! [String : Any]?)
             let dateFormatter = DateFormatter()
             dateFormatter.dateStyle = DateFormatter.Style.medium
@@ -161,7 +157,13 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
         cell.day = Int(split2[1]) //get day
 
         cell.eventDescription = currentEvent.description
-        cell.location = currentEvent.location
+        let location = currentEvent.location
+        if (location?.characters.count)! > 30 {
+            let index = location?.index((location?.startIndex)!, offsetBy: 30)
+            cell.location = (currentEvent.location?.substring(to: index!))! + "..."
+        } else {
+            cell.location = currentEvent.location
+        }
         let array = UserDefaults.standard.array(forKey: "events") as! [String]
         if !array.contains(currentEvent.id!) {
             cell.buttonIsSelected = false
@@ -175,17 +177,18 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
         
         switch currentEvent.sport! {
         case "Soccer":
-            //cell.pic.image = #imageLiteral(resourceName: "soccer")
-            //cell.pic.image = #imageLiteral(resourceName: "basketball")
             cell.pic.image = #imageLiteral(resourceName: "soccer_new")
         case "Football":
-            //cell.pic.image = #imageLiteral(resourceName: "football")
             cell.pic.image = #imageLiteral(resourceName: "football_alternate")
         case "Tennis":
-            //cell.pic.image = #imageLiteral(resourceName: "tennis")
             cell.pic.image = #imageLiteral(resourceName: "tennis_new")
+        case "Volleyball":
+            cell.pic.image = #imageLiteral(resourceName: "volleyball")
+        case "Ultimate Frisbee":
+            cell.pic.image = #imageLiteral(resourceName: "frisbee")
+        case "Spikeball":
+            cell.pic.image = #imageLiteral(resourceName: "spikeball")
         default:
-            //frisbee
             cell.pic.image = #imageLiteral(resourceName: "basketball")
             
         }
