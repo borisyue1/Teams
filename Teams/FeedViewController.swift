@@ -154,11 +154,11 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
         cell.school = UserDefaults.standard.value(forKey: "school") as! String
         
         var dateString: String! = currentEvent.date!
-        
-        cell.month = dateString.substring(to: dateString.index(dateString.startIndex, offsetBy: 3)).uppercased()
-        
-        cell.day = Int(dateString.substring(to: dateString.index(dateString.startIndex, offsetBy: 6)).substring(from: dateString.index(dateString.startIndex, offsetBy: 4)))
-        cell.time = dateString.substring(from: dateString.index(dateString.startIndex, offsetBy: 13))
+        let split1 = dateString.components(separatedBy: ", ")
+        cell.time = split1[2] //get time
+        let split2 = split1[0].components(separatedBy: " ")
+        cell.month = split2[0] //get month
+        cell.day = Int(split2[1]) //get day
         cell.eventDescription = currentEvent.description
         cell.location = currentEvent.location
         let array = UserDefaults.standard.array(forKey: "events") as! [String]
@@ -200,14 +200,14 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
         })
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        currKey = postIds[sortedEvents.count - 1 - indexPath.row]
-        
-        let commentView = CommentViewController()
-        commentView.currKey = currKey
-        self.present(commentView, animated: true, completion: nil)
-        
-    }
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        currKey = postIds[sortedEvents.count - 1 - indexPath.row]
+//        
+//        let commentView = CommentViewController()
+//        commentView.currKey = currKey
+//        self.present(commentView, animated: true, completion: nil)
+//        
+//    }
 }
 
 extension FeedViewController: FeedCellDelegate {
@@ -218,6 +218,13 @@ extension FeedViewController: FeedCellDelegate {
     
     func removeInterestedUser(forCell: FeedTableViewCell, withName: String) {
         sortedEvents[forCell.tag].removeInterestedUser(name: withName)
+    }
+    
+    func goToComments(forCell: FeedTableViewCell) {
+        currKey = postIds[forCell.tag]        
+        let commentView = CommentViewController()
+        commentView.currKey = currKey
+        self.present(commentView, animated: true, completion: nil)
     }
 }
 extension FeedViewController: FeedTableDelegate {

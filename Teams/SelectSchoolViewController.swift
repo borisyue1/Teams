@@ -19,9 +19,11 @@ class SelectSchoolViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print("MOTHERFUCKER")
-        
-        if let _1 = UserDefaults.standard.value(forKey: "name") {
-            if let _1 = UserDefaults.standard.value(forKey: "school") {
+//        UserDefaults.standard.removeObject(forKey: "name")
+//        UserDefaults.standard.removeObject(forKey: "school")
+//        UserDefaults.standard.synchronize()
+        if let _ = UserDefaults.standard.value(forKey: "name") {
+            if let _ = UserDefaults.standard.value(forKey: "school") {
                 //if name and school already inputted, skip to optionview
                 let sb = UIStoryboard(name: "Main", bundle: nil)
                 let controller = sb.instantiateViewController(withIdentifier: "FrontVC")

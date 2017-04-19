@@ -11,7 +11,7 @@ import Firebase
 import MapKit
 import DropDown
 
-class NewEventViewController: UIViewController, UITextFieldDelegate {
+class NewEventViewController: UIViewController {
     
     var navBar: UINavigationBar!
     var createTeamLabel: UILabel!
@@ -34,11 +34,11 @@ class NewEventViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()
+        UITextField.appearance().tintColor = UIColor.white //sets cursor to white
+        UITextView.appearance().tintColor = UIColor.white
         setUpNavBar()
         setupLayout()
         initDropDown()
-        locationTextField.delegate = self
-        addressCompleter.delegate = self
 //        addressCompleter.region = MKCoordinateRegionMakeWithDistance(currentCoordinate, 10_000, 10_000)
     }
     
@@ -85,37 +85,44 @@ class NewEventViewController: UIViewController, UITextFieldDelegate {
     func setupLayout() {
         view.backgroundColor = UIColor.init(red: 249/255, green: 170/255, blue: 97/255, alpha: 1.0)
         
-        createTeamLabel = UILabel(frame: CGRect(x: 0, y: view.frame.height / 8.5, width: view.frame.width, height: view.frame.height/13))
+        createTeamLabel = UILabel(frame: CGRect(x: 0, y: view.frame.height / 9, width: view.frame.width, height: view.frame.height/13))
         createTeamLabel.textAlignment = .center
         createTeamLabel.text = "Create a Team"
         createTeamLabel.font = UIFont(name: "Lato-Bold", size: 30)
         createTeamLabel.adjustsFontSizeToFitWidth = true
         createTeamLabel.textColor = UIColor.white
         
-        sportPicker = UIPickerView(frame: CGRect(x: 50, y: createTeamLabel.frame.maxY + 10, width: view.frame.width - 100, height: 120))
+        sportPicker = UIPickerView(frame: CGRect(x: 25, y: createTeamLabel.frame.maxY + 10, width: view.frame.width - 50, height: 120))
         sportPicker.delegate = self
         sportPicker.dataSource = self
         
-        sportsList = ["Soccer", "Basketball", "Football", "Ultimate Frisbee", "Tennis", "Volleyball", "Golf", "Spikeball"]
+        sportsList = ["Soccer", "Basketball", "Football", "Ultimate Frisbee", "Tennis", "Volleyball", "Spikeball"]
         
-        datePicker = UIDatePicker(frame: CGRect(x: 50, y: sportPicker.frame.maxY + 20, width: view.frame.width - 100, height: 125))
+        datePicker = UIDatePicker(frame: CGRect(x: 25, y: sportPicker.frame.maxY + 10, width: view.frame.width - 50, height: 125))
         datePicker.addTarget(self, action: #selector(getDate), for: .valueChanged)
         datePicker.setValue(UIColor.white, forKey: "textColor")
         
-        locationTextField = UITextField(frame: CGRect(x: 50, y: datePicker.frame.maxY + 20, width: view.frame.width - 100, height: 75))
-        locationTextField.placeholder = "Enter Location"
+        locationTextField = UITextField(frame: CGRect(x: 25, y: datePicker.frame.maxY + 20, width: view.frame.width - 50, height: 40))
         locationTextField.textAlignment = .center
         locationTextField.textColor = UIColor.white
+        locationTextField.font = UIFont.systemFont(ofSize: 20)
+        locationTextField.attributedPlaceholder = NSAttributedString(string: "Enter Location",
+                                                             attributes: [NSForegroundColorAttributeName: UIColor.white])
+        locationTextField.tag = 0
+        locationTextField.delegate = self
         
-        descriptionField = UITextView(frame: CGRect(x: 50, y: locationTextField.frame.maxY + 20, width: view.frame.width - 100, height: view.frame.height/10))
+        descriptionField = UITextView(frame: CGRect(x: 25, y: locationTextField.frame.maxY + 10, width: view.frame.width - 50, height: view.frame.height/10))
         descriptionField.text = "Description of Event"
         descriptionField.textAlignment = .center
-        descriptionField.textContainer.maximumNumberOfLines = 2
+        descriptionField.textContainer.maximumNumberOfLines = 1
         descriptionField.textColor = UIColor.white
-        descriptionField.font = UIFont(name: (descriptionField.font?.fontName)!, size: 20)
+        descriptionField.font = UIFont.systemFont(ofSize: 18)
         descriptionField.isUserInteractionEnabled = true
         descriptionField.delegate = self
         descriptionField.backgroundColor = UIColor.init(red: 249/255, green: 170/255, blue: 97/255, alpha: 1.0)
+        descriptionField.tag = 1
+        descriptionField.returnKeyType = .go
+
         
         postButton = UIButton(frame: CGRect(x: view.frame.width/5, y: descriptionField.frame.maxY + 10, width: view.frame.width * (3/5), height: view.frame.height/11))
         postButton.setTitle("Post", for: .normal)
@@ -148,22 +155,17 @@ class NewEventViewController: UIViewController, UITextFieldDelegate {
         
         let location = locationTextField.text!
         let description = descriptionField.text!
-        
-        if description == "" || location == "" {
-            let alert = UIAlertController(title: "Error", message: "Please fill out all fields", preferredStyle: UIAlertControllerStyle.alert)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
-            self.present(alert, animated: true, completion: nil)
+    
+        if description == "Description of Event" || description == "" || location == "" {
+            self.displayError(withMessage: "Please fill out all fields.")
         } else {
             sport = sportsList[sportPicker.selectedRow(inComponent: 0)]
-            
             self.locationTextField.text = ""
-            
             self.descriptionField.text = ""
             let schoolRef = eventsRef.child(UserDefaults.standard.value(forKey: "school") as! String)
             peopleGoing = []
             peopleGoing.append(UserDefaults.standard.string(forKey: "name")!)
             comments = []
-        
         
             let newEvent = ["author": UserDefaults.standard.string(forKey: "name")!, "sport": sport, "description": description, "peopleGoing": peopleGoing, "date": date, "location": location, "comments": comments] as [String : Any]
             let key = schoolRef.childByAutoId().key
@@ -179,7 +181,27 @@ class NewEventViewController: UIViewController, UITextFieldDelegate {
     }
 }
 
-extension NewEventViewController: UIPickerViewDataSource, UIPickerViewDelegate, UITextViewDelegate {
+extension NewEventViewController: UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate, UITextViewDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        // Try to find next responder
+        if let nextField = textField.superview?.viewWithTag(textField.tag + 1) as? UITextField {
+            nextField.becomeFirstResponder() //advances to next text field when return is pressed
+        } else if let nextField = textField.superview?.viewWithTag(textField.tag + 1) as? UITextView {
+            // no more text fields after
+            nextField.becomeFirstResponder()
+        }
+        return false
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if (text == "\n") { // go back when line is skipped AKA enter is pressed
+            textView.resignFirstResponder()
+            addNewEvent()
+        }
+        return true
+    }
+    
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
@@ -199,6 +221,14 @@ extension NewEventViewController: UIPickerViewDataSource, UIPickerViewDelegate, 
     func textViewDidBeginEditing(_ textView: UITextView) {
         descriptionField.text = ""
     }
+
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if descriptionField.text.isEmpty { //if finished editing and text is empty, return to placeholder
+            descriptionField.text = "Event Description"
+        }
+//        scrollTextField = nil
+    }
     
     func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
         let attributedString = NSAttributedString(string: sportsList[row], attributes: [NSForegroundColorAttributeName : UIColor.white])
@@ -210,7 +240,6 @@ extension NewEventViewController: MKLocalSearchCompleterDelegate {
     
     func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
         completer.results.map { result in
-            print(result.title)
             locations.append(result.title)
             dropdown.dataSource = locations
         }
