@@ -98,7 +98,7 @@ class NewEventViewController: UIViewController, UITextFieldDelegate {
         
         sportsList = ["Soccer", "Basketball", "Football", "Ultimate Frisbee", "Tennis", "Volleyball", "Golf", "Spikeball"]
         
-        datePicker = UIDatePicker(frame: CGRect(x: 50, y: sportPicker.frame.maxY + 20, width: view.frame.width - 100, height: 125))
+        datePicker = UIDatePicker(frame: CGRect(x: 40, y: sportPicker.frame.maxY + 20, width: view.frame.width - 90, height: 125))
         datePicker.addTarget(self, action: #selector(getDate), for: .valueChanged)
         datePicker.setValue(UIColor.white, forKey: "textColor")
         

@@ -154,11 +154,13 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
         cell.school = UserDefaults.standard.value(forKey: "school") as! String
         
         var dateString: String! = currentEvent.date!
+
+        let split1 = dateString.components(separatedBy: ", ")
+        cell.time = split1[2] //get time
+        let split2 = split1[0].components(separatedBy: " ")
+        cell.month = split2[0] //get month
+        cell.day = Int(split2[1]) //get day
         
-        cell.month = dateString.substring(to: dateString.index(dateString.startIndex, offsetBy: 3)).uppercased()
-        
-        cell.day = Int(dateString.substring(to: dateString.index(dateString.startIndex, offsetBy: 6)).substring(from: dateString.index(dateString.startIndex, offsetBy: 4)))
-        cell.time = dateString.substring(from: dateString.index(dateString.startIndex, offsetBy: 13))
         cell.eventDescription = currentEvent.description
         cell.location = currentEvent.location
         let array = UserDefaults.standard.array(forKey: "events") as! [String]
