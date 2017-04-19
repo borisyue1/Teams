@@ -17,11 +17,11 @@ class CommentViewController: UIViewController {
     var comments: [String]! = []
     var tableView: UITableView!
     var currKey: String?
-    
     var commentsArray: [Comment]! = []
-    
     var textField: UITextField!
     var postButton: UIButton!
+    var exitButton: UIButton!
+    var keyboardSize: CGRect!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,13 +30,9 @@ class CommentViewController: UIViewController {
         self.navigationController?.navigationBar.tintColor = UIColor.black
         self.view.backgroundColor = UIColor.white
         fetchComments {
+            self.setupExitButton()
             self.setUpTableView()
         }
-        
-        let exitButton = UIButton(frame: CGRect(x: 5, y: 20, width: 25, height: 25))
-        exitButton.addTarget(self, action: #selector(exitPressed), for: .touchUpInside)
-        exitButton.setImage(UIImage(named: "exit"), for: .normal)
-        view.addSubview(exitButton)
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
@@ -46,9 +42,9 @@ class CommentViewController: UIViewController {
     
     func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            self.keyboardSize = keyboardSize
             if self.view.frame.origin.y == 0{
-                print("FUCKING COME ON")
-                self.view.frame.origin.y -= (keyboardSize.height - textField.frame.height)
+                self.view.frame.origin.y -= keyboardSize.height
             }
         }
     }
@@ -56,22 +52,29 @@ class CommentViewController: UIViewController {
     func keyboardWillHide(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
             if self.view.frame.origin.y != 0{
-                print("FUCK yOU")
-                self.view.frame.origin.y += (keyboardSize.height - textField.frame.height)
+                self.view.frame.origin.y += keyboardSize.height
             }
         }
+    }
+    
+    func setupExitButton() {
+        exitButton = UIButton(frame: CGRect(x: 5, y: 20, width: 25, height: 25))
+        exitButton.addTarget(self, action: #selector(exitPressed), for: .touchUpInside)
+        exitButton.setImage(UIImage(named: "exit"), for: .normal)
+        view.addSubview(exitButton)
     }
     
     func exitPressed() {
         self.dismiss(animated: true, completion: nil)
     }
+    
     func setUpTableView() {
         print("setting up table view")
-        tableView = UITableView(frame: CGRect(x: 0, y: 40, width: view.frame.width, height: view.frame.height - 20 - 40))
+        tableView = UITableView(frame: CGRect(x: 0, y: exitButton.frame.maxY, width: view.frame.width, height: view.frame.height - exitButton.frame.maxY - exitButton.frame.height -
+        postButton.frame.height))
         tableView.register(CommentTableViewCell.self, forCellReuseIdentifier: "commentCell")
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.separatorStyle = .none
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         
         view.backgroundColor = UIColor.white
@@ -116,7 +119,9 @@ class CommentViewController: UIViewController {
     func postComment() {
         let schoolRef = eventsRef.child(UserDefaults.standard.value(forKey: "school") as! String).child(currKey!).child("comments")
         print("AYyyyyyyy")
+        textField.text = "Post a comment..."
         let key = schoolRef.childByAutoId().key
+        self.dismissKeyboard()
         
         let newComment = [UserDefaults.standard.string(forKey: "name")!: textField.text] as [String : Any]
         
@@ -133,38 +138,27 @@ extension CommentViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "commentCell") as! CommentTableViewCell
         
+        for subview in cell.contentView.subviews {
+            subview.removeFromSuperview()
+        }
+        
         cell.awakeFromNib()
         
         let currentComment = commentsArray[indexPath.row]
         
-        print("current comment: ", currentComment)
-        
-        //cell.name.text = UserDefaults.standard.string(forKey: "name")
         cell.name.text = currentComment.author
         cell.comment.text = currentComment.text
-        cell.name.textColor = UIColor.black
-        cell.comment.textColor = UIColor.black
-        
         
         return cell
     }
     
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        let cell = cell as! CommentTableViewCell
-        let currentComment = commentsArray[indexPath.row]
-        
-        
-        //cell.name.text = UserDefaults.standard.string(forKey: "name")
-        cell.name.text = currentComment.author
-        cell.comment.text = currentComment.text
-        cell.name.textColor = UIColor.blue
-        cell.comment.textColor = UIColor.black
-        cell.name.font = UIFont(name: "HelveticaNeue-Bold", size: 15)
-        cell.comment.font = UIFont(name: "HelveticaNeue-Thin", size: 15)
-        
-        
-        
-    }
+//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//        let cell = cell as! CommentTableViewCell
+//        let currentComment = commentsArray[indexPath.row]
+//        
+//        cell.name.text = currentComment.author
+//        cell.comment.text = currentComment.text
+//    }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 70
     }
