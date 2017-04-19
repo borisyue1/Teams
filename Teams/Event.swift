@@ -75,10 +75,8 @@ class Event {
         self.peopleGoing.append(name)
         var array = UserDefaults.standard.array(forKey: "events")!
         array.append(self.id!)
-        print("setting event to defaults: ", self.id!)
-        print(array)
         UserDefaults.standard.set(array, forKey: "events")
-       print(UserDefaults.standard.synchronize())
+        UserDefaults.standard.synchronize()
         let childUpdates = ["\(self.id!)/peopleGoing": self.peopleGoing]
         schoolRef.updateChildValues(childUpdates) //update interested array
     }
@@ -89,7 +87,6 @@ class Event {
         array.remove(at: array.index(of: self.id!)!)
         UserDefaults.standard.set(array, forKey: "events")
         UserDefaults.standard.synchronize()
-        print("removed", array)
         let childUpdates = ["\(self.id!)/peopleGoing": self.peopleGoing]
         schoolRef.updateChildValues(childUpdates) //update interested array
     }

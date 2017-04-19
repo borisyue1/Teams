@@ -288,26 +288,30 @@ class FeedTableViewCell: UITableViewCell {
     
     func initJoinButton() {
         joinButton = UIButton(frame: CGRect(x: contactButton.frame.maxX, y: rectView.frame.maxY - 40, width: rectView.frame.width / 2, height: 40))
-        print("buttonisSelected=", buttonIsSelected)
         joinButton.isSelected = buttonIsSelected
+        if !buttonIsSelected {
+            joinButton.backgroundColor = UIColor(red: 235/255, green: 235/255, blue: 235/255, alpha: 1.0)
+        } else {
+            joinButton.backgroundColor = UIColor(red: 230/255, green: 230/255, blue: 230/255, alpha: 1.0)
+        }
         joinButton.setTitle("Join", for: .normal)
         joinButton.setTitle("Unjoin", for: .selected)
         
         joinButton.titleLabel?.font = UIFont(name: "Lato-Light", size: 14.0)
         joinButton.setTitleColor(UIColor.black, for: .normal)
-        joinButton.backgroundColor = UIColor(red: 235/255, green: 235/255, blue: 235/255, alpha: 1.0)
         joinButton.contentHorizontalAlignment = .center
         joinButton.addTarget(self, action: #selector(joinTeam), for: .touchUpInside)
         contentView.addSubview(joinButton)
     }
     
     func joinTeam() {
-        print(buttonIsSelected)
         if !buttonIsSelected {
+            joinButton.backgroundColor = UIColor(red: 230/255, green: 230/255, blue: 230/255, alpha: 1.0)
             buttonIsSelected = true
             joinButton.isSelected = true
             delegate?.addInterestedUser(forCell: self, withName: UserDefaults.standard.value(forKey: "name") as! String)
         } else {
+            joinButton.backgroundColor = UIColor(red: 235/255, green: 235/255, blue: 235/255, alpha: 1.0)
             buttonIsSelected = false
             joinButton.isSelected = false
             delegate?.removeInterestedUser(forCell: self, withName: UserDefaults.standard.value(forKey: "name") as! String)

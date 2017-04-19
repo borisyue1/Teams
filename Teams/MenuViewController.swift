@@ -14,7 +14,7 @@ protocol FeedTableDelegate {
 
 class MenuViewController: UIViewController {
     var tableView: UITableView!
-    let labels: [String] = ["Sport", "Date"]
+    let labels: [String] = ["By Sport", "By Date"]
     var settingsButton: UIButton!
     static var feedTableDelegate: FeedTableDelegate?
     var indexSelected: IndexPath!
@@ -93,10 +93,8 @@ extension MenuViewController: UITableViewDataSource, UITableViewDelegate {
         switch indexPath.row {
         case 0:
             sortedItem = "sport"
-            
         case 1:
             sortedItem = "date"
-            
         case 3:
             print("hi")
         default:

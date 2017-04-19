@@ -38,8 +38,7 @@ class FeedViewController: UIViewController {
         self.navigationItem.setRightBarButton(addButton, animated: true)
         fetchPosts {
             self.setUpTableView()
-        }
-        
+        }        
         setupSideBarButton()
         setUpSideBar()
         
@@ -163,7 +162,6 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
         cell.eventDescription = currentEvent.description
         cell.location = currentEvent.location
         let array = UserDefaults.standard.array(forKey: "events") as! [String]
-        print("current", currentEvent.id!)
         if !array.contains(currentEvent.id!) {
             cell.buttonIsSelected = false
         } else {
@@ -192,8 +190,6 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
             cell.pic.image = #imageLiteral(resourceName: "basketball")
             
         }
-        //        cell.contentView.addSubview(cell.pic)
-        //cell.timeLabel.text = currentEvent.date
         schoolRef.child("\(currentEvent.id!)").observe(.value, with: { snapshot in
             let value = snapshot.value as? NSDictionary
             let idArray = value?["peopleGoing"] as? [String] ?? []
