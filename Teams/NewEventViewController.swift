@@ -93,7 +93,6 @@ class NewEventViewController: UIViewController {
         dropdown.selectionAction = { [unowned self] (index: Int, item: String) in
             //self.dropdown.show()
             self.locationTextField.text = item
-            print("Selected item: \(item) at index: \(index)")
         }
         dropdown.show()
         locations.removeAll() //reset results
@@ -260,7 +259,6 @@ extension NewEventViewController: MKLocalSearchCompleterDelegate {
     
     func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
         completer.results.map { result in
-            print(result.title)
             locations.append(result.title)
             dropdown.dataSource = locations
         }
