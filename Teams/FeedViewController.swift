@@ -23,6 +23,7 @@ class FeedViewController: UIViewController {
     var passedEvent: Event?
     var menuButton: UIBarButtonItem!
     static var shouldUpdateFeed = false
+    var eventCache: [String: Int] = [:]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,6 +64,7 @@ class FeedViewController: UIViewController {
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: view.frame.height / 10, right: 0)
         tableView.tableFooterView = UIView() // gets rid of the extra cells beneath
         tableView.allowsSelection = false
+        self.automaticallyAdjustsScrollViewInsets = false
         view.addSubview(tableView)
     }
     
@@ -77,9 +79,7 @@ class FeedViewController: UIViewController {
         }
     }
     
-    func rowHeight() -> CGFloat {
-        return 200
-    }
+  
     
     func setupSideBarButton() {
         menuButton = UIBarButtonItem(title: "Sort", style: .plain, target: self.revealViewController(), action: "revealToggle:")
@@ -187,14 +187,20 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
             cell.pic.image = #imageLiteral(resourceName: "basketball")
             
         }
-        schoolRef.child("\(currentEvent.id!)").observe(.value, with: { snapshot in
-            let value = snapshot.value as? NSDictionary
-            let idArray = value?["peopleGoing"] as? [String] ?? []
-            DispatchQueue.main.async {
-                cell.numGoingLabel.text = "\(idArray.count) going"
-                cell.numGoingLabel.sizeToFit()
-            }
-        })
+        if let numGoing = eventCache[currentEvent.id!] {
+            cell.numGoingLabel.text = "\(numGoing) going"
+            cell.numGoingLabel.sizeToFit()
+        } else {
+            schoolRef.child("\(currentEvent.id!)").observe(.value, with: { snapshot in
+                let value = snapshot.value as? NSDictionary
+                let idArray = value?["peopleGoing"] as? [String] ?? []
+                DispatchQueue.main.async {
+                    cell.numGoingLabel.text = "\(idArray.count) going"
+                    cell.numGoingLabel.sizeToFit()
+                    self.eventCache[currentEvent.id!] = idArray.count
+                }
+            })
+        }
     }
     
 }

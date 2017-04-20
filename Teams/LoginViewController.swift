@@ -14,6 +14,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     var nameLabel: UILabel!
     var nameField: UITextField!
     var loginButton: UIButton!
+    var buttonPressed = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +26,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         self.navigationController?.navigationBar.tintColor = UIColor.white
         //Looks for single or multiple taps.
         self.hideKeyboardWhenTappedAround()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if buttonPressed {
+            loginButton.backgroundColor = UIColor.init(red: 75/255, green: 184/255, blue: 147/255, alpha: 1.0)
+            loginButton.setTitleColor(UIColor.white, for: .normal)
+        }
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -44,12 +52,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         nameField.attributedPlaceholder = NSAttributedString(string: "Your Name",
                                                              attributes: [NSForegroundColorAttributeName: UIColor.white])
         nameField.returnKeyType = .go
+        nameField.layer.cornerRadius = 5
+        nameField.layer.masksToBounds = true
         view.addSubview(nameField)
     }
     
     func initNameLabel() {
         nameLabel = UILabel(frame: CGRect(x: 0, y: nameField.frame.minY - 30, width: view.frame.width, height: 20))
-        
         nameLabel.text = "My name is"
         nameLabel.font = UIFont(name: "Lato-Light", size: 16.0)
         nameLabel.textColor = UIColor.white
@@ -61,7 +70,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         loginButton = UIButton(frame: CGRect(x: 0, y: view.frame.maxY - 80, width: view.frame.width, height: 80))
         loginButton.setTitle("Get started!", for: .normal)
         loginButton.setTitleColor(UIColor.white, for: .normal)
-        loginButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: 22.0)
+        loginButton.titleLabel?.font = UIFont(name: "Lato-Medium", size: 24.0)
         loginButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.center
         loginButton.backgroundColor = UIColor.init(red: 75/255, green: 184/255, blue: 147/255, alpha: 1.0)
         
@@ -73,21 +82,14 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     func loginPressed() {
         if nameField.text != "" {
             UserDefaults.standard.set(nameField.text, forKey: "name")
-//            performSegue(withIdentifier: "toOptionView", sender: self)
             self.navigationController?.pushViewController(OptionViewController(), animated: true)
+            loginButton.backgroundColor = UIColor.white
+            loginButton.setTitleColor(UIColor.init(red: 75/255, green: 184/255, blue: 147/255, alpha: 1.0), for: .normal)
+            buttonPressed = true
         } else {
             self.displayError(withMessage: "Please input your name.")
         }
         
-    }
-    
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toOptionView" {
-            let optionVC = segue.destination as! OptionViewController
-            optionVC.school = self.school
-            optionVC.name = self.nameField.text
-        }
     }
 
 }

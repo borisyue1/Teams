@@ -76,6 +76,8 @@ class SettingsViewController: UIViewController {
         nameField.attributedPlaceholder = NSAttributedString(string: UserDefaults.standard.value(forKey: "name") as! String,
                                                              attributes: [NSForegroundColorAttributeName: UIColor.white])
         nameField.returnKeyType = .done
+        nameField.layer.cornerRadius = 5
+        nameField.layer.masksToBounds = true
         view.addSubview(nameField)
     }
     
@@ -97,6 +99,8 @@ class SettingsViewController: UIViewController {
         schoolButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.center
         schoolButton.layer.borderWidth = 2
         schoolButton.layer.borderColor = UIColor.white.cgColor
+        schoolButton.layer.cornerRadius = 5
+        schoolButton.layer.masksToBounds = true
         view.addSubview(schoolButton)
     }
     

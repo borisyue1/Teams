@@ -60,7 +60,7 @@ class CommentViewController: UIViewController {
     func setupExitButton() {
         exitButton = UIButton(frame: CGRect(x: 5, y: 20, width: 25, height: 25))
         exitButton.addTarget(self, action: #selector(exitPressed), for: .touchUpInside)
-        exitButton.setImage(UIImage(named: "exit"), for: .normal)
+        exitButton.setImage(UIImage(named: "exit2"), for: .normal)
         view.addSubview(exitButton)
     }
     
@@ -97,7 +97,8 @@ class CommentViewController: UIViewController {
     
     func initPostFields() {
         textField = UITextField(frame: CGRect(x: 5, y: view.frame.maxY - 40, width: view.frame.width - 60, height: 40))
-        textField.placeholder = "Post a comment..."
+        textField.attributedPlaceholder = NSAttributedString(string: "Post a comment...",
+                                                             attributes: [NSForegroundColorAttributeName: UIColor.white])
         
         postButton = UIButton(frame: CGRect(x: textField.frame.maxX, y: view.frame.maxY - 40, width: 60, height: 40))
         postButton.setTitle("Post", for: .normal)
