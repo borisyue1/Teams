@@ -125,6 +125,8 @@ class SettingsViewController: UIViewController {
         if nameField.text != "" {
             UserDefaults.standard.set(nameField.text, forKey: "name")
         }
+        doneButton.backgroundColor = UIColor.white
+        doneButton.setTitleColor(UIColor(red: 249/255, green: 170/255, blue: 97/255, alpha: 1.0), for: .normal)
         FeedViewController.shouldUpdateFeed = true
         UserDefaults.standard.set(schoolButton.titleLabel?.text, forKey: "school")
         self.dismiss(animated: true, completion: nil)

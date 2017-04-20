@@ -23,7 +23,7 @@ class FeedViewController: UIViewController {
     var passedEvent: Event?
     var menuButton: UIBarButtonItem!
     static var shouldUpdateFeed = false
-    var eventCache: [String: Int] = [:]
+    var eventCache: [String: Int] = [:]//caches numGoing
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,6 +55,7 @@ class FeedViewController: UIViewController {
     }
     
     func setUpTableView() {
+//        self.loader.removeFromSuperview()
         tableView = UITableView(frame: CGRect(x: 0, y: (navigationController?.navigationBar.frame.maxY)!, width: view.frame.width, height: view.frame.height))
         tableView.register(FeedTableViewCell.self, forCellReuseIdentifier: "feedCell")
         tableView.delegate = self
@@ -95,7 +96,7 @@ class FeedViewController: UIViewController {
         events.removeAll()
         schoolRef = eventsRef.child(UserDefaults.standard.value(forKey: "school") as! String)
         schoolRef.observe(.childAdded, with: { (snapshot) in
-            print("queryorderedbychild")
+//            print("queryorderedbychild")
             var post = Event(id: snapshot.key, postDict: snapshot.value as! [String : Any]?)
             let dateFormatter = DateFormatter()
             dateFormatter.dateStyle = DateFormatter.Style.medium
@@ -105,7 +106,6 @@ class FeedViewController: UIViewController {
             self.sortedEvents.append(post)
             self.events.append(post)
             self.postIds.append(snapshot.key)
-            print(snapshot.key)
             withBlock() //ensures that next block is called
         })
     }
@@ -122,6 +122,7 @@ class FeedViewController: UIViewController {
             view.currKey = currKey
         }
     }
+    
 }
 
 extension FeedViewController: UITableViewDelegate, UITableViewDataSource {

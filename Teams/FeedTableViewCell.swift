@@ -183,7 +183,7 @@ class FeedTableViewCell: UITableViewCell {
         authorLabel.font = UIFont(name: "Lato-Light", size: 14.0)
         authorLabel.sizeToFit()
         
-        print("FUCKING SPORT: ", author)
+//        print("FUCKING SPORT: ", author)
         
         rectView.addSubview(authorLabel)
     }
@@ -227,8 +227,8 @@ class FeedTableViewCell: UITableViewCell {
     
     func initLine() {
         
-        var aPath = UIBezierPath()
-        var bPath = UIBezierPath()
+        let aPath = UIBezierPath()
+        let bPath = UIBezierPath()
         
         aPath.move(to: CGPoint(x:rectView.frame.minX, y:rectView.frame.maxY - 40))
         aPath.addLine(to: CGPoint(x:rectView.frame.maxX, y:rectView.frame.maxY - 40))
@@ -253,12 +253,12 @@ class FeedTableViewCell: UITableViewCell {
         bPath.stroke()
         bPath.fill()
         
-        var shapeLayer = CAShapeLayer()
+        let shapeLayer = CAShapeLayer()
         shapeLayer.path = aPath.cgPath
         shapeLayer.strokeColor = UIColor(red: 220/255, green: 220/255, blue: 220/255, alpha: 1.0).cgColor
         shapeLayer.lineWidth = 1.0
         
-        var shapeLayer2 = CAShapeLayer()
+        let shapeLayer2 = CAShapeLayer()
         shapeLayer2.path = bPath.cgPath
         shapeLayer2.strokeColor = UIColor(red: 220/255, green: 220/255, blue: 220/255, alpha: 1.0).cgColor
         shapeLayer2.lineWidth = 0.5

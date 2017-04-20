@@ -60,7 +60,7 @@ class CommentViewController: UIViewController {
     func setupExitButton() {
         exitButton = UIButton(frame: CGRect(x: 5, y: 20, width: 25, height: 25))
         exitButton.addTarget(self, action: #selector(exitPressed), for: .touchUpInside)
-        exitButton.setImage(UIImage(named: "exit2"), for: .normal)
+        exitButton.setImage(UIImage(named: "exit"), for: .normal)
         view.addSubview(exitButton)
     }
     

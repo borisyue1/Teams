@@ -1,5 +1,17 @@
 PODS:
+  - Bolts (1.8.4):
+    - Bolts/AppLinks (= 1.8.4)
+    - Bolts/Tasks (= 1.8.4)
+  - Bolts/AppLinks (1.8.4):
+    - Bolts/Tasks
+  - Bolts/Tasks (1.8.4)
   - DropDown (2)
+  - FBSDKCoreKit (4.10.1):
+    - Bolts (~> 1.5)
+  - FBSDKLoginKit (4.10.1):
+    - FBSDKCoreKit
+  - FBSDKShareKit (4.10.1):
+    - FBSDKCoreKit
   - Firebase/Auth (3.14.0):
     - Firebase/Core
     - FirebaseAuth (= 3.1.1)
@@ -54,6 +66,9 @@ PODS:
 
 DEPENDENCIES:
   - DropDown
+  - FBSDKCoreKit (from `https://raw.githubusercontent.com/chrisp-fb/facebook-ios-sdk/master/FBSDKCoreKit.podspec`)
+  - FBSDKLoginKit (~> 4.10.0)
+  - FBSDKShareKit (~> 4.10.0)
   - Firebase/Auth
   - Firebase/Core
   - Firebase/Database
@@ -61,8 +76,16 @@ DEPENDENCIES:
   - Firebase/Storage
   - SideMenuController
 
+EXTERNAL SOURCES:
+  FBSDKCoreKit:
+    :podspec: https://raw.githubusercontent.com/chrisp-fb/facebook-ios-sdk/master/FBSDKCoreKit.podspec
+
 SPEC CHECKSUMS:
+  Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
   DropDown: 744784d9c9aa505100e942c16acd05430cbb2f0a
+  FBSDKCoreKit: 0c3be73d1cd4c0d6180d148ab31ae3c17cfb95ff
+  FBSDKLoginKit: 699ff169080e3072de4b9b0faca90bf23dc36deb
+  FBSDKShareKit: 2fd887cce0056bdda91f99b2021d724a4fed8e88
   Firebase: 85a581fb04e44f63ae9f4fbc8d6dabf4a4c18653
   FirebaseAnalytics: 0d1b7d81d5021155be37702a94ba1ec16d45365d
   FirebaseAuth: cc8a1824170adbd351edb7f994490a3fb5c18be6
@@ -76,6 +99,6 @@ SPEC CHECKSUMS:
   Protobuf: 2ccbaf193f6c65adc67745453ca0c13234c32796
   SideMenuController: b463d2b3aa58e2afe57f57a07938fa9a647894ca
 
-PODFILE CHECKSUM: 2406bd1518b3f41b97d465eb9a8d293058bd86e8
+PODFILE CHECKSUM: 2f18504f3754623c382c4e691dfea296056c7267
 
 COCOAPODS: 1.2.0
