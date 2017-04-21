@@ -16,10 +16,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        if UserDefaults.standard.array(forKey: "events") == nil {
-            let emptyArr: [String] = []
-            UserDefaults.standard.set(emptyArr, forKey: "events")
-        }
         FIRApp.configure()
         return true
     }

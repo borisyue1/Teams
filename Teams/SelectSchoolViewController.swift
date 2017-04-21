@@ -8,7 +8,6 @@
 
 import UIKit
 import DropDown
-import FBSDKLoginKit
 import Firebase
 
 class SelectSchoolViewController: UIViewController {
@@ -18,22 +17,23 @@ class SelectSchoolViewController: UIViewController {
     var nextButton: UIButton!
     var button: UIButton!
     var buttonTapped = false
+    var userRef = FIRDatabase.database().reference().child("Users")
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        UserDefaults.standard.removeObject(forKey: "name")
-        UserDefaults.standard.removeObject(forKey: "school")
-        UserDefaults.standard.synchronize()
-        if let _ = UserDefaults.standard.value(forKey: "name") {
-            if let _ = UserDefaults.standard.value(forKey: "school") {
-                //if name and school already inputted, skip to optionview
-                let sb = UIStoryboard(name: "Main", bundle: nil)
-                let controller = sb.instantiateViewController(withIdentifier: "FrontVC")
-                
-                revealViewController().setFront(controller, animated: true)
-
-            }
-        }
+//        UserDefaults.standard.removeObject(forKey: "name")
+//        UserDefaults.standard.removeObject(forKey: "school")
+//        UserDefaults.standard.synchronize()
+//        if let _ = UserDefaults.standard.value(forKey: "name") {
+//            if let _ = UserDefaults.standard.value(forKey: "school") {
+//                //if name and school already inputted, skip to optionview
+//                let sb = UIStoryboard(name: "Main", bundle: nil)
+//                let controller = sb.instantiateViewController(withIdentifier: "FrontVC")
+//                
+//                revealViewController().setFront(controller, animated: true)
+//
+//            }
+//        }
         initButton()
         initLabel()
         initDropDown()
@@ -83,7 +83,6 @@ class SelectSchoolViewController: UIViewController {
         nextButton.titleLabel?.font = UIFont(name: "Lato-Medium", size: 24.0)
         
         nextButton.addTarget(self, action: #selector(nextPressed), for: UIControlEvents.touchUpInside)
-        
         view.addSubview(nextButton)
     }
     
@@ -103,8 +102,7 @@ class SelectSchoolViewController: UIViewController {
         dropdown.selectionAction = { [unowned self] (index: Int, item: String) in
             //self.dropdown.show()
             self.button.setTitle(item, for: .normal)
-            UserDefaults.standard.set(item, forKey: "school")
-            print("Selected item: \(item) at index: \(index)")
+//            UserDefaults.standard.set(item, forKey: "school")
         }
         dropdown.width = 230
         
@@ -112,58 +110,17 @@ class SelectSchoolViewController: UIViewController {
     }
     
     func nextPressed() {
-//        if let _ = UserDefaults.standard.value(forKey: "school") {
-////            performSegue(withIdentifier: "toLoginView", sender: self)
-//            self.navigationController?.pushViewController(LoginViewController(), animated: true)
-//            nextButton.backgroundColor = UIColor.white
-//            nextButton.setTitleColor(UIColor.init(red: 249/255, green: 170/255, blue: 97/255, alpha: 1.0), for: .normal)
-//            buttonTapped = true
-//        } else {
-//            self.displayError(withMessage: "Please select a school first.")
-//        }
-        let loginManager = FBSDKLoginManager()
-        
-        loginManager.logIn(withReadPermissions: ["public_profile", "email", "user_friends"], from: self, handler: { (result, error) -> Void in
-            if error != nil {
-                print("an error occurred while signing in the user: \(error)")
-            } else if (result?.isCancelled)! {
-                print("user cancelled login")
-            } else {
-                let credential = FIRFacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
-//                FIRAuth.auth()?.signIn(with: credential) { (user, error) in
-//                    
-//                    print("the uid is")
-//                    print(user!.uid)
-//                    
-//                    self.dbRef.child("Users/\(user!.uid)").observe(.value, with: { (snapshot) in
-//                        if !snapshot.exists() {
-//                            print("user does not exist, creating new")
-//                            let userDict: [String: String] = ["email": user!.email!,
-//                                                              "fullName": user!.displayName!,
-//                                                              "profPicUrl": user!.photoURL!.absoluteString]
-//                            self.dbRef.child("Users/\(user!.uid)").setValue(userDict, withCompletionBlock: { (error, ref) -> Void in
-//                                self.performSegue(withIdentifier: "toMainFromWelcome", sender: self)
-//                            })
-//                        } else {
-//                            print("user already exists")
-//                            self.performSegue(withIdentifier: "toMainFromWelcome", sender: self)
-//                        }
-//                        
-//                    })
-//                    
-//                }
-            }
-        })
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toLoginView" {
-            let loginVC = segue.destination as! LoginViewController
-            loginVC.school = button.titleLabel?.text
-            
+        if button.titleLabel!.text != "" {
+            let setSchool = ["\((FIRAuth.auth()?.currentUser?.uid)!)/school": button.titleLabel!.text]
+            userRef.updateChildValues(setSchool)
+            self.navigationController?.pushViewController(OptionViewController(), animated: true)
+            nextButton.backgroundColor = UIColor.white
+            nextButton.setTitleColor(UIColor.init(red: 249/255, green: 170/255, blue: 97/255, alpha: 1.0), for: .normal)
+            buttonTapped = true
+        } else {
+            self.displayError(withMessage: "Please select a school first.")
         }
     }
-
-  
+    
 
 }

@@ -27,6 +27,7 @@ class FeedViewController: UIViewController {
     var segControl: UISegmentedControl!
     static var shouldUpdateFeed = false
     var eventCache: [String: Int] = [:]//caches numGoing
+    static var user: User!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,9 +38,12 @@ class FeedViewController: UIViewController {
         let addButton = UIBarButtonItem(image: originalImage, style: .plain, target: self, action: #selector(createEvent))
         addButton.tintColor = UIColor.black
         self.navigationItem.setRightBarButton(addButton, animated: true)
-        fetchPosts {
-            self.setUpTableView()
-        }
+        User.fetchUser(withBlock: { user in
+            FeedViewController.user = user
+            self.fetchPosts {
+                self.setUpTableView()
+            }
+        })
         setupSideBarButton()
         setUpSideBar()
         setupSegControl()
@@ -72,7 +76,7 @@ class FeedViewController: UIViewController {
     
     func setUpSideBar() {
         if self.revealViewController() != nil {
-            print("revreal not nil")
+            print("reveal not nil")
             revealViewController().rearViewRevealWidth = view.frame.width * (2/5)
             menuButton.target = revealViewController()
             menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
@@ -112,7 +116,7 @@ class FeedViewController: UIViewController {
     }
     
     func setupSideBarButton() {
-        menuButton = UIBarButtonItem(title: "Sort", style: .plain, target: self.revealViewController(), action: "revealToggle:")
+//        menuButton = UIBarButtonItem(title: "Sort", style: .plain, target: self.revealViewController(), action: "revealToggle:")
         menuButton = UIBarButtonItem(image: #imageLiteral(resourceName: "gear"), style: .plain, target: self.revealViewController(), action: "revealToggle:")
         menuButton.tintColor = UIColor.gray
         navigationItem.leftBarButtonItem = menuButton
@@ -125,7 +129,7 @@ class FeedViewController: UIViewController {
     func fetchPosts(withBlock: @escaping () -> ()) {
         sortedEvents.removeAll()
         events.removeAll()
-        schoolRef = eventsRef.child(UserDefaults.standard.value(forKey: "school") as! String)
+        schoolRef = eventsRef.child(FeedViewController.user.school)
         schoolRef.observe(.childAdded, with: { (snapshot) in
 //            print("queryorderedbychild")
             var post = Event(id: snapshot.key, postDict: snapshot.value as! [String : Any]?)
@@ -176,27 +180,22 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
         
         cell.school = UserDefaults.standard.value(forKey: "school") as! String
         
-        var dateString: String! = currentEvent.date!
+        let dateString: String! = currentEvent.date!
         let split1 = dateString.components(separatedBy: ", ")
         cell.time = split1[2] //get time
         let split2 = split1[0].components(separatedBy: " ")
         cell.month = split2[0] //get month
         cell.day = Int(split2[1]) //get day
 
-        cell.eventDescription = currentEvent.description
-        let location = currentEvent.location
-        if (location?.characters.count)! > 30 {
-            let index = location?.index((location?.startIndex)!, offsetBy: 30)
-            cell.location = (currentEvent.location?.substring(to: index!))! + "..."
-        } else {
-            cell.location = currentEvent.location
-        }
-        let array = UserDefaults.standard.array(forKey: "events") as! [String]
-        if !array.contains(currentEvent.id!) {
+        cell.eventDescription = currentEvent.description      
+        cell.location = currentEvent.location
+        let array = currentEvent.peopleGoing
+        if !array.contains(FeedViewController.user.id!) {
+            print("hi")
             cell.buttonIsSelected = false
         } else {
+            print("hello")
             cell.buttonIsSelected = true
-
         }
         cell.awakeFromNib()
 
@@ -240,12 +239,12 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension FeedViewController: FeedCellDelegate {
     
-    func addInterestedUser(forCell: FeedTableViewCell, withName: String) {
-        sortedEvents[forCell.tag].addInterestedUser(name: withName)
+    func addInterestedUser(forCell: FeedTableViewCell, withId: String, user: User) {
+        sortedEvents[forCell.tag].addInterestedUser(id: withId, user: user)
     }
     
-    func removeInterestedUser(forCell: FeedTableViewCell, withName: String) {
-        sortedEvents[forCell.tag].removeInterestedUser(name: withName)
+    func removeInterestedUser(forCell: FeedTableViewCell, withId: String, user: User) {
+        sortedEvents[forCell.tag].removeInterestedUser(id: withId, user: user)
     }
     
     func goToComments(forCell: FeedTableViewCell) {

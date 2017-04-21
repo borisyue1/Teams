@@ -7,9 +7,9 @@
 //
 
 import UIKit
-import Firebase
 import MapKit
 import DropDown
+import Firebase
 
 class NewEventViewController: UIViewController {
     
@@ -25,24 +25,28 @@ class NewEventViewController: UIViewController {
     var sport: String!
     var auth = FIRAuth.auth()
     var eventsRef: FIRDatabaseReference = FIRDatabase.database().reference().child("Event")
+    var userRef: FIRDatabaseReference = FIRDatabase.database().reference().child("Users")
     var peopleGoing: [String]!
     var comments: [String]!
     var addressCompleter = MKLocalSearchCompleter()
     var dropdown = DropDown() //for location search
     var locations: [String] = [] //for location search
+    var user: User!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()
         UITextField.appearance().tintColor = UIColor.white //sets cursor to white
         UITextView.appearance().tintColor = UIColor.white
-        setUpNavBar()
-        setupLayout()
-        initDropDown()
-        addressCompleter.delegate = self
-//        addressCompleter.region = MKCoordinateRegionMakeWithDistance(currentCoordinate, 10_000, 10_000)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        User.fetchUser(withBlock: { user in
+            self.user = user
+            self.setUpNavBar()
+            self.setupLayout()
+            self.initDropDown()
+            self.addressCompleter.delegate = self
+            NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        })
     }
     
     func keyboardWillShow(notification: NSNotification) {
@@ -120,7 +124,7 @@ class NewEventViewController: UIViewController {
         datePicker.addTarget(self, action: #selector(getDate), for: .valueChanged)
         datePicker.setValue(UIColor.white, forKey: "textColor")
         
-        locationTextField = UITextField(frame: CGRect(x: 25, y: datePicker.frame.maxY + 20, width: view.frame.width - 50, height: 40))
+        locationTextField = UITextField(frame: CGRect(x: 25, y: datePicker.frame.maxY + 25, width: view.frame.width - 50, height: 40))
         locationTextField.textAlignment = .center
         locationTextField.textColor = UIColor.white
         locationTextField.font = UIFont.systemFont(ofSize: 20)
@@ -130,26 +134,23 @@ class NewEventViewController: UIViewController {
         
         locationTextField.tag = 0
         
-        descriptionField = UITextView(frame: CGRect(x: 25, y: locationTextField.frame.maxY + 10, width: view.frame.width - 50, height: view.frame.height/10))
+        descriptionField = UITextView(frame: CGRect(x: 25, y: locationTextField.frame.maxY + 15, width: view.frame.width - 50, height: view.frame.height/10))
         descriptionField.text = "Description of Event"
         descriptionField.textAlignment = .center
-        descriptionField.textContainer.maximumNumberOfLines = 1
+        descriptionField.textContainer.maximumNumberOfLines = 2
         descriptionField.textColor = UIColor.white
-        descriptionField.font = UIFont.systemFont(ofSize: 18)
+        descriptionField.font = UIFont.systemFont(ofSize: 20)
         descriptionField.isUserInteractionEnabled = true
         descriptionField.backgroundColor = UIColor.init(red: 249/255, green: 170/255, blue: 97/255, alpha: 1.0)
         descriptionField.tag = 1
         descriptionField.returnKeyType = .go
         descriptionField.delegate = self
         
-        postButton = UIButton(frame: CGRect(x: view.frame.width/5, y: descriptionField.frame.maxY + 10, width: view.frame.width * (3/5), height: view.frame.height/11))
+        postButton = UIButton(frame: CGRect(x: 0, y: view.frame.maxY - 80, width: view.frame.width, height: 80))
         postButton.setTitle("Post", for: .normal)
         postButton.setTitleColor(UIColor.white, for: .normal)
-        postButton.titleLabel?.font = UIFont(name: "Lato-Medium", size: 25)
-        postButton.layer.borderWidth = 3.0
-        postButton.layer.borderColor = UIColor.white.cgColor
-        postButton.layer.cornerRadius = 5
-        postButton.layer.masksToBounds = true
+        postButton.backgroundColor = UIColor.init(red: 75/255, green: 184/255, blue: 147/255, alpha: 1.0)
+        postButton.titleLabel?.font = UIFont(name: "Lato-Medium", size: 24.0)
         postButton.addTarget(self, action: #selector(addNewEvent), for: .touchUpInside)
         
         view.addSubview(createTeamLabel)
@@ -180,27 +181,30 @@ class NewEventViewController: UIViewController {
             self.displayError(withMessage: "Please fill out all fields.")
         } else {
             postButton.backgroundColor = UIColor.white
-            postButton.setTitleColor(UIColor.init(red: 249/255, green: 170/255, blue: 97/255, alpha: 1.0), for: .normal)
+            postButton.setTitleColor(UIColor.init(red: 75/255, green: 184/255, blue: 147/255, alpha: 1.0), for: .normal)
             sport = sportsList[sportPicker.selectedRow(inComponent: 0)]
             self.locationTextField.text = ""
             self.descriptionField.text = ""
-            let schoolRef = eventsRef.child(UserDefaults.standard.value(forKey: "school") as! String)
-            peopleGoing = []
-            peopleGoing.append(UserDefaults.standard.string(forKey: "name")!)
+            let schoolRef = eventsRef.child(user.school)
+            peopleGoing = [user.id!]
             comments = []
         
-            let newEvent = ["author": UserDefaults.standard.string(forKey: "name")!, "sport": sport, "description": description, "peopleGoing": peopleGoing, "date": date, "location": location, "comments": comments] as [String : Any]
+            let newEvent = ["author": user.name, "sport": sport, "description": description, "peopleGoing": peopleGoing, "date": date, "location": location, "comments": comments] as [String : Any]
             let key = schoolRef.childByAutoId().key
             let childUpdates = ["/\(key)/": newEvent]
             schoolRef.updateChildValues(childUpdates)
-            var array = UserDefaults.standard.array(forKey: "events")!
-            array.append(key)
-            UserDefaults.standard.set(array, forKey: "events")
+            
+            FeedViewController.user.eventsJoined.append(key)
+            let userUpdate: [String: [String]] = ["eventsJoined": FeedViewController.user.eventsJoined]
+            userRef.child(user.id!).updateChildValues(userUpdate)
+//            var array = UserDefaults.standard.array(forKey: "events")!
+//            array.append(key)
+//            UserDefaults.standard.set(array, forKey: "events")
             OptionViewController.shouldGoToFeed = true
             self.dismiss(animated: true, completion: nil)
         }
-
     }
+    
 }
 
 extension NewEventViewController: UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate, UITextViewDelegate {

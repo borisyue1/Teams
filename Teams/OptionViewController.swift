@@ -84,8 +84,7 @@ class OptionViewController: UIViewController {
         
         let sb = UIStoryboard(name: "Main", bundle: nil)
         let controller = sb.instantiateViewController(withIdentifier: "FrontVC")
-        
-        revealViewController().setFront(controller, animated: true)
+        self.show(controller, sender: nil)
     }
 
 }

@@ -8,6 +8,7 @@
 
 import UIKit
 import DropDown
+import Firebase
 
 class SettingsViewController: UIViewController {
     
@@ -73,7 +74,7 @@ class SettingsViewController: UIViewController {
         nameField.layer.borderColor = UIColor.white.cgColor
         nameField.layer.borderWidth = 2
         nameField.textAlignment = NSTextAlignment.center
-        nameField.attributedPlaceholder = NSAttributedString(string: UserDefaults.standard.value(forKey: "name") as! String,
+        nameField.attributedPlaceholder = NSAttributedString(string: FeedViewController.user.name!,
                                                              attributes: [NSForegroundColorAttributeName: UIColor.white])
         nameField.returnKeyType = .done
         nameField.layer.cornerRadius = 5
@@ -92,7 +93,7 @@ class SettingsViewController: UIViewController {
     
     func initSchoolButton() {
         schoolButton = UIButton(frame: CGRect(x: self.view.frame.width / 2 - (230 / 2), y: schoolLabel.frame.maxY + 10, width: 230, height: 50))
-        schoolButton.setTitle(UserDefaults.standard.value(forKey: "school") as? String, for: .normal)
+        schoolButton.setTitle(FeedViewController.user.school, for: .normal)
         schoolButton.addTarget(self, action: #selector(schoolPressed), for: UIControlEvents.touchUpInside)
         schoolButton.titleLabel?.font = UIFont(name: "Lato-Medium", size: 24.0)
         schoolButton.setTitleColor(UIColor.white, for: .normal)
@@ -128,7 +129,14 @@ class SettingsViewController: UIViewController {
         doneButton.backgroundColor = UIColor.white
         doneButton.setTitleColor(UIColor(red: 249/255, green: 170/255, blue: 97/255, alpha: 1.0), for: .normal)
         FeedViewController.shouldUpdateFeed = true
-        UserDefaults.standard.set(schoolButton.titleLabel?.text, forKey: "school")
+        let schoolUpdate = ["school": schoolButton.titleLabel?.text!]
+        let userRef = FIRDatabase.database().reference().child("Users").child(FeedViewController.user.id!)
+//        userRef.observe(.value, with: { snapshot in
+//            let value = snapshot.value as? NSDictionary
+//            
+//            
+//        })
+        userRef.updateChildValues(schoolUpdate)
         self.dismiss(animated: true, completion: nil)
     }
 
