@@ -13,7 +13,6 @@
 		2EDED1B441596217AA03FE06 /* Pods_TeamsUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A77CCC0AEB55EEDDC9164892 /* Pods_TeamsUITests.framework */; };
 		3567FC59F88763261FB20851 /* Pods_Teams.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF0241EBB394F9AD308C0D83 /* Pods_Teams.framework */; };
 		51B4C0651EA2DAC600BC1DE5 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B4C0641EA2DAC600BC1DE5 /* MenuViewController.swift */; };
-		51B4C0671EA2DD1D00BC1DE5 /* MenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B4C0661EA2DD1D00BC1DE5 /* MenuTableViewCell.swift */; };
 		51B4C0691EA2ED8900BC1DE5 /* RevealVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B4C0681EA2ED8900BC1DE5 /* RevealVC.swift */; };
 		51B4C06E1EA3658100BC1DE5 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 51B4C06D1EA3658100BC1DE5 /* SWRevealViewController.m */; };
 		B40241AB1E95DD2E00E98597 /* NewEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40241AA1E95DD2E00E98597 /* NewEventViewController.swift */; };
@@ -64,7 +63,6 @@
 		500FECED9559EEA41DAA339D /* Pods-Teams.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Teams.release.xcconfig"; path = "Pods/Target Support Files/Pods-Teams/Pods-Teams.release.xcconfig"; sourceTree = "<group>"; };
 		51B4C0601EA2D4D500BC1DE5 /* Teams-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Teams-Bridging-Header.h"; sourceTree = "<group>"; };
 		51B4C0641EA2DAC600BC1DE5 /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
-		51B4C0661EA2DD1D00BC1DE5 /* MenuTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuTableViewCell.swift; sourceTree = "<group>"; };
 		51B4C0681EA2ED8900BC1DE5 /* RevealVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RevealVC.swift; sourceTree = "<group>"; };
 		51B4C06C1EA3658100BC1DE5 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
 		51B4C06D1EA3658100BC1DE5 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
@@ -159,7 +157,6 @@
 		15566F161E99884700D8F470 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				51B4C0661EA2DD1D00BC1DE5 /* MenuTableViewCell.swift */,
 				E13B0C931E946ACE00C8FE18 /* FeedTableViewCell.swift */,
 				E1E425EF1EA2D2130098BB7F /* CommentTableViewCell.swift */,
 			);
@@ -573,7 +570,6 @@
 				B4FDD26D1EA2EE1300CE46D8 /* SettingsViewController.swift in Sources */,
 				E13B0C981E94D36800C8FE18 /* Event.swift in Sources */,
 				B44EF3641E7E391E00E25F58 /* AppDelegate.swift in Sources */,
-				51B4C0671EA2DD1D00BC1DE5 /* MenuTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -18,17 +18,18 @@ class FeedViewController: UIViewController {
     var eventsRef: FIRDatabaseReference = FIRDatabase.database().reference().child("Event")
     var schoolRef: FIRDatabaseReference!
     var plusSign: UIImageView!
+    let labels: [String] = ["Sport", "Date"]
     var currKey: String?
     var postIds: [String] = []
     var passedEvent: Event?
     var menuButton: UIBarButtonItem!
+    var commentsSize: Int!
+    var segControl: UISegmentedControl!
     static var shouldUpdateFeed = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.white
-        MenuViewController.feedTableDelegate = self
-        self.title = "All Sports"
         self.navigationController?.navigationBar.tintColor = UIColor.black
         self.navigationItem.setHidesBackButton(true, animated: true) //hide back button
         let originalImage = UIImage(named: "add.png")
@@ -37,10 +38,10 @@ class FeedViewController: UIViewController {
         self.navigationItem.setRightBarButton(addButton, animated: true)
         fetchPosts {
             self.setUpTableView()
-        }        
+        }
         setupSideBarButton()
         setUpSideBar()
-        
+        setupSegControl()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -81,8 +82,38 @@ class FeedViewController: UIViewController {
         return 200
     }
     
+    func setupSegControl() {
+        segControl = UISegmentedControl(items: labels)
+        segControl.selectedSegmentIndex = 0
+        segControl.tintColor = UIColor(red: 75/255, green: 184/255, blue: 147/255, alpha: 1.0)
+        segControl.backgroundColor = UIColor.white
+        segControl.layer.cornerRadius = 5.0
+        segControl.sizeToFit()
+        self.navigationItem.titleView = segControl
+        segControl.addTarget(self, action: #selector(changeSort), for: .valueChanged)
+    }
+    
+    func changeSort(sender: UISegmentedControl) {
+        switch sender.selectedSegmentIndex {
+        case 0:
+            sortedEvents = sortedEvents.sorted {
+                $0.sport! < $1.sport!
+            }
+            self.tableView.reloadData()
+        case 1:
+            sortedEvents = sortedEvents.sorted {
+                $0.NSDate! < $1.NSDate!
+            }
+            self.tableView.reloadData()
+        default:
+            print("hi")
+        }
+    }
+    
     func setupSideBarButton() {
         menuButton = UIBarButtonItem(title: "Sort", style: .plain, target: self.revealViewController(), action: "revealToggle:")
+        menuButton = UIBarButtonItem(image: #imageLiteral(resourceName: "gear"), style: .plain, target: self.revealViewController(), action: "revealToggle:")
+        menuButton.tintColor = UIColor.gray
         navigationItem.leftBarButtonItem = menuButton
     }
     
@@ -193,6 +224,7 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
             DispatchQueue.main.async {
                 cell.numGoingLabel.text = "\(idArray.count) going"
                 cell.numGoingLabel.sizeToFit()
+                cell.commentButton.setTitle("Comments", for: .normal)
             }
         })
     }
@@ -216,21 +248,4 @@ extension FeedViewController: FeedCellDelegate {
         self.present(commentView, animated: true, completion: nil)
     }
 }
-extension FeedViewController: FeedTableDelegate {
-    func reloadFeed(sortedItem: String) {
-        if sortedItem == "sport" {
-            sortedEvents = sortedEvents.sorted {
-                $0.sport! < $1.sport!
 
-            }
-            
-        } else {
-            sortedEvents = sortedEvents.sorted {
-                $0.NSDate! < $1.NSDate!
-            }
-            
-        }
-        self.tableView.reloadData()
-
-    }
-}

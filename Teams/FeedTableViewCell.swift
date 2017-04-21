@@ -269,7 +269,6 @@ class FeedTableViewCell: UITableViewCell {
     
     func initCommentButton() {
         commentButton = UIButton(frame: CGRect(x: rectView.frame.minX, y: rectView.frame.maxY - 40, width: rectView.frame.width / 2, height: 40))
-        commentButton.setTitle("Comments", for: .normal)
         commentButton.titleLabel?.font = UIFont(name: "Lato-Light", size: 14.0)
         commentButton.setTitleColor(UIColor.black, for: .normal)
         commentButton.backgroundColor = UIColor(red: 235/255, green: 235/255, blue: 235/255, alpha: 1.0)
