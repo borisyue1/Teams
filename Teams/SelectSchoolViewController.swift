@@ -44,6 +44,10 @@ class SelectSchoolViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+//        let sb = UIStoryboard(name: "Main", bundle: nil)
+//        let controller = sb.instantiateViewController(withIdentifier: "FrontVC")
+//        
+//        revealViewController().setFront(controller, animated: true)
         if buttonTapped {
             nextButton.backgroundColor = UIColor.init(red: 249/255, green: 170/255, blue: 97/255, alpha: 1.0)
             nextButton.setTitleColor(UIColor.white, for: .normal)
@@ -112,48 +116,48 @@ class SelectSchoolViewController: UIViewController {
     }
     
     func nextPressed() {
-//        if let _ = UserDefaults.standard.value(forKey: "school") {
-////            performSegue(withIdentifier: "toLoginView", sender: self)
-//            self.navigationController?.pushViewController(LoginViewController(), animated: true)
-//            nextButton.backgroundColor = UIColor.white
-//            nextButton.setTitleColor(UIColor.init(red: 249/255, green: 170/255, blue: 97/255, alpha: 1.0), for: .normal)
-//            buttonTapped = true
-//        } else {
-//            self.displayError(withMessage: "Please select a school first.")
-//        }
-        let loginManager = FBSDKLoginManager()
-        
-        loginManager.logIn(withReadPermissions: ["public_profile", "email", "user_friends"], from: self, handler: { (result, error) -> Void in
-            if error != nil {
-                print("an error occurred while signing in the user: \(error)")
-            } else if (result?.isCancelled)! {
-                print("user cancelled login")
-            } else {
-                let credential = FIRFacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
+        if let _ = UserDefaults.standard.value(forKey: "school") {
+//            performSegue(withIdentifier: "toLoginView", sender: self)
+            self.navigationController?.pushViewController(LoginViewController(), animated: true)
+            nextButton.backgroundColor = UIColor.white
+            nextButton.setTitleColor(UIColor.init(red: 249/255, green: 170/255, blue: 97/255, alpha: 1.0), for: .normal)
+            buttonTapped = true
+        } else {
+            self.displayError(withMessage: "Please select a school first.")
+        }
+//        let loginManager = FBSDKLoginManager()
+//        
+//        loginManager.logIn(withReadPermissions: ["public_profile", "email", "user_friends"], from: self, handler: { (result, error) -> Void in
+//            if error != nil {
+//                print("an error occurred while signing in the user: \(error)")
+//            } else if (result?.isCancelled)! {
+//                print("user cancelled login")
+//            } else {
+//                let credential = FIRFacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
 //                FIRAuth.auth()?.signIn(with: credential) { (user, error) in
 //                    
 //                    print("the uid is")
 //                    print(user!.uid)
 //                    
-//                    self.dbRef.child("Users/\(user!.uid)").observe(.value, with: { (snapshot) in
-//                        if !snapshot.exists() {
-//                            print("user does not exist, creating new")
-//                            let userDict: [String: String] = ["email": user!.email!,
-//                                                              "fullName": user!.displayName!,
-//                                                              "profPicUrl": user!.photoURL!.absoluteString]
-//                            self.dbRef.child("Users/\(user!.uid)").setValue(userDict, withCompletionBlock: { (error, ref) -> Void in
-//                                self.performSegue(withIdentifier: "toMainFromWelcome", sender: self)
-//                            })
-//                        } else {
-//                            print("user already exists")
-//                            self.performSegue(withIdentifier: "toMainFromWelcome", sender: self)
-//                        }
-//                        
-//                    })
+////                    self.dbRef.child("Users/\(user!.uid)").observe(.value, with: { (snapshot) in
+////                        if !snapshot.exists() {
+////                            print("user does not exist, creating new")
+////                            let userDict: [String: String] = ["email": user!.email!,
+////                                                              "fullName": user!.displayName!,
+////                                                              "profPicUrl": user!.photoURL!.absoluteString]
+////                            self.dbRef.child("Users/\(user!.uid)").setValue(userDict, withCompletionBlock: { (error, ref) -> Void in
+////                                self.performSegue(withIdentifier: "toMainFromWelcome", sender: self)
+////                            })
+////                        } else {
+////                            print("user already exists")
+////                            self.performSegue(withIdentifier: "toMainFromWelcome", sender: self)
+////                        }
+////                        
+////                    })
 //                    
 //                }
-            }
-        })
+//            }
+//        })
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

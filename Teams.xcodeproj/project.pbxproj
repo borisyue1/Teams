@@ -349,7 +349,6 @@
 				TargetAttributes = {
 					B44EF35F1E7E391E00E25F58 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = F5L844KYJ2;
 						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 					};
@@ -729,7 +728,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = F5L844KYJ2;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$PODS_CONFIGURATION_BUILD_DIR/DropDown\"",
@@ -761,7 +760,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = F5L844KYJ2;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Teams/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.borisyue.Teams;
