@@ -71,23 +71,24 @@ class Event {
         }
     }
     
-    func addInterestedUser(name: String) {
-        self.peopleGoing.append(name)
-        var array = UserDefaults.standard.array(forKey: "events")!
-        array.append(self.id!)
-        UserDefaults.standard.set(array, forKey: "events")
-        UserDefaults.standard.synchronize()
+    func addInterestedUser(id: String, user: User) {
+        self.peopleGoing.append(id)
         let childUpdates = ["\(self.id!)/peopleGoing": self.peopleGoing]
         schoolRef.updateChildValues(childUpdates) //update interested array
+        
+        user.eventsJoined.append(self.id!)
+        let userUpdate = ["\(user.id!)/eventsJoined": user.eventsJoined]
+        FIRDatabase.database().reference().child("Users").updateChildValues(userUpdate)
+        
     }
     
-    func removeInterestedUser(name: String) {
-        self.peopleGoing.remove(at: self.peopleGoing.index(of: name)!)
-        var array: [String] = UserDefaults.standard.array(forKey: "events") as! [String]
-        array.remove(at: array.index(of: self.id!)!)
-        UserDefaults.standard.set(array, forKey: "events")
-        UserDefaults.standard.synchronize()
+    func removeInterestedUser(id: String, user: User) {
+        self.peopleGoing.remove(at: self.peopleGoing.index(of: id)!)
         let childUpdates = ["\(self.id!)/peopleGoing": self.peopleGoing]
         schoolRef.updateChildValues(childUpdates) //update interested array
+        
+        user.eventsJoined.remove(at: user.eventsJoined.index(of: self.id!)!)
+        let userUpdate = ["\(user.id!)/eventsJoined": user.eventsJoined]
+        FIRDatabase.database().reference().child("Users").updateChildValues(userUpdate)
     }
 }

@@ -8,12 +8,11 @@
 
 import Foundation
 import UIKit
+import Firebase
 
 class RevealVC: SWRevealViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("RevealVC")
-
     }
 }

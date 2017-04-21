@@ -45,6 +45,16 @@
 			<key>orderHint</key>
 			<integer>2</integer>
 		</dict>
+		<key>HanekeSwift.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>13</integer>
+		</dict>
+		<key>MarqueeLabel.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>14</integer>
+		</dict>
 		<key>Pods-Teams.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -84,6 +94,21 @@
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>026810812FD9DE9679E951F2BC4709B3</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>128607ACAA8262EA52E9D1C9CE224533</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>15F37A77F75CFBC2160A4721B9AA3A29</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>320AD47B0C6BA014D301395D3BFC8FB6</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -139,6 +164,16 @@
 			<true/>
 		</dict>
 		<key>86AEFF190074D9C54F37CA5EBD7B794E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>AE4759774042D8E013517E82C6F7A058</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B830DAAAAF6C9906D26353DAAC193D44</key>
 		<dict>
 			<key>primary</key>
 			<true/>

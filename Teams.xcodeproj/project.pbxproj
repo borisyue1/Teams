@@ -27,6 +27,7 @@
 		B44EF3841E7E391E00E25F58 /* TeamsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44EF3831E7E391E00E25F58 /* TeamsUITests.swift */; };
 		B44EF3921E7E39A500E25F58 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B44EF3911E7E39A500E25F58 /* GoogleService-Info.plist */; };
 		B45A84B21E94C410008B34E4 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45A84B11E94C410008B34E4 /* FeedViewController.swift */; };
+		B49308261EA9E88A00A0F48D /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B49308251EA9E88A00A0F48D /* User.swift */; };
 		B4DDCE3E1EA2C7B700EF2B7A /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B4DDCE3D1EA2C7B700EF2B7A /* Lato-Bold.ttf */; };
 		B4DDCE401EA2C7C000EF2B7A /* Lato-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B4DDCE3F1EA2C7C000EF2B7A /* Lato-Light.ttf */; };
 		B4DDCE421EA2C7D100EF2B7A /* Lato-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B4DDCE411EA2C7D100EF2B7A /* Lato-Medium.ttf */; };
@@ -89,6 +90,7 @@
 		B44EF3851E7E391E00E25F58 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B44EF3911E7E39A500E25F58 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B45A84B11E94C410008B34E4 /* FeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
+		B49308251EA9E88A00A0F48D /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		B4C9C4601EA8C1F500FDA674 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = "../../FacebookSDKs-iOS-4.22.0/FBSDKLoginKit.framework"; sourceTree = "<group>"; };
 		B4C9C4631EA8C6CF00FDA674 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = "../../../Downloads/FacebookSDKs-iOS-4.22.0/FBSDKLoginKit.framework"; sourceTree = "<group>"; };
 		B4C9C4651EA8C79F00FDA674 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = "../../../Downloads/FacebookSDKs-iOS-4.22.0/FBSDKCoreKit.framework"; sourceTree = "<group>"; };
@@ -145,8 +147,8 @@
 			isa = PBXGroup;
 			children = (
 				51B4C0641EA2DAC600BC1DE5 /* MenuViewController.swift */,
-				B40241B01E95E0DA00E98597 /* SelectSchoolViewController.swift */,
 				B40241AC1E95E0CC00E98597 /* LoginViewController.swift */,
+				B40241B01E95E0DA00E98597 /* SelectSchoolViewController.swift */,
 				B40241AE1E95E0D200E98597 /* OptionViewController.swift */,
 				B45A84B11E94C410008B34E4 /* FeedViewController.swift */,
 				E1E425E51EA2A36A0098BB7F /* CommentViewController.swift */,
@@ -170,6 +172,7 @@
 			isa = PBXGroup;
 			children = (
 				E13B0C971E94D36800C8FE18 /* Event.swift */,
+				B49308251EA9E88A00A0F48D /* User.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -572,6 +575,7 @@
 				E1E425F01EA2D2130098BB7F /* CommentTableViewCell.swift in Sources */,
 				B40241AD1E95E0CC00E98597 /* LoginViewController.swift in Sources */,
 				B40241AB1E95DD2E00E98597 /* NewEventViewController.swift in Sources */,
+				B49308261EA9E88A00A0F48D /* User.swift in Sources */,
 				B4FDD26D1EA2EE1300CE46D8 /* SettingsViewController.swift in Sources */,
 				E13B0C981E94D36800C8FE18 /* Event.swift in Sources */,
 				B44EF3641E7E391E00E25F58 /* AppDelegate.swift in Sources */,

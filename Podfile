@@ -14,6 +14,8 @@ target 'Teams' do
   pod 'FBSDKShareKit', '~>4.10.0'
   pod 'FBSDKCoreKit', :podspec => 'https://raw.githubusercontent.com/chrisp-fb/facebook-ios-sdk/master/FBSDKCoreKit.podspec'
   pod 'FBSDKLoginKit', '~>4.10.0'
+  pod 'MarqueeLabel/Swift'
+  pod 'HanekeSwift', :git => 'https://github.com/Haneke/HanekeSwift.git', :branch => 'feature/swift-3'
   # Pods for Teams
 
   target 'TeamsTests' do

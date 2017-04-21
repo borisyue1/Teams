@@ -7,11 +7,12 @@
 //
 
 import UIKit
+import MarqueeLabel
 
 protocol FeedCellDelegate {
     
-    func addInterestedUser(forCell: FeedTableViewCell, withName: String)
-    func removeInterestedUser(forCell: FeedTableViewCell, withName: String)
+    func addInterestedUser(forCell: FeedTableViewCell, withId: String, user: User)
+    func removeInterestedUser(forCell: FeedTableViewCell, withId: String, user: User)
     func goToComments(forCell: FeedTableViewCell)
     
 }
@@ -50,7 +51,7 @@ class FeedTableViewCell: UITableViewCell {
     var dayLabel: UILabel!
     var schoolLabel: UILabel!
     var teamNameLabel: UILabel!
-    var locationLabel: UILabel!
+    var locationLabel: MarqueeLabel!
     var numGoingLabel: UILabel!
     var eventDescriptionLabel: UILabel!
     
@@ -160,7 +161,7 @@ class FeedTableViewCell: UITableViewCell {
     }
     
     func initAtLabel() {
-        atLabel = UILabel(frame: CGRect(x: rectView.frame.width / 2 - 10, y: sportLabel.frame.minY - 3, width: 20, height: 24))
+        atLabel = UILabel(frame: CGRect(x: rectView.frame.width / 2 - 12, y: sportLabel.frame.minY - 3, width: 20, height: 24))
         atLabel.text = "@"
         atLabel.textColor = UIColor.black
         atLabel.textAlignment = NSTextAlignment.center
@@ -198,7 +199,8 @@ class FeedTableViewCell: UITableViewCell {
     }
     
     func setUpLocationLabel() {
-        locationLabel = UILabel(frame: CGRect(x: rectView.frame.width / 2 + 8, y: sportLabel.frame.minY - 20, width: rectView.frame.width / 2 - 20, height: 60))
+//        locationLabel = UILabel(frame: CGRect(x: rectView.frame.width / 2 + 8, y: sportLabel.frame.minY - 20, width: rectView.frame.width / 2 - 20, height: 60))
+        locationLabel = MarqueeLabel(frame: CGRect(x: rectView.frame.width / 2 + 8, y: sportLabel.frame.minY - 20, width: rectView.frame.width / 2 - 25, height: 60), rate: 22.0, fadeLength: 10.0)
         locationLabel.textAlignment = NSTextAlignment.right
         locationLabel.numberOfLines = 0
         locationLabel.text = location
@@ -209,7 +211,8 @@ class FeedTableViewCell: UITableViewCell {
     }
     
     func setUpDescriptionLabel() {
-        descriptionLabel = UILabel(frame: CGRect(x: numGoingLabel.frame.maxX + 5, y: numGoingLabel.frame.minY, width: rectView.frame.width - numGoingLabel.frame.maxX - 20, height: 15))
+//        descriptionLabel = UILabel(frame: CGRect(x: numGoingLabel.frame.maxX + 5, y: numGoingLabel.frame.minY, width: rectView.frame.width - numGoingLabel.frame.maxX - 20, height: 15))
+        descriptionLabel = MarqueeLabel(frame: CGRect(x: numGoingLabel.frame.maxX, y: numGoingLabel.frame.minY, width: rectView.frame.width - numGoingLabel.frame.maxX - 20, height: 15), rate: 20, fadeLength: 5)
         descriptionLabel.textColor = UIColor.black
         descriptionLabel.font = UIFont(name: "Lato-Light", size: 12.0)
         descriptionLabel.textAlignment = NSTextAlignment.right
@@ -218,7 +221,7 @@ class FeedTableViewCell: UITableViewCell {
     }
     
     func setupGoingLabel() {
-        numGoingLabel = UILabel(frame: CGRect(x: dayLabel.frame.minX, y: dayLabel.frame.maxY + 5, width: 0, height: 15))
+        numGoingLabel = UILabel(frame: CGRect(x: dayLabel.frame.minX, y: dayLabel.frame.maxY + 5, width: 50, height: 15))
         numGoingLabel.font = UIFont(name: "Lato-Light", size: 12.0)
 //        numGoingLabel.text = String(2) + " going"   //String(numGoing)
         
@@ -269,6 +272,7 @@ class FeedTableViewCell: UITableViewCell {
     
     func initCommentButton() {
         commentButton = UIButton(frame: CGRect(x: rectView.frame.minX, y: rectView.frame.maxY - 40, width: rectView.frame.width / 2, height: 40))
+        commentButton.setTitle("Comment", for: .normal)
         commentButton.titleLabel?.font = UIFont(name: "Lato-Light", size: 14.0)
         commentButton.setTitleColor(UIColor.black, for: .normal)
         commentButton.backgroundColor = UIColor(red: 235/255, green: 235/255, blue: 235/255, alpha: 1.0)
@@ -300,12 +304,12 @@ class FeedTableViewCell: UITableViewCell {
             joinButton.backgroundColor = UIColor(red: 230/255, green: 230/255, blue: 230/255, alpha: 1.0)
             buttonIsSelected = true
             joinButton.isSelected = true
-            delegate?.addInterestedUser(forCell: self, withName: UserDefaults.standard.value(forKey: "name") as! String)
+            delegate?.addInterestedUser(forCell: self, withId: FeedViewController.user.id!, user: FeedViewController.user)
         } else {
             joinButton.backgroundColor = UIColor(red: 235/255, green: 235/255, blue: 235/255, alpha: 1.0)
             buttonIsSelected = false
             joinButton.isSelected = false
-            delegate?.removeInterestedUser(forCell: self, withName: UserDefaults.standard.value(forKey: "name") as! String)
+            delegate?.removeInterestedUser(forCell: self, withId: FeedViewController.user.id!, user: FeedViewController.user)
         }
     }
     

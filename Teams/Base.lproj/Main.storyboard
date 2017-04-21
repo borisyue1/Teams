@@ -12,23 +12,23 @@
         <!--Navigation Controller-->
         <scene sceneID="4FP-b2-JsV">
             <objects>
-                <navigationController id="Nn6-dr-Y9g" customClass="NavigationController" customModule="Teams" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="SelectSchoolNavigation" id="Nn6-dr-Y9g" customClass="NavigationController" customModule="Teams" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="5Mj-Vv-V9J">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="nzg-Y4-mxJ"/>
+                        <segue destination="yyT-yo-cgy" kind="relationship" relationship="rootViewController" id="nU7-FU-LFo"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="243-4R-g26" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-636" y="171"/>
+            <point key="canvasLocation" x="146" y="170"/>
         </scene>
-        <!--Select School View Controller-->
+        <!--Login View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="SelectSchoolViewController" customModule="Teams" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginVC" id="BYZ-38-t0r" customClass="LoginViewController" customModule="Teams" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -39,18 +39,15 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <navigationItem key="navigationItem" id="ZPu-IS-2xM"/>
-                    <connections>
-                        <segue destination="yyT-yo-cgy" kind="show" identifier="toLoginView" id="ALo-JM-Rrv"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="137" y="170"/>
+            <point key="canvasLocation" x="-1004" y="519"/>
         </scene>
-        <!--Login View Controller-->
+        <!--Select School View Controller-->
         <scene sceneID="8cm-FW-6zK">
             <objects>
-                <viewController id="yyT-yo-cgy" customClass="LoginViewController" customModule="Teams" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SelectSchoolVC" id="yyT-yo-cgy" customClass="SelectSchoolViewController" customModule="Teams" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="WqL-Iq-ZS9"/>
                         <viewControllerLayoutGuide type="bottom" id="lEf-bL-74J"/>
@@ -60,6 +57,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" id="og8-eM-dcd"/>
                     <connections>
                         <segue destination="O81-HV-gqM" kind="show" identifier="toOptionView" id="td5-lv-plV"/>
                     </connections>
@@ -161,12 +159,12 @@
                     </view>
                     <connections>
                         <segue destination="nnB-Sp-uxl" kind="custom" identifier="sw_rear" customClass="SWRevealViewControllerSegueSetController" id="GV8-Bq-M08"/>
-                        <segue destination="Nn6-dr-Y9g" kind="custom" identifier="sw_front" customClass="SWRevealViewControllerSegueSetController" id="qzL-qu-ATP"/>
+                        <segue destination="BYZ-38-t0r" kind="custom" identifier="sw_front" customClass="SWRevealViewControllerSegueSetController" id="v3f-my-qSN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G1P-BP-OxM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1830" y="551"/>
+            <point key="canvasLocation" x="-1831" y="519"/>
         </scene>
         <!--Menu View Controller-->
         <scene sceneID="DIh-yA-ocy">
