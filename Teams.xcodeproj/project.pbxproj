@@ -89,6 +89,9 @@
 		B44EF3851E7E391E00E25F58 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B44EF3911E7E39A500E25F58 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B45A84B11E94C410008B34E4 /* FeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
+		B4C9C4601EA8C1F500FDA674 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = "../../FacebookSDKs-iOS-4.22.0/FBSDKLoginKit.framework"; sourceTree = "<group>"; };
+		B4C9C4631EA8C6CF00FDA674 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = "../../../Downloads/FacebookSDKs-iOS-4.22.0/FBSDKLoginKit.framework"; sourceTree = "<group>"; };
+		B4C9C4651EA8C79F00FDA674 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = "../../../Downloads/FacebookSDKs-iOS-4.22.0/FBSDKCoreKit.framework"; sourceTree = "<group>"; };
 		B4DDCE3D1EA2C7B700EF2B7A /* Lato-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Bold.ttf"; sourceTree = "<group>"; };
 		B4DDCE3F1EA2C7C000EF2B7A /* Lato-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Light.ttf"; sourceTree = "<group>"; };
 		B4DDCE411EA2C7D100EF2B7A /* Lato-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Medium.ttf"; sourceTree = "<group>"; };
@@ -197,6 +200,9 @@
 		664C11B120F29257480EBE11 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B4C9C4651EA8C79F00FDA674 /* FBSDKCoreKit.framework */,
+				B4C9C4631EA8C6CF00FDA674 /* FBSDKLoginKit.framework */,
+				B4C9C4601EA8C1F500FDA674 /* FBSDKLoginKit.framework */,
 				AF0241EBB394F9AD308C0D83 /* Pods_Teams.framework */,
 				ADEAE4FCE7D03A99D40AB2DF /* Pods_TeamsTests.framework */,
 				A77CCC0AEB55EEDDC9164892 /* Pods_TeamsUITests.framework */,
@@ -343,7 +349,7 @@
 				TargetAttributes = {
 					B44EF35F1E7E391E00E25F58 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = 2R645SJG33;
+						DevelopmentTeam = F5L844KYJ2;
 						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 					};
@@ -723,10 +729,25 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = 2R645SJG33;
+				DEVELOPMENT_TEAM = F5L844KYJ2;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/DropDown\"",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/GTMSessionFetcher\"",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/GoogleToolboxForMac\"",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/Protobuf\"",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/SideMenuController\"",
+					"\"${PODS_ROOT}/FirebaseAnalytics/Frameworks\"",
+					"\"${PODS_ROOT}/FirebaseAuth/Frameworks\"",
+					"\"${PODS_ROOT}/FirebaseCore/Frameworks\"",
+					"\"${PODS_ROOT}/FirebaseDatabase/Frameworks\"",
+					"\"${PODS_ROOT}/FirebaseInstanceID/Frameworks\"",
+					"\"${PODS_ROOT}/FirebaseMessaging/Frameworks\"",
+					"\"${PODS_ROOT}/FirebaseStorage/Frameworks\"",
+				);
 				INFOPLIST_FILE = Teams/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.shireen.Teams;
+				PRODUCT_BUNDLE_IDENTIFIER = com.borisyue.Teams;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Teams-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -740,10 +761,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = 2R645SJG33;
+				DEVELOPMENT_TEAM = F5L844KYJ2;
 				INFOPLIST_FILE = Teams/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.shireen.Teams;
+				PRODUCT_BUNDLE_IDENTIFIER = com.borisyue.Teams;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Teams-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;

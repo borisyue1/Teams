@@ -26,6 +26,7 @@ class FeedViewController: UIViewController {
     var commentsSize: Int!
     var segControl: UISegmentedControl!
     static var shouldUpdateFeed = false
+    var eventCache: [String: Int] = [:]//caches numGoing
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,6 +56,7 @@ class FeedViewController: UIViewController {
     }
     
     func setUpTableView() {
+//        self.loader.removeFromSuperview()
         tableView = UITableView(frame: CGRect(x: 0, y: (navigationController?.navigationBar.frame.maxY)!, width: view.frame.width, height: view.frame.height))
         tableView.register(FeedTableViewCell.self, forCellReuseIdentifier: "feedCell")
         tableView.delegate = self
@@ -64,6 +66,7 @@ class FeedViewController: UIViewController {
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: view.frame.height / 10, right: 0)
         tableView.tableFooterView = UIView() // gets rid of the extra cells beneath
         tableView.allowsSelection = false
+        self.automaticallyAdjustsScrollViewInsets = false
         view.addSubview(tableView)
     }
     
@@ -78,9 +81,7 @@ class FeedViewController: UIViewController {
         }
     }
     
-    func rowHeight() -> CGFloat {
-        return 200
-    }
+  
     
     func setupSegControl() {
         segControl = UISegmentedControl(items: labels)
@@ -126,7 +127,7 @@ class FeedViewController: UIViewController {
         events.removeAll()
         schoolRef = eventsRef.child(UserDefaults.standard.value(forKey: "school") as! String)
         schoolRef.observe(.childAdded, with: { (snapshot) in
-            print("queryorderedbychild")
+//            print("queryorderedbychild")
             var post = Event(id: snapshot.key, postDict: snapshot.value as! [String : Any]?)
             let dateFormatter = DateFormatter()
             dateFormatter.dateStyle = DateFormatter.Style.medium
@@ -136,7 +137,6 @@ class FeedViewController: UIViewController {
             self.sortedEvents.append(post)
             self.events.append(post)
             self.postIds.append(snapshot.key)
-            print(snapshot.key)
             withBlock() //ensures that next block is called
         })
     }
@@ -153,6 +153,7 @@ class FeedViewController: UIViewController {
             view.currKey = currKey
         }
     }
+    
 }
 
 extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
@@ -218,15 +219,21 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
             cell.pic.image = #imageLiteral(resourceName: "basketball")
             
         }
-        schoolRef.child("\(currentEvent.id!)").observe(.value, with: { snapshot in
-            let value = snapshot.value as? NSDictionary
-            let idArray = value?["peopleGoing"] as? [String] ?? []
-            DispatchQueue.main.async {
-                cell.numGoingLabel.text = "\(idArray.count) going"
-                cell.numGoingLabel.sizeToFit()
-                cell.commentButton.setTitle("Comments", for: .normal)
-            }
-        })
+
+        if let numGoing = eventCache[currentEvent.id!] {
+            cell.numGoingLabel.text = "\(numGoing) going"
+            cell.numGoingLabel.sizeToFit()
+        } else {
+            schoolRef.child("\(currentEvent.id!)").observe(.value, with: { snapshot in
+                let value = snapshot.value as? NSDictionary
+                let idArray = value?["peopleGoing"] as? [String] ?? []
+                DispatchQueue.main.async {
+                    cell.numGoingLabel.text = "\(idArray.count) going"
+                    cell.numGoingLabel.sizeToFit()
+                    self.eventCache[currentEvent.id!] = idArray.count
+                }
+            })
+        }
     }
     
 }

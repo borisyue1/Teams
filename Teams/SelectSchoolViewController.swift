@@ -8,6 +8,8 @@
 
 import UIKit
 import DropDown
+import FBSDKLoginKit
+import Firebase
 
 class SelectSchoolViewController: UIViewController {
     
@@ -15,13 +17,13 @@ class SelectSchoolViewController: UIViewController {
     var selectLabel: UILabel!
     var nextButton: UIButton!
     var button: UIButton!
+    var buttonTapped = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("MOTHERFUCKER")
-//        UserDefaults.standard.removeObject(forKey: "name")
-//        UserDefaults.standard.removeObject(forKey: "school")
-//        UserDefaults.standard.synchronize()
+        UserDefaults.standard.removeObject(forKey: "name")
+        UserDefaults.standard.removeObject(forKey: "school")
+        UserDefaults.standard.synchronize()
         if let _ = UserDefaults.standard.value(forKey: "name") {
             if let _ = UserDefaults.standard.value(forKey: "school") {
                 //if name and school already inputted, skip to optionview
@@ -32,7 +34,6 @@ class SelectSchoolViewController: UIViewController {
 
             }
         }
-        
         initButton()
         initLabel()
         initDropDown()
@@ -40,6 +41,13 @@ class SelectSchoolViewController: UIViewController {
         
         self.view.backgroundColor = UIColor.init(red: 75/255, green: 184/255, blue: 147/255, alpha: 1.0)
 
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if buttonTapped {
+            nextButton.backgroundColor = UIColor.init(red: 249/255, green: 170/255, blue: 97/255, alpha: 1.0)
+            nextButton.setTitleColor(UIColor.white, for: .normal)
+        }
     }
     
     func initLabel() {
@@ -56,13 +64,13 @@ class SelectSchoolViewController: UIViewController {
         button = UIButton(frame: CGRect(x: self.view.frame.width / 2 - (230 / 2), y: view.frame.height / 2 - 25, width: 230, height: 50))
         button.setTitle("Select School", for: .normal)
         button.addTarget(self, action: #selector(buttonPressed), for: UIControlEvents.touchUpInside)
-        
         button.titleLabel?.font = UIFont(name: "Lato-Medium", size: 24.0)
-        
         button.setTitleColor(UIColor.white, for: .normal)
         button.contentHorizontalAlignment = UIControlContentHorizontalAlignment.center
         button.layer.borderWidth = 3.0
         button.layer.borderColor = UIColor.white.cgColor
+        button.layer.cornerRadius = 5
+        button.layer.masksToBounds = true
         
         view.addSubview(button)
     }
@@ -104,12 +112,48 @@ class SelectSchoolViewController: UIViewController {
     }
     
     func nextPressed() {
-        if let _ = UserDefaults.standard.value(forKey: "school") {
-//            performSegue(withIdentifier: "toLoginView", sender: self)
-            self.navigationController?.pushViewController(LoginViewController(), animated: true)
-        } else {
-            self.displayError(withMessage: "Please select a school first.")
-        }
+//        if let _ = UserDefaults.standard.value(forKey: "school") {
+////            performSegue(withIdentifier: "toLoginView", sender: self)
+//            self.navigationController?.pushViewController(LoginViewController(), animated: true)
+//            nextButton.backgroundColor = UIColor.white
+//            nextButton.setTitleColor(UIColor.init(red: 249/255, green: 170/255, blue: 97/255, alpha: 1.0), for: .normal)
+//            buttonTapped = true
+//        } else {
+//            self.displayError(withMessage: "Please select a school first.")
+//        }
+        let loginManager = FBSDKLoginManager()
+        
+        loginManager.logIn(withReadPermissions: ["public_profile", "email", "user_friends"], from: self, handler: { (result, error) -> Void in
+            if error != nil {
+                print("an error occurred while signing in the user: \(error)")
+            } else if (result?.isCancelled)! {
+                print("user cancelled login")
+            } else {
+                let credential = FIRFacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
+//                FIRAuth.auth()?.signIn(with: credential) { (user, error) in
+//                    
+//                    print("the uid is")
+//                    print(user!.uid)
+//                    
+//                    self.dbRef.child("Users/\(user!.uid)").observe(.value, with: { (snapshot) in
+//                        if !snapshot.exists() {
+//                            print("user does not exist, creating new")
+//                            let userDict: [String: String] = ["email": user!.email!,
+//                                                              "fullName": user!.displayName!,
+//                                                              "profPicUrl": user!.photoURL!.absoluteString]
+//                            self.dbRef.child("Users/\(user!.uid)").setValue(userDict, withCompletionBlock: { (error, ref) -> Void in
+//                                self.performSegue(withIdentifier: "toMainFromWelcome", sender: self)
+//                            })
+//                        } else {
+//                            print("user already exists")
+//                            self.performSegue(withIdentifier: "toMainFromWelcome", sender: self)
+//                        }
+//                        
+//                    })
+//                    
+//                }
+            }
+        })
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

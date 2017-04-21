@@ -145,9 +145,11 @@ class NewEventViewController: UIViewController {
         postButton = UIButton(frame: CGRect(x: view.frame.width/5, y: descriptionField.frame.maxY + 10, width: view.frame.width * (3/5), height: view.frame.height/11))
         postButton.setTitle("Post", for: .normal)
         postButton.setTitleColor(UIColor.white, for: .normal)
-        postButton.titleLabel?.font = UIFont(name: (postButton.titleLabel?.font.fontName)!, size: 20)
+        postButton.titleLabel?.font = UIFont(name: "Lato-Medium", size: 25)
         postButton.layer.borderWidth = 3.0
         postButton.layer.borderColor = UIColor.white.cgColor
+        postButton.layer.cornerRadius = 5
+        postButton.layer.masksToBounds = true
         postButton.addTarget(self, action: #selector(addNewEvent), for: .touchUpInside)
         
         view.addSubview(createTeamLabel)

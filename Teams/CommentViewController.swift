@@ -97,7 +97,8 @@ class CommentViewController: UIViewController {
     
     func initPostFields() {
         textField = UITextField(frame: CGRect(x: 5, y: view.frame.maxY - 40, width: view.frame.width - 60, height: 40))
-        textField.placeholder = "Post a comment..."
+        textField.attributedPlaceholder = NSAttributedString(string: "Post a comment...",
+                                                             attributes: [NSForegroundColorAttributeName: UIColor.white])
         
         postButton = UIButton(frame: CGRect(x: textField.frame.maxX, y: view.frame.maxY - 40, width: 60, height: 40))
         postButton.setTitle("Post", for: .normal)

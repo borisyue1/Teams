@@ -11,6 +11,9 @@ target 'Teams' do
   pod ‘Firebase/Messaging’
   pod 'DropDown'
   pod 'SideMenuController'
+  pod 'FBSDKShareKit', '~>4.10.0'
+  pod 'FBSDKCoreKit', :podspec => 'https://raw.githubusercontent.com/chrisp-fb/facebook-ios-sdk/master/FBSDKCoreKit.podspec'
+  pod 'FBSDKLoginKit', '~>4.10.0'
   # Pods for Teams
 
   target 'TeamsTests' do
