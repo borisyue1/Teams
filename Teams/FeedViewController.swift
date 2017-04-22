@@ -53,9 +53,12 @@ class FeedViewController: UIViewController {
         super.viewWillAppear(animated)
         if FeedViewController.shouldUpdateFeed {
             FeedViewController.shouldUpdateFeed = false
-            fetchPosts {
-                self.tableView.reloadData()
-            }
+            User.fetchUser(withBlock: { user in
+                FeedViewController.user = user
+                self.fetchPosts {
+                    self.tableView.reloadData()
+                }
+            })
         }
     }
     
@@ -178,7 +181,7 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
         cell.sport = currentEvent.sport
         cell.author = currentEvent.author
         
-        cell.school = UserDefaults.standard.value(forKey: "school") as! String
+        cell.school = FeedViewController.user.school
         
         let dateString: String! = currentEvent.date!
         let split1 = dateString.components(separatedBy: ", ")

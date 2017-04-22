@@ -28,8 +28,8 @@ class SettingsViewController: UIViewController {
         self.hideKeyboardWhenTappedAround()
         UITextField.appearance().tintColor = UIColor.white //sets cursor to white
         initTitle()
-        initNameLabel()
-        initNameField()
+//        initNameLabel()
+//        initNameField()
         initSchoolLabel()
         initSchoolButton()
         initDropDown()
@@ -53,34 +53,34 @@ class SettingsViewController: UIViewController {
         view.addSubview(doneButton)
     }
     
-    func initNameLabel() {
-        nameLabel = UILabel(frame: CGRect(x: 0, y: view.frame.height / 3, width: view.frame.width, height: 20))
-        nameLabel.text = "My name is"
-        nameLabel.font = UIFont(name: "Lato-Light", size: 16.0)
-        nameLabel.textColor = UIColor.white
-        nameLabel.textAlignment = NSTextAlignment.center
-        view.addSubview(nameLabel)
-    }
-    
-    func initNameField() {
-        UITextField.appearance().tintColor = UIColor.white //sets cursor to white
-        nameField = UITextField(frame: CGRect(x: self.view.frame.width / 2 - (230 / 2), y: nameLabel.frame.maxY + 10, width: 230, height: 40))
-        nameField.delegate = self
-        nameField.textColor = UIColor.white
-        nameField.font = UIFont(name: "Lato-Medium", size: 20.0)
-        nameField.layer.borderColor = UIColor.white.cgColor
-        nameField.layer.borderWidth = 2
-        nameField.textAlignment = NSTextAlignment.center
-        nameField.attributedPlaceholder = NSAttributedString(string: FeedViewController.user.name!,
-                                                             attributes: [NSForegroundColorAttributeName: UIColor.white])
-        nameField.returnKeyType = .done
-        nameField.layer.cornerRadius = 5
-        nameField.layer.masksToBounds = true
-        view.addSubview(nameField)
-    }
+//    func initNameLabel() {
+//        nameLabel = UILabel(frame: CGRect(x: 0, y: view.frame.height / 3, width: view.frame.width, height: 20))
+//        nameLabel.text = "My name is"
+//        nameLabel.font = UIFont(name: "Lato-Light", size: 16.0)
+//        nameLabel.textColor = UIColor.white
+//        nameLabel.textAlignment = NSTextAlignment.center
+//        view.addSubview(nameLabel)
+//    }
+//    
+//    func initNameField() {
+//        UITextField.appearance().tintColor = UIColor.white //sets cursor to white
+//        nameField = UITextField(frame: CGRect(x: self.view.frame.width / 2 - (230 / 2), y: nameLabel.frame.maxY + 10, width: 230, height: 40))
+//        nameField.delegate = self
+//        nameField.textColor = UIColor.white
+//        nameField.font = UIFont(name: "Lato-Medium", size: 20.0)
+//        nameField.layer.borderColor = UIColor.white.cgColor
+//        nameField.layer.borderWidth = 2
+//        nameField.textAlignment = NSTextAlignment.center
+//        nameField.attributedPlaceholder = NSAttributedString(string: FeedViewController.user.name!,
+//                                                             attributes: [NSForegroundColorAttributeName: UIColor.white])
+//        nameField.returnKeyType = .done
+//        nameField.layer.cornerRadius = 5
+//        nameField.layer.masksToBounds = true
+//        view.addSubview(nameField)
+//    }
     
     func initSchoolLabel() {
-        schoolLabel = UILabel(frame: CGRect(x: 0, y: nameField.frame.maxY + 30, width: view.frame.width, height: 22))
+        schoolLabel = UILabel(frame: CGRect(x: 0, y: view.frame.height / 2 - 60, width: view.frame.width, height: 22))
         schoolLabel.font = UIFont(name: "Lato-Light", size: 16.0)
         schoolLabel.text = "I go to"
         schoolLabel.textAlignment = NSTextAlignment.center
@@ -120,10 +120,6 @@ class SettingsViewController: UIViewController {
     }
     
     func donePressed() {
-        if nameField.text != "" {
-            UserDefaults.standard.set(nameField.text, forKey: "name")
-        }
-        FeedViewController.shouldUpdateFeed = true
         let schoolUpdate = ["school": schoolButton.titleLabel?.text!]
         let userRef = FIRDatabase.database().reference().child("Users").child(FeedViewController.user.id!)
 //        userRef.observe(.value, with: { snapshot in
@@ -131,8 +127,12 @@ class SettingsViewController: UIViewController {
 //            
 //            
 //        })
-        userRef.updateChildValues(schoolUpdate)
-        self.dismiss(animated: true, completion: nil)
+        userRef.updateChildValues(schoolUpdate, withCompletionBlock: { error, ref in
+            FeedViewController.shouldUpdateFeed = true
+            MenuViewController.schoolName = self.schoolButton.titleLabel?.text!
+            self.dismiss(animated: true, completion: nil)
+            
+        })
     }
 
 }
