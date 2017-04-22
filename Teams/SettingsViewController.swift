@@ -28,12 +28,12 @@ class SettingsViewController: UIViewController {
         self.hideKeyboardWhenTappedAround()
         UITextField.appearance().tintColor = UIColor.white //sets cursor to white
         initTitle()
-        initDoneButton()
         initNameLabel()
         initNameField()
         initSchoolLabel()
         initSchoolButton()
         initDropDown()
+        initDoneButton()
     }
     
     func initTitle() {
@@ -47,12 +47,9 @@ class SettingsViewController: UIViewController {
     }
     
     func initDoneButton() {
-        doneButton = UIButton(frame: CGRect(x: 0, y: view.frame.maxY - 80, width: view.frame.width, height: 80))
-        doneButton.setTitleColor(UIColor.white, for: .normal)
-        doneButton.setTitle("Done", for: .normal)
-        doneButton.backgroundColor = UIColor(red: 249/255, green: 170/255, blue: 97/255, alpha: 1.0)
-        doneButton.titleLabel?.font = UIFont(name: "Lato-Medium", size: 24.0)
-        doneButton.addTarget(self, action: #selector(donePressed), for: UIControlEvents.touchUpInside)
+        doneButton = UIButton(frame: CGRect(x: 5, y: 20, width: 25, height: 25))
+        doneButton.setImage(#imageLiteral(resourceName: "exit"), for: .normal)
+        doneButton.addTarget(self, action: #selector(donePressed), for: .touchUpInside)
         view.addSubview(doneButton)
     }
     
@@ -126,8 +123,6 @@ class SettingsViewController: UIViewController {
         if nameField.text != "" {
             UserDefaults.standard.set(nameField.text, forKey: "name")
         }
-        doneButton.backgroundColor = UIColor.white
-        doneButton.setTitleColor(UIColor(red: 249/255, green: 170/255, blue: 97/255, alpha: 1.0), for: .normal)
         FeedViewController.shouldUpdateFeed = true
         let schoolUpdate = ["school": schoolButton.titleLabel?.text!]
         let userRef = FIRDatabase.database().reference().child("Users").child(FeedViewController.user.id!)
