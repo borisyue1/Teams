@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MarqueeLabel
 
 class CommentTableViewCell: UITableViewCell {
     var comment: UILabel!
@@ -24,15 +25,16 @@ class CommentTableViewCell: UITableViewCell {
         name = UILabel(frame: CGRect(x: 100, y: 15, width: contentView.frame.width, height: contentView.frame.height/2))
         name.textColor = UIColor.white
         name.adjustsFontSizeToFitWidth = true
-        name.font = UIFont(name: "HelveticaNeue-Bold", size: 15)
+        name.font = UIFont(name: "Lato-Bold", size: 17)
         
-        comment = UILabel(frame: CGRect(x: 100, y: name.frame.maxY + 5, width: contentView.frame.width, height: contentView.frame.height/2))
+        comment = MarqueeLabel(frame: CGRect(x: 100, y: name.frame.maxY + 5, width: contentView.frame.width, height: contentView.frame.height/2), rate: 20, fadeLength: 10)
         comment.textColor = UIColor.white
         comment.adjustsFontSizeToFitWidth = true
-        comment.font = UIFont(name: "HelveticaNeue-Thin", size: 15)
+        comment.font = UIFont(name: "Lato-Light", size: 15)
 
         pic = UIImageView(frame: CGRect(x: 20, y: 15, width: 50, height: 50))
-        pic.image = #imageLiteral(resourceName: "anon")
+        pic.layer.cornerRadius = pic.frame.width / 2
+        pic.layer.masksToBounds = true
         contentView.addSubview(name)
         contentView.addSubview(comment)
         contentView.addSubview(pic)

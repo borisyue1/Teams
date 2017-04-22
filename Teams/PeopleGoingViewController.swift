@@ -15,19 +15,28 @@ class PeopleGoingViewController: UIViewController {
     var tableView: UITableView!
     var currKey: String?
     var users: [User] = []
+    var loader: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "People Going"
-
+        createLoader()
         view.backgroundColor = UIColor.white
 
+        self.fetchPeopleGoing {
+            self.loader.removeFromSuperview()
+            self.setUpTableView()
+        }
         
-            self.fetchPeopleGoing {
-                self.setUpTableView()
-            }
-//        })
-        
+    }
+    
+    func createLoader() {
+        loader = UIActivityIndicatorView(frame: CGRect(x: view.frame.width / 2 - 50, y: view.frame.height / 2 - 50, width: 100, height: 100))
+        let transform = CGAffineTransform(scaleX: 2, y: 2)
+        loader.transform = transform
+        loader.startAnimating()
+        loader.tintColor = UIColor.black
+        view.addSubview(loader)
     }
   
     

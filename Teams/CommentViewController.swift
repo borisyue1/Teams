@@ -139,7 +139,9 @@ extension CommentViewController: UITableViewDelegate, UITableViewDataSource {
         cell.name.textColor = UIColor.black
         cell.comment.text = currentComment.text
         cell.comment.textColor = UIColor.black
-        cell.pic.image? = UIImage(named: "anon.png")!
+        User.getImage(atPath: currentComment.imageUrl, withBlock: { image in
+            cell.pic.image? = image
+        })
         cell.layer.cornerRadius = 15.0
         cell.frame.size.width = 500
         if (indexPath.row % 2 == 1) {

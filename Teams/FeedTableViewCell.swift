@@ -92,9 +92,9 @@ class FeedTableViewCell: UITableViewCell {
         rectView.layer.shadowColor = UIColor.black.cgColor
         rectView.layer.shadowOffset = CGSize(width: 0, height: 0)
         
-        rectView.layer.shadowRadius = 5
+        rectView.layer.shadowRadius = 2.5
         rectView.layer.shadowOpacity = 0.2
-        
+        rectView.layer.shadowPath = UIBezierPath(rect: rectView.bounds).cgPath
         contentView.addSubview(rectView)
     }
     
@@ -194,9 +194,9 @@ class FeedTableViewCell: UITableViewCell {
     
     func setupGoingLabel() {
         numGoingButton = UIButton(frame: CGRect(x: dayLabel.frame.minX, y: joinButton.frame.minY - 40, width: 70, height: 22))
-        numGoingButton.backgroundColor = UIColor(red: 220/255, green: 110/255, blue: 110/255, alpha: 1.0)
+        numGoingButton.backgroundColor = UIColor(red: 234/255, green: 119/255, blue: 131/255, alpha: 1.0)
         numGoingButton.titleLabel?.font = UIFont(name: "Lato-Light", size: 14.0)
-        numGoingButton.layer.cornerRadius = 3
+        numGoingButton.layer.cornerRadius = 2
         numGoingButton.layer.masksToBounds = true
         numGoingButton.addTarget(self, action: #selector(numGoingPressed), for: .touchUpInside)
 

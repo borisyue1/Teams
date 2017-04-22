@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MarqueeLabel
 
 class PeopleGoingTableViewCell: UITableViewCell {
     var name: UILabel!
@@ -23,9 +24,9 @@ class PeopleGoingTableViewCell: UITableViewCell {
         profilePic.layer.cornerRadius = profilePic.frame.width  / 2
         profilePic.layer.masksToBounds = true
         
-        name = UILabel(frame: CGRect(x: 30, y: 20, width: contentView.frame.width - profilePic.frame.width - 10, height: contentView.frame.height))
-        name.textAlignment = .center
-        name.font = UIFont(name: "HelveticaNeue-Thin", size: 15)
+        name = MarqueeLabel(frame: CGRect(x: profilePic.frame.maxX + 25, y: 20, width: contentView.frame.width - profilePic.frame.width - 10, height: contentView.frame.height), rate: 20, fadeLength: 10)
+        name.textAlignment = .left
+        name.font = UIFont(name: "Lato-Light", size: 20)
 
         contentView.addSubview(profilePic)
         contentView.addSubview(name)
