@@ -14,11 +14,12 @@ class FeedViewController: UIViewController {
     var tableView: UITableView!
     var events: [Event] = []
     var sortedEvents: [Event] = []
+    var myEvents: [String] = []
     var auth = FIRAuth.auth()
     var eventsRef: FIRDatabaseReference = FIRDatabase.database().reference().child("Event")
     var schoolRef: FIRDatabaseReference!
     var plusSign: UIImageView!
-    let labels: [String] = ["Sport", "Date"]
+    let labels: [String] = ["Sport", "Date", "My Games"]
     var currKey: String?
     var postIds: [String] = []
     var passedEvent: Event?
@@ -27,11 +28,12 @@ class FeedViewController: UIViewController {
     var segControl: UISegmentedControl!
     static var shouldUpdateFeed = false
     var eventCache: [String: Int] = [:]//caches numGoing
+    var commentCache: [String: Int] = [:]//caches comments count
     static var user: User!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.white
+        self.view.backgroundColor = UIColor(red: 75/255, green: 184/255, blue: 147/255, alpha: 1.0)
         self.navigationController?.navigationBar.tintColor = UIColor.black
         self.navigationItem.setHidesBackButton(true, animated: true) //hide back button
         let originalImage = UIImage(named: "add.png")
@@ -41,6 +43,7 @@ class FeedViewController: UIViewController {
         User.fetchUser(withBlock: { user in
             FeedViewController.user = user
             self.fetchPosts {
+                self.myEvents = FeedViewController.user.eventsJoined
                 self.setUpTableView()
             }
         })
@@ -53,9 +56,13 @@ class FeedViewController: UIViewController {
         super.viewWillAppear(animated)
         if FeedViewController.shouldUpdateFeed {
             FeedViewController.shouldUpdateFeed = false
-            fetchPosts {
-                self.tableView.reloadData()
-            }
+            User.fetchUser(withBlock: { user in
+                self.postIds = []
+                FeedViewController.user = user
+                self.fetchPosts {
+                    self.tableView.reloadData()
+                }
+            })
         }
     }
     
@@ -70,6 +77,8 @@ class FeedViewController: UIViewController {
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: view.frame.height / 10, right: 0)
         tableView.tableFooterView = UIView() // gets rid of the extra cells beneath
         tableView.allowsSelection = false
+        tableView.backgroundColor = UIColor(red: 75/255, green: 184/255, blue: 147/255, alpha: 1.0)
+
         self.automaticallyAdjustsScrollViewInsets = false
         view.addSubview(tableView)
     }
@@ -101,13 +110,21 @@ class FeedViewController: UIViewController {
     func changeSort(sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
         case 0:
+            sortedEvents = events
             sortedEvents = sortedEvents.sorted {
                 $0.sport! < $1.sport!
             }
             self.tableView.reloadData()
         case 1:
+            sortedEvents = events
             sortedEvents = sortedEvents.sorted {
                 $0.NSDate! < $1.NSDate!
+            }
+            self.tableView.reloadData()
+        case 2:
+            self.myEvents = FeedViewController.user.eventsJoined
+            sortedEvents = sortedEvents.filter {
+                myEvents.contains($0.id!)
             }
             self.tableView.reloadData()
         default:
@@ -143,12 +160,6 @@ class FeedViewController: UIViewController {
             self.postIds.append(snapshot.key)
             withBlock() //ensures that next block is called
         })
-    }
-    
-    func sortValues() {
-        sortedEvents = sortedEvents.sorted{
-            $0.sport! < $1.sport!
-        }
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -191,45 +202,60 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
         cell.location = currentEvent.location
         let array = currentEvent.peopleGoing
         if !array.contains(FeedViewController.user.id!) {
-            print("hi")
             cell.buttonIsSelected = false
         } else {
-            print("hello")
             cell.buttonIsSelected = true
         }
         cell.awakeFromNib()
 
         cell.tag = indexPath.row
         
+        cell.contentView.backgroundColor = UIColor(red: 75/255, green: 184/255, blue: 147/255, alpha: 1.0)
         switch currentEvent.sport! {
         case "Soccer":
-            cell.pic.image = #imageLiteral(resourceName: "soccer_new")
+            cell.pic.image = #imageLiteral(resourceName: "soccer-icon")
         case "Football":
-            cell.pic.image = #imageLiteral(resourceName: "football_alternate")
+            cell.pic.image = #imageLiteral(resourceName: "football-icon")
         case "Tennis":
-            cell.pic.image = #imageLiteral(resourceName: "tennis_new")
+            cell.pic.image = #imageLiteral(resourceName: "tennis-icon")
         case "Volleyball":
-            cell.pic.image = #imageLiteral(resourceName: "volleyball")
+            cell.pic.image = #imageLiteral(resourceName: "volleyball-icon")
         case "Ultimate Frisbee":
-            cell.pic.image = #imageLiteral(resourceName: "frisbee")
+            cell.pic.image = #imageLiteral(resourceName: "frisbee-icon")
         case "Spikeball":
-            cell.pic.image = #imageLiteral(resourceName: "spikeball")
+            cell.pic.image = #imageLiteral(resourceName: "spikeball-icon")
         default:
-            cell.pic.image = #imageLiteral(resourceName: "basketball")
-            
+            cell.pic.image = #imageLiteral(resourceName: "basketball-icon")            
         }
 
-        if let numGoing = eventCache[currentEvent.id!] {
+        if let numGoing = eventCache[currentEvent.id!], let numComments = commentCache[currentEvent.id!] {
             cell.numGoingLabel.text = "\(numGoing) going"
             cell.numGoingLabel.sizeToFit()
+            if (numComments == 0) {
+                cell.commentButton.setTitle("Write Comment", for: .normal)
+            } else if (numComments == 1) {
+                cell.commentButton.setTitle("\(numComments) comment", for: .normal)
+            } else {
+                cell.commentButton.setTitle("\(numComments) comments", for: .normal)
+            }
         } else {
             schoolRef.child("\(currentEvent.id!)").observe(.value, with: { snapshot in
                 let value = snapshot.value as? NSDictionary
                 let idArray = value?["peopleGoing"] as? [String] ?? []
+                let commentArray = value?["comments"] as? [String: Any] ?? [:]
+                let numComments = commentArray.count
                 DispatchQueue.main.async {
                     cell.numGoingLabel.text = "\(idArray.count) going"
                     cell.numGoingLabel.sizeToFit()
+                    if (numComments == 0) {
+                        cell.commentButton.setTitle("Write Comment", for: .normal)
+                    } else if (numComments == 1) {
+                        cell.commentButton.setTitle("\(numComments) comment", for: .normal)
+                    } else {
+                        cell.commentButton.setTitle("\(numComments) comments", for: .normal)
+                    }
                     self.eventCache[currentEvent.id!] = idArray.count
+                    self.commentCache[currentEvent.id!] = commentArray.count
                 }
             })
         }
@@ -252,6 +278,13 @@ extension FeedViewController: FeedCellDelegate {
         let commentView = CommentViewController()
         commentView.currKey = currKey
         navigationController?.pushViewController(commentView, animated: true)
+    }
+    
+    func goToPeopleGoing(forCell: FeedTableViewCell) {
+        currKey = postIds[forCell.tag]
+        let goingView = PeopleGoingViewController()
+        goingView.currKey = currKey
+        self.present(goingView, animated: true, completion: nil)
     }
 }
 

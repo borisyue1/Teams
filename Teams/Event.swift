@@ -20,12 +20,13 @@ class Event {
     var peopleGoing: [String] = []
     var location: String?
     var date: String?
-//    var month: String?
-//    var day: String?
-//    var time: String?
     var comments: [String] = []
+<<<<<<< HEAD
     let schoolRef = FIRDatabase.database().reference().child("Event").child(FeedViewController.user.school)
     
+=======
+    let eventRef = FIRDatabase.database().reference().child("Event")
+>>>>>>> 9f2277b15903815888ca076b4e441e28d7057e7b
     var NSDate: Date? //change name later
     
     //used to create fake events
@@ -55,12 +56,6 @@ class Event {
             }
             if let date = postDict!["date"] as? String {
                 self.date = date
-//                let split1 = date.components(separatedBy: ", ")
-//                self.time = split1[2] //get time
-//                let split2 = split1[0].components(separatedBy: " ")
-//                self.month = split2[0] //get month
-//                self.day = split2[1] //get day
-
             }
             if let peopleGoing = postDict!["peopleGoing"] as? [String] {
                 self.peopleGoing = peopleGoing
@@ -68,10 +63,14 @@ class Event {
             if let location = postDict!["location"] as? String {
                 self.location = location
             }
+            if let comments = postDict!["comments"] as? [String] {
+                self.comments = comments
+            }
         }
     }
     
     func addInterestedUser(id: String, user: User) {
+        let schoolRef = eventRef.child(user.school!)
         self.peopleGoing.append(id)
         let childUpdates = ["\(self.id!)/peopleGoing": self.peopleGoing]
         schoolRef.updateChildValues(childUpdates) //update interested array
@@ -83,6 +82,7 @@ class Event {
     }
     
     func removeInterestedUser(id: String, user: User) {
+        let schoolRef = eventRef.child(user.school!)
         self.peopleGoing.remove(at: self.peopleGoing.index(of: id)!)
         let childUpdates = ["\(self.id!)/peopleGoing": self.peopleGoing]
         schoolRef.updateChildValues(childUpdates) //update interested array

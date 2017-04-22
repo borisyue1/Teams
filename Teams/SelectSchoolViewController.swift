@@ -5,7 +5,6 @@
 //  Created by Mark Siano on 4/5/17.
 //  Copyright © 2017 Boris Yue. All rights reserved.
 //
-
 import UIKit
 import DropDown
 import Firebase
@@ -18,29 +17,29 @@ class SelectSchoolViewController: UIViewController {
     var button: UIButton!
     var buttonTapped = false
     var userRef = FIRDatabase.database().reference().child("Users")
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-//        UserDefaults.standard.removeObject(forKey: "name")
-//        UserDefaults.standard.removeObject(forKey: "school")
-//        UserDefaults.standard.synchronize()
-//        if let _ = UserDefaults.standard.value(forKey: "name") {
-//            if let _ = UserDefaults.standard.value(forKey: "school") {
-//                //if name and school already inputted, skip to optionview
-//                let sb = UIStoryboard(name: "Main", bundle: nil)
-//                let controller = sb.instantiateViewController(withIdentifier: "FrontVC")
-//                
-//                revealViewController().setFront(controller, animated: true)
-//
-//            }
-//        }
+        //        UserDefaults.standard.removeObject(forKey: "name")
+        //        UserDefaults.standard.removeObject(forKey: "school")
+        //        UserDefaults.standard.synchronize()
+        //        if let _ = UserDefaults.standard.value(forKey: "name") {
+        //            if let _ = UserDefaults.standard.value(forKey: "school") {
+        //                //if name and school already inputted, skip to optionview
+        //                let sb = UIStoryboard(name: "Main", bundle: nil)
+        //                let controller = sb.instantiateViewController(withIdentifier: "FrontVC")
+        //
+        //                revealViewController().setFront(controller, animated: true)
+        //
+        //            }
+        //        }
         initButton()
         initLabel()
         initDropDown()
         initNextButton()
         
         self.view.backgroundColor = UIColor.init(red: 75/255, green: 184/255, blue: 147/255, alpha: 1.0)
-
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -102,7 +101,7 @@ class SelectSchoolViewController: UIViewController {
         dropdown.selectionAction = { [unowned self] (index: Int, item: String) in
             //self.dropdown.show()
             self.button.setTitle(item, for: .normal)
-//            UserDefaults.standard.set(item, forKey: "school")
+            //            UserDefaults.standard.set(item, forKey: "school")
         }
         dropdown.width = 230
         
@@ -122,5 +121,5 @@ class SelectSchoolViewController: UIViewController {
         }
     }
     
-
+    
 }

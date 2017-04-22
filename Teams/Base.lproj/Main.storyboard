@@ -79,9 +79,6 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <connections>
-                        <segue destination="pDB-DY-4nV" kind="show" identifier="toNew" id="CRq-eC-RKw"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fEk-Ed-BMA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -120,7 +117,6 @@
                     </view>
                     <navigationItem key="navigationItem" id="pgG-4a-25d"/>
                     <connections>
-                        <segue destination="pDB-DY-4nV" kind="show" identifier="toNew" id="re2-hz-WGk"/>
                         <segue destination="rya-P6-QRy" kind="show" identifier="toComments" id="zGw-Ak-WEW"/>
                     </connections>
                 </viewController>
@@ -203,7 +199,4 @@
             <point key="canvasLocation" x="3159" y="1212"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="re2-hz-WGk"/>
-    </inferredMetricsTieBreakers>
 </document>
