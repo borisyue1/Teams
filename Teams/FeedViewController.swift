@@ -301,14 +301,14 @@ extension FeedViewController: FeedCellDelegate {
     }
     
     func goToComments(forCell: FeedTableViewCell) {
-        currKey = postIds[forCell.tag]        
+        currKey = sortedEvents[forCell.tag].id
         let commentView = CommentViewController()
         commentView.currKey = currKey
         navigationController?.pushViewController(commentView, animated: true)
     }
     
     func goToPeopleGoing(forCell: FeedTableViewCell) {
-        currKey = postIds[forCell.tag]
+        currKey = sortedEvents[forCell.tag].id
         let goingView = PeopleGoingViewController()
         goingView.currKey = currKey
         navigationController?.pushViewController(goingView, animated: true)
