@@ -24,7 +24,7 @@ class Event {
 //    var day: String?
 //    var time: String?
     var comments: [String] = []
-    let schoolRef = FIRDatabase.database().reference().child("Event").child(UserDefaults.standard.value(forKey: "school") as! String)
+    let eventRef = FIRDatabase.database().reference().child("Event")
     
     var NSDate: Date? //change name later
     
@@ -72,6 +72,7 @@ class Event {
     }
     
     func addInterestedUser(id: String, user: User) {
+        let schoolRef = eventRef.child(user.school!)
         self.peopleGoing.append(id)
         let childUpdates = ["\(self.id!)/peopleGoing": self.peopleGoing]
         schoolRef.updateChildValues(childUpdates) //update interested array
@@ -83,6 +84,7 @@ class Event {
     }
     
     func removeInterestedUser(id: String, user: User) {
+        let schoolRef = eventRef.child(user.school!)
         self.peopleGoing.remove(at: self.peopleGoing.index(of: id)!)
         let childUpdates = ["\(self.id!)/peopleGoing": self.peopleGoing]
         schoolRef.updateChildValues(childUpdates) //update interested array

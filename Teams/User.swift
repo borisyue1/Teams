@@ -53,7 +53,7 @@ class User {
     
     static func generateUserModel(withId: String, withBlock: @escaping (User) -> Void) {
         let childRef = FIRDatabase.database().reference().child("Users").child(withId)
-        childRef.observe(.value, with: { snapshot in
+        childRef.observeSingleEvent(of: .value, with: { snapshot in
             let user = User(id: snapshot.key, userDict: snapshot.value as! [String : Any]?)
             withBlock(user)
         })
