@@ -55,9 +55,12 @@ class FeedViewController: UIViewController {
         super.viewWillAppear(animated)
         if FeedViewController.shouldUpdateFeed {
             FeedViewController.shouldUpdateFeed = false
-            fetchPosts {
-                self.tableView.reloadData()
-            }
+            User.fetchUser(withBlock: { user in
+                FeedViewController.user = user
+                self.fetchPosts {
+                    self.tableView.reloadData()
+                }
+            })
         }
     }
     

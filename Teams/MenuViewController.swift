@@ -24,6 +24,8 @@ class MenuViewController: UIViewController {
     var user: User!
     var userImage: UIImage!
     var logoutButton: UIButton!
+    static var schoolName: String!
+    var shouldChangeName = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,9 +38,10 @@ class MenuViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    override func viewWillAppear(_ animated: Bool) {
+        if let school = MenuViewController.schoolName {
+            schoolLabel.text = school
+        }
     }
     
     func setupUI() {
