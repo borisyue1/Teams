@@ -83,19 +83,20 @@ class FeedViewController: UIViewController {
             empty.removeFromSuperview() //remove empty label if posts exist
         }
         loader.removeFromSuperview()
-        tableView = UITableView(frame: CGRect(x: 0, y: (navigationController?.navigationBar.frame.maxY)!, width: view.frame.width, height: view.frame.height))
-        tableView.register(FeedTableViewCell.self, forCellReuseIdentifier: "feedCell")
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.rowHeight = 200
-        tableView.separatorStyle = .none
-        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: view.frame.height / 10, right: 0)
-        tableView.tableFooterView = UIView() // gets rid of the extra cells beneath
-        tableView.allowsSelection = false
-        tableView.backgroundColor = UIColor(red: 75/255, green: 184/255, blue: 147/255, alpha: 1.0)
-
-        self.automaticallyAdjustsScrollViewInsets = false
-        view.addSubview(tableView)
+        if let nav = navigationController {
+            tableView = UITableView(frame: CGRect(x: 0, y: (navigationController?.navigationBar.frame.maxY)!, width: view.frame.width, height: view.frame.height))
+            tableView.register(FeedTableViewCell.self, forCellReuseIdentifier: "feedCell")
+            tableView.delegate = self
+            tableView.dataSource = self
+            tableView.rowHeight = 200
+            tableView.separatorStyle = .none
+            tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: view.frame.height / 10, right: 0)
+            tableView.tableFooterView = UIView() // gets rid of the extra cells beneath
+            tableView.allowsSelection = false
+            tableView.backgroundColor = UIColor(red: 75/255, green: 184/255, blue: 147/255, alpha: 1.0)
+            self.automaticallyAdjustsScrollViewInsets = false
+            view.addSubview(tableView)
+        }
     }
     
     func setUpSideBar() {
