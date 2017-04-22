@@ -88,7 +88,7 @@ class OptionViewController: UIViewController {
         
         let sb = UIStoryboard(name: "Main", bundle: nil)
         let controller = sb.instantiateViewController(withIdentifier: "FrontVC")
-        self.show(controller, sender: nil)
+         self.show(controller, sender: nil)
     }
 
 }

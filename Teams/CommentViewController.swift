@@ -57,14 +57,16 @@ class CommentViewController: UIViewController {
     
     
     func setUpTableView() {
-        tableView = UITableView(frame: CGRect(x: 0, y: (navigationController?.navigationBar.frame.maxY)!, width: view.frame.width, height: view.frame.height - 200))
-        tableView.register(CommentTableViewCell.self, forCellReuseIdentifier: "commentCell")
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.backgroundColor = UIColor.white
-        tableView.separatorStyle = .none
-
-        view.addSubview(tableView)
+        if let _ = navigationController {
+            tableView = UITableView(frame: CGRect(x: 0, y: (navigationController?.navigationBar.frame.maxY)!, width: view.frame.width, height: view.frame.height - 200))
+            tableView.register(CommentTableViewCell.self, forCellReuseIdentifier: "commentCell")
+            tableView.delegate = self
+            tableView.dataSource = self
+            tableView.backgroundColor = UIColor.white
+            tableView.separatorStyle = .none
+            
+            view.addSubview(tableView)
+        }
     }
     
     func fetchComments(withBlock: @escaping () -> ()) {
