@@ -15,6 +15,7 @@ class OptionViewController: UIViewController {
     var school: String?
     var name: String?
     static var shouldGoToFeed = false
+    var loader: UIActivityIndicatorView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +34,15 @@ class OptionViewController: UIViewController {
             self.show(controller, sender: nil)
             OptionViewController.shouldGoToFeed = false
         }
+    }
+    
+    func createLoader() {
+        loader = UIActivityIndicatorView(frame: CGRect(x: view.frame.width / 2 - 50, y: view.frame.height / 2 + 100, width: 100, height: 100))
+        let transform = CGAffineTransform(scaleX: 2, y: 2)
+        loader.transform = transform
+        loader.startAnimating()
+        loader.tintColor = UIColor.white
+        view.addSubview(loader)
     }
     
     func initButtons() {
@@ -72,7 +82,13 @@ class OptionViewController: UIViewController {
     func createTeamPressed() {
         createTeam.backgroundColor = UIColor.white
         createTeam.setTitleColor(UIColor(red: 234/255, green: 119/255, blue: 131/255, alpha: 1.0), for: .normal)
-        self.present(NewEventViewController(), animated: true, completion: nil)
+        createLoader()
+        User.fetchUser(withBlock: { user in
+            self.loader.removeFromSuperview()
+            let newEvent = NewEventViewController()
+            newEvent.user = user
+            self.present(newEvent, animated: true, completion: nil)
+        })
     }
     
     func joinTeamPressed() {
@@ -88,7 +104,7 @@ class OptionViewController: UIViewController {
         
         let sb = UIStoryboard(name: "Main", bundle: nil)
         let controller = sb.instantiateViewController(withIdentifier: "FrontVC")
-         self.show(controller, sender: nil)
+        self.show(controller, sender: nil)
     }
 
 }

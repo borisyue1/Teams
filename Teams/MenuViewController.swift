@@ -30,16 +30,26 @@ class MenuViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.user = FeedViewController.user
+        if let user = FeedViewController.user {
+            self.user = user
+            User.getImage(atPath: user.imageUrl, withBlock: { image in
+                self.profilePic.image = image
+            })
+        }
         self.setupUI()
-        User.getImage(atPath: user.imageUrl, withBlock: { image in
-            self.profilePic.image = image
-        })
         
         // Do any additional setup after loading the view.
     }
 
     override func viewWillAppear(_ animated: Bool) {
+        if let user = FeedViewController.user {
+            self.user = user
+            User.getImage(atPath: user.imageUrl, withBlock: { image in
+                self.profilePic.image = image
+            })
+            nameLabel.text = user.name
+            schoolLabel.text = user.school
+        }
         if let school = MenuViewController.schoolName {
             schoolLabel.text = school
         }
@@ -65,13 +75,11 @@ class MenuViewController: UIViewController {
         nameLabel.textColor = UIColor(red: 76/255, green: 136/255, blue: 255/255, alpha: 1.0)
         nameLabel.font = UIFont(name: "Lato-Light", size: 20)
         nameLabel.textAlignment = .center
-        nameLabel.text = user.name
         
         schoolLabel = MarqueeLabel(frame: CGRect(x: 0, y: nameLabel.frame.maxY, width: view.frame.width * (2/5), height: 30), rate: 20, fadeLength: 10)
         schoolLabel.font = UIFont(name: "Lato-Light", size: 20)
         schoolLabel.textColor = UIColor.lightGray
         schoolLabel.textAlignment = .center
-        schoolLabel.text = user.school
         
         settingsButton = UIButton(frame: CGRect(x: 0, y: view.frame.maxY - 100, width: view.frame.width * (2/5), height: 50))
         settingsButton.setTitle("Update Profile", for: .normal)
@@ -88,6 +96,15 @@ class MenuViewController: UIViewController {
         logoutButton.setTitleColor(UIColor.white, for: .normal)
         logoutButton.addTarget(self, action: #selector(logOut), for: .touchUpInside)
         logoutButton.backgroundColor = UIColor.init(red: 249/255, green: 170/255, blue: 97/255, alpha: 1.0)
+        
+        if let user = FeedViewController.user {
+            nameLabel.text = user.name
+            schoolLabel.text = user.school
+        } else {
+            profilePic.image = #imageLiteral(resourceName: "profile")
+            nameLabel.text = "N/A"
+            schoolLabel.text = "Hasn't loaded yet, please try reopening."
+        }
         
         view.addSubview(appLabel)
         appLabel.addSubview(appIcon)

@@ -93,7 +93,7 @@ class FeedTableViewCell: UITableViewCell {
         rectView.layer.shadowColor = UIColor.black.cgColor
         rectView.layer.shadowOffset = CGSize(width: 0, height: 0)
         
-        rectView.layer.shadowRadius = 2.5
+        rectView.layer.shadowRadius = 3
         rectView.layer.shadowOpacity = 0.2
         rectView.layer.shadowPath = UIBezierPath(rect: rectView.bounds).cgPath
         contentView.addSubview(rectView)
@@ -174,7 +174,7 @@ class FeedTableViewCell: UITableViewCell {
     }
     
     func setUpLocationLabel() {
-        locationLabel = MarqueeLabel(frame: CGRect(x: rectView.frame.width / 2 + 15, y: monthLabel.frame.maxX - 10, width: rectView.frame.width / 2 - 25, height: 60), rate: 22.0, fadeLength: 10.0)
+        locationLabel = MarqueeLabel(frame: CGRect(x: rectView.frame.width / 2 + 15, y: monthLabel.frame.maxX - 10, width: rectView.frame.width / 2 - 25, height: 60), rate: 35, fadeLength: 10.0)
         locationLabel.textAlignment = NSTextAlignment.right
         locationLabel.numberOfLines = 0
         locationLabel.text = location
@@ -185,7 +185,7 @@ class FeedTableViewCell: UITableViewCell {
     }
     
     func setUpDescriptionLabel() {
-        descriptionLabel = MarqueeLabel(frame: CGRect(x: numGoingButton.frame.maxX + 25, y: joinButton.frame.minY - 40, width: rectView.frame.width - numGoingButton.frame.maxX - 40, height: 17), rate: 20, fadeLength: 5)
+        descriptionLabel = MarqueeLabel(frame: CGRect(x: numGoingButton.frame.maxX + 25, y: joinButton.frame.minY - 40, width: rectView.frame.width - numGoingButton.frame.maxX - 40, height: 17), rate: 35, fadeLength: 5)
         descriptionLabel.textColor = UIColor.black
         descriptionLabel.font = UIFont(name: "Lato-Light", size: 14.0)
         descriptionLabel.textAlignment = NSTextAlignment.right
@@ -194,11 +194,11 @@ class FeedTableViewCell: UITableViewCell {
     }
     
     func setupGoingLabel() {
-        peopleImage = UIImageView(frame: CGRect(x: dayLabel.frame.minX + 2, y: joinButton.frame.minY - 35, width: 15, height: 15))
+        peopleImage = UIImageView(frame: CGRect(x: dayLabel.frame.minX + 2, y: joinButton.frame.minY - 38, width: 15, height: 15))
         peopleImage.image = #imageLiteral(resourceName: "people")
         rectView.addSubview(peopleImage)
         
-        numGoingButton = UIButton(frame: CGRect(x: peopleImage.frame.maxX, y: joinButton.frame.minY - 40, width: 50, height: 22))
+        numGoingButton = UIButton(frame: CGRect(x: peopleImage.frame.maxX + 2, y: joinButton.frame.minY - 43, width: 50, height: 22))
 //        numGoingButton.backgroundColor = UIColor(red: 234/255, green: 119/255, blue: 131/255, alpha: 1.0)
         numGoingButton.setTitleColor(UIColor.black, for: .normal)
         numGoingButton.titleLabel?.font = UIFont(name: "Lato-Light", size: 14.0)

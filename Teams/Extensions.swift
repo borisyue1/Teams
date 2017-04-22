@@ -67,4 +67,11 @@ extension UIViewController {
         alertController.addAction(alertAction)
         self.present(alertController, animated: true)
     }
+    
+    func displayFlag(withMessage: String) {
+        let alertController = UIAlertController(title: "Success", message: withMessage, preferredStyle: .alert)
+        let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(alertAction)
+        self.present(alertController, animated: true)
+    }
 }

@@ -121,7 +121,7 @@ extension CommentViewController: UITableViewDelegate, UITableViewDataSource {
         for subview in cell.contentView.subviews {
             subview.removeFromSuperview()
         }
-        
+        cell.delegate = self
         cell.awakeFromNib()
         
         let currentComment = commentsArray[indexPath.row]
@@ -147,4 +147,12 @@ extension CommentViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 85
     }
+}
+
+extension CommentViewController: CommentTableViewCellDelegate {
+    
+    func flagComment() {
+        self.displayFlag(withMessage: "This comment has been flagged.")
+    }
+    
 }

@@ -205,6 +205,9 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "feedCell") as! FeedTableViewCell
+        for subview in cell.contentView.subviews {
+            subview.removeFromSuperview() //remove previous subviews in cell
+        }
         return cell
     }
     
@@ -298,14 +301,14 @@ extension FeedViewController: FeedCellDelegate {
     }
     
     func goToComments(forCell: FeedTableViewCell) {
-        currKey = postIds[forCell.tag]        
+        currKey = sortedEvents[forCell.tag].id
         let commentView = CommentViewController()
         commentView.currKey = currKey
         navigationController?.pushViewController(commentView, animated: true)
     }
     
     func goToPeopleGoing(forCell: FeedTableViewCell) {
-        currKey = postIds[forCell.tag]
+        currKey = sortedEvents[forCell.tag].id
         let goingView = PeopleGoingViewController()
         goingView.currKey = currKey
         navigationController?.pushViewController(goingView, animated: true)
