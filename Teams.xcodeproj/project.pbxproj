@@ -15,6 +15,8 @@
 		51B4C0651EA2DAC600BC1DE5 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B4C0641EA2DAC600BC1DE5 /* MenuViewController.swift */; };
 		51B4C0691EA2ED8900BC1DE5 /* RevealVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B4C0681EA2ED8900BC1DE5 /* RevealVC.swift */; };
 		51B4C06E1EA3658100BC1DE5 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 51B4C06D1EA3658100BC1DE5 /* SWRevealViewController.m */; };
+		51FF21451EAB2161006DED8C /* PeopleGoingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FF21441EAB2160006DED8C /* PeopleGoingViewController.swift */; };
+		51FF21471EAB2266006DED8C /* PeopleGoingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FF21461EAB2266006DED8C /* PeopleGoingTableViewCell.swift */; };
 		B40241AB1E95DD2E00E98597 /* NewEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40241AA1E95DD2E00E98597 /* NewEventViewController.swift */; };
 		B40241AD1E95E0CC00E98597 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40241AC1E95E0CC00E98597 /* LoginViewController.swift */; };
 		B40241AF1E95E0D200E98597 /* OptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40241AE1E95E0D200E98597 /* OptionViewController.swift */; };
@@ -67,6 +69,8 @@
 		51B4C0681EA2ED8900BC1DE5 /* RevealVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RevealVC.swift; sourceTree = "<group>"; };
 		51B4C06C1EA3658100BC1DE5 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
 		51B4C06D1EA3658100BC1DE5 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
+		51FF21441EAB2160006DED8C /* PeopleGoingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeopleGoingViewController.swift; sourceTree = "<group>"; };
+		51FF21461EAB2266006DED8C /* PeopleGoingTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeopleGoingTableViewCell.swift; sourceTree = "<group>"; };
 		78DAF67D3D0918471FCD9C8D /* Pods-TeamsTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TeamsTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TeamsTests/Pods-TeamsTests.debug.xcconfig"; sourceTree = "<group>"; };
 		78F411443EE2F2454933771E /* Pods-TeamsUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TeamsUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TeamsUITests/Pods-TeamsUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		A77CCC0AEB55EEDDC9164892 /* Pods_TeamsUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TeamsUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -152,6 +156,7 @@
 				B40241AE1E95E0D200E98597 /* OptionViewController.swift */,
 				B45A84B11E94C410008B34E4 /* FeedViewController.swift */,
 				E1E425E51EA2A36A0098BB7F /* CommentViewController.swift */,
+				51FF21441EAB2160006DED8C /* PeopleGoingViewController.swift */,
 				B40241AA1E95DD2E00E98597 /* NewEventViewController.swift */,
 				B4FDD26C1EA2EE1300CE46D8 /* SettingsViewController.swift */,
 				51B4C0681EA2ED8900BC1DE5 /* RevealVC.swift */,
@@ -162,6 +167,7 @@
 		15566F161E99884700D8F470 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				51FF21461EAB2266006DED8C /* PeopleGoingTableViewCell.swift */,
 				E13B0C931E946ACE00C8FE18 /* FeedTableViewCell.swift */,
 				E1E425EF1EA2D2130098BB7F /* CommentTableViewCell.swift */,
 			);
@@ -563,6 +569,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				51B4C0691EA2ED8900BC1DE5 /* RevealVC.swift in Sources */,
+				51FF21471EAB2266006DED8C /* PeopleGoingTableViewCell.swift in Sources */,
 				E1E425E61EA2A36A0098BB7F /* CommentViewController.swift in Sources */,
 				15566F0F1E9985D500D8F470 /* NavigationController.swift in Sources */,
 				51B4C0651EA2DAC600BC1DE5 /* MenuViewController.swift in Sources */,
@@ -572,6 +579,7 @@
 				B45A84B21E94C410008B34E4 /* FeedViewController.swift in Sources */,
 				B40241B11E95E0DA00E98597 /* SelectSchoolViewController.swift in Sources */,
 				15566F131E99881000D8F470 /* Constants.swift in Sources */,
+				51FF21451EAB2161006DED8C /* PeopleGoingViewController.swift in Sources */,
 				15566F111E99864C00D8F470 /* Extensions.swift in Sources */,
 				E1E425F01EA2D2130098BB7F /* CommentTableViewCell.swift in Sources */,
 				B40241AD1E95E0CC00E98597 /* LoginViewController.swift in Sources */,
