@@ -4,10 +4,30 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Bolts.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>9</integer>
+		</dict>
 		<key>DropDown.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>6</integer>
+		</dict>
+		<key>FBSDKCoreKit.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>10</integer>
+		</dict>
+		<key>FBSDKLoginKit.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>11</integer>
+		</dict>
+		<key>FBSDKShareKit.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>12</integer>
 		</dict>
 		<key>GTMSessionFetcher.xcscheme</key>
 		<dict>
@@ -18,6 +38,16 @@
 		<dict>
 			<key>orderHint</key>
 			<integer>1</integer>
+		</dict>
+		<key>HanekeSwift.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>13</integer>
+		</dict>
+		<key>MarqueeLabel.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>14</integer>
 		</dict>
 		<key>Pods-Teams.xcscheme</key>
 		<dict>
@@ -57,12 +87,32 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>128607ACAA8262EA52E9D1C9CE224533</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>15F37A77F75CFBC2160A4721B9AA3A29</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>2A57F249B708FAE726F0D68B03590C42</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>320AD47B0C6BA014D301395D3BFC8FB6</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>35F79FE341239ACD91A474A2A5F23D09</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>44CAD6CE523055ED339E87154473A254</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -82,6 +132,11 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>5ED6ABAB1C079F9094941AA85299FF1A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>5FC490D7B31EAFCF4303D0DF4D331A6C</key>
 		<dict>
 			<key>primary</key>
@@ -93,6 +148,26 @@
 			<true/>
 		</dict>
 		<key>6D5CEDECD3D8DC52EA507E0431BDA8A0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>850105CC8925611822EF6C52B493E8EA</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>AE4759774042D8E013517E82C6F7A058</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B830DAAAAF6C9906D26353DAAC193D44</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>BC5000D645EEAF961C85907CDC796FE1</key>
 		<dict>
 			<key>primary</key>
 			<true/>

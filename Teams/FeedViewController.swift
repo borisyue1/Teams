@@ -307,7 +307,7 @@ extension FeedViewController: FeedCellDelegate {
         currKey = postIds[forCell.tag]        
         let commentView = CommentViewController()
         commentView.currKey = currKey
-        self.present(commentView, animated: true, completion: nil)
+        navigationController?.pushViewController(commentView, animated: true)
     }
     
     func goToPeopleGoing(forCell: FeedTableViewCell) {

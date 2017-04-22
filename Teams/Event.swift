@@ -21,7 +21,12 @@ class Event {
     var location: String?
     var date: String?
     var comments: [String] = []
+<<<<<<< HEAD
+    let schoolRef = FIRDatabase.database().reference().child("Event").child(FeedViewController.user.school)
+    
+=======
     let eventRef = FIRDatabase.database().reference().child("Event")
+>>>>>>> 9f2277b15903815888ca076b4e441e28d7057e7b
     var NSDate: Date? //change name later
     
     //used to create fake events
