@@ -24,7 +24,7 @@ class Event {
 //    var day: String?
 //    var time: String?
     var comments: [String] = []
-    let schoolRef = FIRDatabase.database().reference().child("Event").child(UserDefaults.standard.value(forKey: "school") as! String)
+    let schoolRef = FIRDatabase.database().reference().child("Event").child(FeedViewController.user.school)
     
     var NSDate: Date? //change name later
     

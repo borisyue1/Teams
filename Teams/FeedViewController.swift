@@ -178,7 +178,7 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
         cell.sport = currentEvent.sport
         cell.author = currentEvent.author
         
-        cell.school = UserDefaults.standard.value(forKey: "school") as! String
+        cell.school = FeedViewController.user.school
         
         let dateString: String! = currentEvent.date!
         let split1 = dateString.components(separatedBy: ", ")
@@ -251,7 +251,7 @@ extension FeedViewController: FeedCellDelegate {
         currKey = postIds[forCell.tag]        
         let commentView = CommentViewController()
         commentView.currKey = currKey
-        self.present(commentView, animated: true, completion: nil)
+        navigationController?.pushViewController(commentView, animated: true)
     }
 }
 
