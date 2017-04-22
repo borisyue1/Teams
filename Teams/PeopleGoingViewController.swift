@@ -14,20 +14,12 @@ class PeopleGoingViewController: UIViewController {
     var eventsRef: FIRDatabaseReference = FIRDatabase.database().reference().child("Event")
     var tableView: UITableView!
     var currKey: String?
-    var exitButton: UIButton!
     var users: [User] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupExitButton()
-        view.backgroundColor = UIColor(red: 234/255, green: 119/255, blue: 131/255, alpha: 1.0)
-//        user = FeedViewController.user
-//        User.fetchUser(withBlock: { user in
-//            FeedViewController.user = user
-//            
-//            User.getImage(atPath: user.imageUrl, withBlock: { image in
-////                cell.profilePic.image = image
-//            })
+        view.backgroundColor = UIColor.white
+
         
             self.fetchPeopleGoing {
                 self.setUpTableView()
@@ -35,27 +27,21 @@ class PeopleGoingViewController: UIViewController {
 //        })
         
     }
-    
-    func setupExitButton() {
-        exitButton = UIButton(frame: CGRect(x: 10, y: 25, width: 25, height: 25))
-        exitButton.addTarget(self, action: #selector(exitPressed), for: .touchUpInside)
-        exitButton.setImage(UIImage(named: "exit"), for: .normal)
-        view.addSubview(exitButton)
-    }
+  
     
     func setUpTableView() {
-        tableView = UITableView(frame: CGRect(x: 0, y: exitButton.frame.maxY, width: view.frame.width, height: view.frame.height - exitButton.frame.height))
+        tableView = UITableView(frame: CGRect(x: 0, y: (navigationController?.navigationBar.frame.maxY)!, width: view.frame.width, height: view.frame.height - (navigationController?.navigationBar.frame.maxY)!))
         tableView.register(PeopleGoingTableViewCell.self, forCellReuseIdentifier: "peopleCell")
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.backgroundColor = UIColor(red: 234/255, green: 119/255, blue: 131/255, alpha: 1.0)
+        tableView.separatorStyle = .none
+
+        tableView.backgroundColor = UIColor.white
         
         view.addSubview(tableView)
     }
     
-    func exitPressed() {
-        self.dismiss(animated: true, completion: nil)
-    }
+   
     
     func fetchPeopleGoing(withBlock: @escaping () -> ()) {
         //TODO: Implement a method to fetch posts with Firebase!
@@ -98,7 +84,7 @@ extension PeopleGoingViewController: UITableViewDelegate, UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
+        return 80
     }
 }
 

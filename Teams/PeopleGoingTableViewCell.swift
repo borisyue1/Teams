@@ -19,11 +19,11 @@ class PeopleGoingTableViewCell: UITableViewCell {
     }
     
     func setupUI() {
-        profilePic = UIImageView(frame: CGRect(x: 20, y: 0, width: contentView.frame.width * (1/5), height: contentView.frame.width * (1/5)))
+        profilePic = UIImageView(frame: CGRect(x: 20, y: 10, width: contentView.frame.width * (1/5), height: contentView.frame.width * (1/5)))
         profilePic.layer.cornerRadius = profilePic.frame.width  / 2
         profilePic.layer.masksToBounds = true
         
-        name = UILabel(frame: CGRect(x: profilePic.frame.maxX + 10, y: 0, width: contentView.frame.width - profilePic.frame.width - 10, height: contentView.frame.height))
+        name = UILabel(frame: CGRect(x: 30, y: 20, width: contentView.frame.width - profilePic.frame.width - 10, height: contentView.frame.height))
         name.textAlignment = .center
         
         contentView.addSubview(profilePic)

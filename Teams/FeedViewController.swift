@@ -314,7 +314,7 @@ extension FeedViewController: FeedCellDelegate {
         currKey = postIds[forCell.tag]
         let goingView = PeopleGoingViewController()
         goingView.currKey = currKey
-        self.present(goingView, animated: true, completion: nil)
+        navigationController?.pushViewController(goingView, animated: true)
     }
 }
 
