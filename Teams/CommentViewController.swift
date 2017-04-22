@@ -105,7 +105,6 @@ class CommentViewController: UIViewController {
         let childUpdates = ["/\(key)/": newComment]
         commentRef.updateChildValues(childUpdates)
         textField.text = ""
-        textField.textColor = UIColor.lightGray
     }
 }
 extension CommentViewController: UITableViewDelegate, UITableViewDataSource {
@@ -130,7 +129,9 @@ extension CommentViewController: UITableViewDelegate, UITableViewDataSource {
         cell.comment.text = currentComment.text
         cell.comment.textColor = UIColor.black
         User.getImage(atPath: currentComment.imageUrl, withBlock: { image in
-            cell.pic.image? = image
+            DispatchQueue.main.async {
+                cell.pic.image? = image
+            }
         })
         cell.layer.cornerRadius = 15.0
         cell.frame.size.width = 500
