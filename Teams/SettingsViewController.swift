@@ -19,6 +19,7 @@ class SettingsViewController: UIViewController {
     var schoolLabel: UILabel!
     var schoolButton: UIButton!
     var dropdown: DropDown!
+    var loader: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,6 +37,15 @@ class SettingsViewController: UIViewController {
         initDoneButton()
     }
     
+    func createLoader() {
+        loader = UIActivityIndicatorView(frame: CGRect(x: view.frame.width / 2 - 50, y: view.frame.height / 2 + 40, width: 100, height: 100))
+        let transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
+        loader.transform = transform
+        loader.startAnimating()
+        loader.tintColor = UIColor.white
+        view.addSubview(loader)
+    }
+    
     func initTitle() {
         settingsTitle = UILabel(frame: CGRect(x: 0, y: view.frame.width / 4.5, width: 100, height: 40))
         settingsTitle.text = "Settings"
@@ -47,7 +57,7 @@ class SettingsViewController: UIViewController {
     }
     
     func initDoneButton() {
-        doneButton = UIButton(frame: CGRect(x: 5, y: 20, width: 25, height: 25))
+        doneButton = UIButton(frame: CGRect(x: 10, y: 25, width: 25, height: 25))
         doneButton.setImage(#imageLiteral(resourceName: "exit"), for: .normal)
         doneButton.addTarget(self, action: #selector(donePressed), for: .touchUpInside)
         view.addSubview(doneButton)
@@ -120,11 +130,15 @@ class SettingsViewController: UIViewController {
     }
     
     func donePressed() {
+        createLoader()
         let schoolUpdate = ["school": schoolButton.titleLabel?.text!]
         let userRef = FIRDatabase.database().reference().child("Users").child(FeedViewController.user.id!)
         userRef.updateChildValues(schoolUpdate, withCompletionBlock: { error, ref in
-            FeedViewController.shouldUpdateFeed = true
-            MenuViewController.schoolName = self.schoolButton.titleLabel?.text!
+            if FeedViewController.user.school != self.schoolButton.titleLabel?.text! {
+                FeedViewController.shouldUpdateFeed = true
+                MenuViewController.schoolName = self.schoolButton.titleLabel?.text!
+            }
+            self.loader.removeFromSuperview()
             self.dismiss(animated: true, completion: nil)
             
         })

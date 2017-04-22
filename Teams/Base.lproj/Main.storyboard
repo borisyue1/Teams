@@ -13,7 +13,7 @@
         <scene sceneID="4FP-b2-JsV">
             <objects>
                 <navigationController storyboardIdentifier="SelectSchoolNavigation" id="Nn6-dr-Y9g" customClass="NavigationController" customModule="Teams" customModuleProvider="target" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="5Mj-Vv-V9J">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="5Mj-Vv-V9J">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -84,24 +84,6 @@
             </objects>
             <point key="canvasLocation" x="1746" y="170"/>
         </scene>
-        <!--New Event View Controller-->
-        <scene sceneID="kyF-7Z-UYQ">
-            <objects>
-                <viewController id="pDB-DY-4nV" customClass="NewEventViewController" customModule="Teams" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="uHQ-fx-76U"/>
-                        <viewControllerLayoutGuide type="bottom" id="rBO-ac-Z30"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Zn9-Bh-v6I">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="fhF-rM-tfR" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2927" y="-245"/>
-        </scene>
         <!--Feed View Controller-->
         <scene sceneID="IiW-UW-8Gd">
             <objects>
@@ -128,7 +110,7 @@
         <scene sceneID="otV-hh-OWM">
             <objects>
                 <navigationController storyboardIdentifier="FrontVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="lOF-bF-2vm" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="BWS-vG-fpf">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="BWS-vG-fpf">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -196,7 +178,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f2G-gt-XeV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3159" y="1212"/>
+            <point key="canvasLocation" x="3062" y="1102"/>
         </scene>
     </scenes>
 </document>

@@ -74,7 +74,7 @@ class NewEventViewController: UIViewController {
         navBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         navBar.shadowImage = UIImage()
         let navItem = UINavigationItem()
-        navItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(goBack))
+        navItem.leftBarButtonItem = UIBarButtonItem(image: resizeImage(image: #imageLiteral(resourceName: "exit"), targetSize: CGSize(width: 25, height: 25)), style: .plain, target: self, action: #selector(goBack))
         navBar.items = [navItem]
         view.addSubview(navBar)
         
@@ -109,7 +109,7 @@ class NewEventViewController: UIViewController {
         
         createTeamLabel = UILabel(frame: CGRect(x: 0, y: view.frame.height / 9, width: view.frame.width, height: view.frame.height/13))
         createTeamLabel.textAlignment = .center
-        createTeamLabel.text = "Create a Team"
+        createTeamLabel.text = "Create a Game"
         createTeamLabel.font = UIFont(name: "Lato-Bold", size: 30)
         createTeamLabel.adjustsFontSizeToFitWidth = true
         createTeamLabel.textColor = UIColor.white
@@ -194,15 +194,42 @@ class NewEventViewController: UIViewController {
             let childUpdates = ["/\(key)/": newEvent]
             schoolRef.updateChildValues(childUpdates)
             
-            FeedViewController.user.eventsJoined.append(key)
-            let userUpdate: [String: [String]] = ["eventsJoined": FeedViewController.user.eventsJoined]
+            if let _ = FeedViewController.user {
+                FeedViewController.user.eventsJoined.append(key)
+            }
+            user.eventsJoined.append(key)
+            let userUpdate: [String: [String]] = ["eventsJoined": user.eventsJoined]
             userRef.child(user.id!).updateChildValues(userUpdate)
-//            var array = UserDefaults.standard.array(forKey: "events")!
-//            array.append(key)
-//            UserDefaults.standard.set(array, forKey: "events")
             OptionViewController.shouldGoToFeed = true
             self.dismiss(animated: true, completion: nil)
         }
+    }
+    
+    //changes size of image
+    func resizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
+        let size = image.size
+        
+        let widthRatio  = targetSize.width  / image.size.width
+        let heightRatio = targetSize.height / image.size.height
+        
+        // Figure out what our orientation is, and use that to form the rectangle
+        var newSize: CGSize
+        if(widthRatio > heightRatio) {
+            newSize = CGSize(width: size.width * heightRatio, height: size.height * heightRatio)
+        } else {
+            newSize = CGSize(width: size.width * widthRatio,  height: size.height * widthRatio)
+        }
+        
+        // This is the rect that we've calculated out and this is what is actually used below
+        let rect = CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height)
+        
+        // Actually do the resizing to the rect using the ImageContext stuff
+        UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
+        image.draw(in: rect)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return newImage!
     }
     
 }

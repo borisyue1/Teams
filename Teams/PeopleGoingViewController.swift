@@ -14,78 +14,60 @@ class PeopleGoingViewController: UIViewController {
     var eventsRef: FIRDatabaseReference = FIRDatabase.database().reference().child("Event")
     var tableView: UITableView!
     var currKey: String?
-    var peopleArray: [String]! = []
-    var exitButton: UIButton!
+    var users: [User] = []
+    var loader: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupExitButton()
-        
-        User.fetchUser(withBlock: { user in
-            FeedViewController.user = user
-            
-            User.getImage(atPath: user.imageUrl, withBlock: { image in
-                cell.profilePic.image = image
-            })
-            
-            self.fetchPeopleGoing {
-                self.setUpTableView()
-            }
-        })
-        
-        // Do any additional setup after loading the view.
-    }
+        self.navigationItem.title = "People Going"
+        createLoader()
+        view.backgroundColor = UIColor.white
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        self.fetchPeopleGoing {
+            self.loader.removeFromSuperview()
+            self.setUpTableView()
+        }
+        
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func createLoader() {
+        loader = UIActivityIndicatorView(frame: CGRect(x: view.frame.width / 2 - 50, y: view.frame.height / 2 - 50, width: 100, height: 100))
+        let transform = CGAffineTransform(scaleX: 2, y: 2)
+        loader.layer.zPosition = 100
+        loader.transform = transform
+        loader.startAnimating()
+        loader.tintColor = UIColor.black
+        view.addSubview(loader)
     }
-    */
-    
-    func setupExitButton() {
-        exitButton = UIButton(frame: CGRect(x: 5, y: 20, width: 25, height: 25))
-        exitButton.addTarget(self, action: #selector(exitPressed), for: .touchUpInside)
-        exitButton.setImage(UIImage(named: "exit"), for: .normal)
-        view.addSubview(exitButton)
-    }
+  
     
     func setUpTableView() {
-        tableView = UITableView(frame: CGRect(x: 0, y: exitButton.frame.maxY, width: view.frame.width, height: view.frame.height - exitButton.frame.maxY - exitButton.frame.height))
-        tableView.register(PeopleGoingTableViewCell.self, forCellReuseIdentifier: "peopleCell")
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.backgroundColor = UIColor(red: 234/255, green: 119/255, blue: 131/255, alpha: 1.0)
-        
-        view.addSubview(tableView)
+        if let _ = navigationController {
+            tableView = UITableView(frame: CGRect(x: 0, y: (navigationController?.navigationBar.frame.maxY)!, width: view.frame.width, height: view.frame.height - (navigationController?.navigationBar.frame.maxY)!))
+            tableView.register(PeopleGoingTableViewCell.self, forCellReuseIdentifier: "peopleCell")
+            tableView.delegate = self
+            tableView.dataSource = self
+            tableView.separatorStyle = .none
+            
+            tableView.backgroundColor = UIColor.white
+            
+            view.addSubview(tableView)
+        }
     }
     
-    func exitPressed() {
-        self.dismiss(animated: true, completion: nil)
-    }
+   
     
     func fetchPeopleGoing(withBlock: @escaping () -> ()) {
         //TODO: Implement a method to fetch posts with Firebase!
-        let schoolRef = eventsRef.child(FeedViewController.user.school)
-        
+        let schoolRef = eventsRef.child(FeedViewController.user.school)        
         schoolRef.child(currKey!).child("peopleGoing").observe(.childAdded, with: { (snapshot) in
+//            var value = snapshot.value as! [String: Any]
+            let id = snapshot.value as! String
+            User.generateUserModel(withId: id, withBlock: { user in
+                self.users.append(user)
+                withBlock() //ensures that next block is called
+            })
             
-            var dict = snapshot.value as! [String: Any]
-            
-            for item in dict {
-                self.peopleArray.append(item.value as! String)
-            }
-            
-            withBlock() //ensures that next block is called
         })
     }
 
@@ -94,7 +76,7 @@ class PeopleGoingViewController: UIViewController {
 extension PeopleGoingViewController: UITableViewDelegate, UITableViewDataSource {
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return peopleArray.count
+        return users.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -106,14 +88,17 @@ extension PeopleGoingViewController: UITableViewDelegate, UITableViewDataSource 
         
         cell.awakeFromNib()
         
-        let currentPerson = peopleArray[indexPath.row]
-        
+        let currentPerson = users[indexPath.row]
+        cell.name.text = currentPerson.name
+        User.getImage(atPath: currentPerson.imageUrl, withBlock: { image in
+            cell.profilePic.image = image
+        })
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 70
+        return 80
     }
 }
 

@@ -11,6 +11,8 @@ import Firebase
 
 class FeedViewController: UIViewController {
     
+    var loader: UIActivityIndicatorView!
+    var empty: UILabel!
     var tableView: UITableView!
     var events: [Event] = []
     var sortedEvents: [Event] = []
@@ -33,7 +35,8 @@ class FeedViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.white
+        createLoader()
+        self.view.backgroundColor = UIColor(red: 75/255, green: 184/255, blue: 147/255, alpha: 1.0)
         self.navigationController?.navigationBar.tintColor = UIColor.black
         self.navigationItem.setHidesBackButton(true, animated: true) //hide back button
         let originalImage = UIImage(named: "add.png")
@@ -57,6 +60,7 @@ class FeedViewController: UIViewController {
         if FeedViewController.shouldUpdateFeed {
             FeedViewController.shouldUpdateFeed = false
             User.fetchUser(withBlock: { user in
+                self.postIds = []
                 FeedViewController.user = user
                 self.fetchPosts {
                     self.tableView.reloadData()
@@ -65,19 +69,34 @@ class FeedViewController: UIViewController {
         }
     }
     
+    func createLoader() {
+        loader = UIActivityIndicatorView(frame: CGRect(x: view.frame.width / 2 - 50, y: view.frame.height / 2 - 50, width: 100, height: 100))
+        let transform = CGAffineTransform(scaleX: 2.5, y: 2.5)
+        loader.transform = transform
+        loader.startAnimating()
+        loader.tintColor = UIColor.white
+        view.addSubview(loader)
+    }
+    
     func setUpTableView() {
-//        self.loader.removeFromSuperview()
-        tableView = UITableView(frame: CGRect(x: 0, y: (navigationController?.navigationBar.frame.maxY)!, width: view.frame.width, height: view.frame.height))
-        tableView.register(FeedTableViewCell.self, forCellReuseIdentifier: "feedCell")
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.rowHeight = 200
-        tableView.separatorStyle = .none
-        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: view.frame.height / 10, right: 0)
-        tableView.tableFooterView = UIView() // gets rid of the extra cells beneath
-        tableView.allowsSelection = false
-        self.automaticallyAdjustsScrollViewInsets = false
-        view.addSubview(tableView)
+        if let empty = empty {
+            empty.removeFromSuperview() //remove empty label if posts exist
+        }
+        loader.removeFromSuperview()
+        if let _ = navigationController {
+            tableView = UITableView(frame: CGRect(x: 0, y: (navigationController?.navigationBar.frame.maxY)!, width: view.frame.width, height: view.frame.height))
+            tableView.register(FeedTableViewCell.self, forCellReuseIdentifier: "feedCell")
+            tableView.delegate = self
+            tableView.dataSource = self
+            tableView.rowHeight = 200
+            tableView.separatorStyle = .none
+            tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: view.frame.height / 10, right: 0)
+            tableView.tableFooterView = UIView() // gets rid of the extra cells beneath
+            tableView.allowsSelection = false
+            tableView.backgroundColor = UIColor(red: 75/255, green: 184/255, blue: 147/255, alpha: 1.0)
+            self.automaticallyAdjustsScrollViewInsets = false
+            view.addSubview(tableView)
+        }
     }
     
     func setUpSideBar() {
@@ -130,7 +149,6 @@ class FeedViewController: UIViewController {
     }
     
     func setupSideBarButton() {
-//        menuButton = UIBarButtonItem(title: "Sort", style: .plain, target: self.revealViewController(), action: "revealToggle:")
         menuButton = UIBarButtonItem(image: #imageLiteral(resourceName: "gear"), style: .plain, target: self.revealViewController(), action: "revealToggle:")
         menuButton.tintColor = UIColor.gray
         navigationItem.leftBarButtonItem = menuButton
@@ -144,9 +162,14 @@ class FeedViewController: UIViewController {
         sortedEvents.removeAll()
         events.removeAll()
         schoolRef = eventsRef.child(FeedViewController.user.school)
+        schoolRef.observeSingleEvent(of: .value, with: { snapshot in
+            if !snapshot.exists() {
+                self.setUpEmptyLabel()
+                return
+            }
+        })
         schoolRef.observe(.childAdded, with: { (snapshot) in
-//            print("queryorderedbychild")
-            var post = Event(id: snapshot.key, postDict: snapshot.value as! [String : Any]?)
+            let post = Event(id: snapshot.key, postDict: snapshot.value as! [String : Any]?)
             let dateFormatter = DateFormatter()
             dateFormatter.dateStyle = DateFormatter.Style.medium
             dateFormatter.timeStyle = DateFormatter.Style.short
@@ -158,12 +181,18 @@ class FeedViewController: UIViewController {
             withBlock() //ensures that next block is called
         })
     }
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toComments" {
-            let view = segue.destination as! CommentViewController
-            view.currKey = currKey
-        }
+    
+    func setUpEmptyLabel() {
+        loader.removeFromSuperview()
+        empty = UILabel(frame: CGRect(x: 50, y: view.frame.height / 2 - 40, width: view.frame.width - 100, height: 100))
+        empty.text = "No games to show. Create one!"
+        empty.textColor = UIColor.white
+        empty.font = UIFont(name: "Lato-Medium", size: 30)
+//        empty.frame.origin.x = view.frame.width / 2 - view.frame.width / 2
+        empty.lineBreakMode = .byWordWrapping
+        empty.numberOfLines = 0
+        empty.textAlignment = .center
+        view.addSubview(empty)
     }
     
 }
@@ -207,39 +236,50 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
 
         cell.tag = indexPath.row
         
+        cell.contentView.backgroundColor = UIColor(red: 75/255, green: 184/255, blue: 147/255, alpha: 1.0)
         switch currentEvent.sport! {
         case "Soccer":
-            cell.pic.image = #imageLiteral(resourceName: "soccer_new")
+            cell.pic.image = #imageLiteral(resourceName: "soccer-icon")
         case "Football":
-            cell.pic.image = #imageLiteral(resourceName: "football_alternate")
+            cell.pic.image = #imageLiteral(resourceName: "football-icon")
         case "Tennis":
-            cell.pic.image = #imageLiteral(resourceName: "tennis_new")
+            cell.pic.image = #imageLiteral(resourceName: "tennis-icon")
         case "Volleyball":
-            cell.pic.image = #imageLiteral(resourceName: "volleyball")
+            cell.pic.image = #imageLiteral(resourceName: "volleyball-icon")
         case "Ultimate Frisbee":
-            cell.pic.image = #imageLiteral(resourceName: "frisbee")
+            cell.pic.image = #imageLiteral(resourceName: "frisbee-icon")
         case "Spikeball":
-            cell.pic.image = #imageLiteral(resourceName: "spikeball")
+            cell.pic.image = #imageLiteral(resourceName: "spikeball-icon")
         default:
-            cell.pic.image = #imageLiteral(resourceName: "basketball")
-            
+            cell.pic.image = #imageLiteral(resourceName: "basketball-icon")            
         }
 
         if let numGoing = eventCache[currentEvent.id!], let numComments = commentCache[currentEvent.id!] {
-            cell.numGoingLabel.text = "\(numGoing) going"
-            cell.numGoingLabel.sizeToFit()
-            cell.commentButton.setTitle("Comment (\(numComments))", for: .normal)
+            cell.numGoingButton.setTitle("\(numGoing) going", for: .normal)
+            if (numComments == 0) {
+                cell.commentButton.setTitle("Write Comment", for: .normal)
+            } else if (numComments == 1) {
+                cell.commentButton.setTitle("\(numComments) comment", for: .normal)
+            } else {
+                cell.commentButton.setTitle("\(numComments) comments", for: .normal)
+            }
         } else {
             schoolRef.child("\(currentEvent.id!)").observe(.value, with: { snapshot in
                 let value = snapshot.value as? NSDictionary
                 let idArray = value?["peopleGoing"] as? [String] ?? []
                 let commentArray = value?["comments"] as? [String: Any] ?? [:]
+                let numComments = commentArray.count
                 DispatchQueue.main.async {
-                    cell.numGoingLabel.text = "\(idArray.count) going"
-                    cell.numGoingLabel.sizeToFit()
-                    cell.commentButton.setTitle("Comment (\(commentArray.count))", for: .normal)
+                    cell.numGoingButton.setTitle("\(idArray.count) going", for: .normal)
+                    if (numComments == 0) {
+                        cell.commentButton.setTitle("Write Comment", for: .normal)
+                    } else if (numComments == 1) {
+                        cell.commentButton.setTitle("\(numComments) comment", for: .normal)
+                    } else {
+                        cell.commentButton.setTitle("\(numComments) comments", for: .normal)
+                    }
                     self.eventCache[currentEvent.id!] = idArray.count
-                    self.commentCache[currentEvent.id!] = idArray.count
+                    self.commentCache[currentEvent.id!] = commentArray.count
                 }
             })
         }
@@ -261,7 +301,14 @@ extension FeedViewController: FeedCellDelegate {
         currKey = postIds[forCell.tag]        
         let commentView = CommentViewController()
         commentView.currKey = currKey
-        self.present(commentView, animated: true, completion: nil)
+        navigationController?.pushViewController(commentView, animated: true)
+    }
+    
+    func goToPeopleGoing(forCell: FeedTableViewCell) {
+        currKey = postIds[forCell.tag]
+        let goingView = PeopleGoingViewController()
+        goingView.currKey = currKey
+        navigationController?.pushViewController(goingView, animated: true)
     }
 }
 

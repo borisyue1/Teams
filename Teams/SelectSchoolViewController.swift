@@ -20,19 +20,6 @@ class SelectSchoolViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //        UserDefaults.standard.removeObject(forKey: "name")
-        //        UserDefaults.standard.removeObject(forKey: "school")
-        //        UserDefaults.standard.synchronize()
-        //        if let _ = UserDefaults.standard.value(forKey: "name") {
-        //            if let _ = UserDefaults.standard.value(forKey: "school") {
-        //                //if name and school already inputted, skip to optionview
-        //                let sb = UIStoryboard(name: "Main", bundle: nil)
-        //                let controller = sb.instantiateViewController(withIdentifier: "FrontVC")
-        //
-        //                revealViewController().setFront(controller, animated: true)
-        //
-        //            }
-        //        }
         initButton()
         initLabel()
         initDropDown()
@@ -51,7 +38,7 @@ class SelectSchoolViewController: UIViewController {
     
     func initLabel() {
         selectLabel = UILabel(frame: CGRect(x: 0, y: self.button.frame.minY - 32, width: view.frame.width, height: 22))
-        selectLabel.font = UIFont(name: "Lato-Light", size: 16.0)
+        selectLabel.font = UIFont(name: "Lato-Light", size: 18.0)
         selectLabel.text = "I go to"
         selectLabel.textAlignment = NSTextAlignment.center
         selectLabel.textColor = UIColor.white

@@ -7,10 +7,12 @@
 //
 
 import UIKit
+import MarqueeLabel
 
 class CommentTableViewCell: UITableViewCell {
     var comment: UILabel!
     var name: UILabel!
+    var pic: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -18,20 +20,24 @@ class CommentTableViewCell: UITableViewCell {
     }
     
     func setupLayout() {
-        contentView.backgroundColor = UIColor(red: 234/255, green: 119/255, blue: 131/255, alpha: 1.0)
+        contentView.backgroundColor = UIColor.clear
         
-        name = UILabel(frame: CGRect(x: 30, y: 0, width: contentView.frame.width, height: contentView.frame.height/2))
+        name = UILabel(frame: CGRect(x: 100, y: 15, width: contentView.frame.width, height: contentView.frame.height/2))
         name.textColor = UIColor.white
         name.adjustsFontSizeToFitWidth = true
-        name.font = UIFont(name: "HelveticaNeue-Bold", size: 15)
+        name.font = UIFont(name: "Lato-Bold", size: 17)
         
-        comment = UILabel(frame: CGRect(x: 30, y: name.frame.maxY, width: contentView.frame.width, height: contentView.frame.height/2))
+        comment = MarqueeLabel(frame: CGRect(x: 100, y: name.frame.maxY + 5, width: contentView.frame.width, height: contentView.frame.height/2), rate: 20, fadeLength: 10)
         comment.textColor = UIColor.white
         comment.adjustsFontSizeToFitWidth = true
-        comment.font = UIFont(name: "HelveticaNeue-Thin", size: 15)
+        comment.font = UIFont(name: "Lato-Light", size: 15)
 
-        
+        pic = UIImageView(frame: CGRect(x: 20, y: 15, width: 50, height: 50))
+        pic.layer.cornerRadius = pic.frame.width / 2
+        pic.layer.masksToBounds = true
         contentView.addSubview(name)
         contentView.addSubview(comment)
+        contentView.addSubview(pic)
+
     }
 }
