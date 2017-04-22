@@ -83,7 +83,7 @@ class FeedViewController: UIViewController {
             empty.removeFromSuperview() //remove empty label if posts exist
         }
         loader.removeFromSuperview()
-        if let nav = navigationController {
+        if let _ = navigationController {
             tableView = UITableView(frame: CGRect(x: 0, y: (navigationController?.navigationBar.frame.maxY)!, width: view.frame.width, height: view.frame.height))
             tableView.register(FeedTableViewCell.self, forCellReuseIdentifier: "feedCell")
             tableView.delegate = self

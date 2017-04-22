@@ -53,6 +53,7 @@ class FeedTableViewCell: UITableViewCell {
     var locationLabel: MarqueeLabel!
     var numGoingButton: UIButton!
     var eventDescriptionLabel: UILabel!
+    var peopleImage: UIImageView!
     
     var atLabel: UILabel!
     
@@ -193,8 +194,13 @@ class FeedTableViewCell: UITableViewCell {
     }
     
     func setupGoingLabel() {
-        numGoingButton = UIButton(frame: CGRect(x: dayLabel.frame.minX, y: joinButton.frame.minY - 40, width: 70, height: 22))
-        numGoingButton.backgroundColor = UIColor(red: 234/255, green: 119/255, blue: 131/255, alpha: 1.0)
+        peopleImage = UIImageView(frame: CGRect(x: dayLabel.frame.minX + 2, y: joinButton.frame.minY - 35, width: 15, height: 15))
+        peopleImage.image = #imageLiteral(resourceName: "people")
+        rectView.addSubview(peopleImage)
+        
+        numGoingButton = UIButton(frame: CGRect(x: peopleImage.frame.maxX, y: joinButton.frame.minY - 40, width: 50, height: 22))
+//        numGoingButton.backgroundColor = UIColor(red: 234/255, green: 119/255, blue: 131/255, alpha: 1.0)
+        numGoingButton.setTitleColor(UIColor.black, for: .normal)
         numGoingButton.titleLabel?.font = UIFont(name: "Lato-Light", size: 14.0)
         numGoingButton.layer.cornerRadius = 2
         numGoingButton.layer.masksToBounds = true
