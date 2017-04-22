@@ -10,14 +10,9 @@ import UIKit
 import Firebase
 import MarqueeLabel
 
-//protocol FeedTableDelegate {
-//    func reloadFeed(sortedItem: String)
-//}
-
 class MenuViewController: UIViewController {
     let labelIcon: [UIImage] = [#imageLiteral(resourceName: "sport"), #imageLiteral(resourceName: "date")]
     var appLabel: UILabel!
-    var appIcon: UIImageView!
     var settingsButton: UIButton!
     var profilePic: UIImageView!
     var nameLabel: UILabel!
@@ -59,13 +54,10 @@ class MenuViewController: UIViewController {
         appLabel = UILabel(frame: CGRect(x: 0, y: UIApplication.shared.statusBarFrame.maxY, width: view.frame.width * (2/5), height: 50))
         appLabel.text = "Sportify"
         appLabel.font = UIFont(name: "Lato-Medium", size: 22)
-        appLabel.textAlignment = .left
+        appLabel.textAlignment = .center
         appLabel.textColor = UIColor.white
         appLabel.layer.cornerRadius = 3.0
         appLabel.backgroundColor = UIColor(red: 75/255, green: 184/255, blue: 147/255, alpha: 1.0)
-        
-        appIcon = UIImageView(frame: CGRect(x: (view.frame.width * (2/5)) - 50, y: UIApplication.shared.statusBarFrame.maxY, width: 100, height: 50))
-        appIcon.image = #imageLiteral(resourceName: "icon")
         
         profilePic = UIImageView(frame: CGRect(x: view.frame.width * (1/10), y: appLabel.frame.maxY + 20, width: view.frame.width * (1/5), height: view.frame.width * (1/5)))
         profilePic.layer.cornerRadius = profilePic.frame.width  / 2
@@ -107,7 +99,6 @@ class MenuViewController: UIViewController {
         }
         
         view.addSubview(appLabel)
-        appLabel.addSubview(appIcon)
         view.addSubview(profilePic)
         view.addSubview(nameLabel)
         view.addSubview(schoolLabel)

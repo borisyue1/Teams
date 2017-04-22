@@ -257,16 +257,16 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
             cell.pic.image = #imageLiteral(resourceName: "basketball-icon")            
         }
 
-        if let numGoing = eventCache[currentEvent.id!], let numComments = commentCache[currentEvent.id!] {
-            cell.numGoingButton.setTitle("\(numGoing) going", for: .normal)
-            if (numComments == 0) {
-                cell.commentButton.setTitle("Write Comment", for: .normal)
-            } else if (numComments == 1) {
-                cell.commentButton.setTitle("\(numComments) comment", for: .normal)
-            } else {
-                cell.commentButton.setTitle("\(numComments) comments", for: .normal)
-            }
-        } else {
+//        if let numGoing = eventCache[currentEvent.id!], let numComments = commentCache[currentEvent.id!] {
+//            cell.numGoingButton.setTitle("\(numGoing) going", for: .normal)
+//            if (numComments == 0) {
+//                cell.commentButton.setTitle("Write Comment", for: .normal)
+//            } else if (numComments == 1) {
+//                cell.commentButton.setTitle("\(numComments) comment", for: .normal)
+//            } else {
+//                cell.commentButton.setTitle("\(numComments) comments", for: .normal)
+//            }
+//        } else {
             schoolRef.child("\(currentEvent.id!)").observe(.value, with: { snapshot in
                 let value = snapshot.value as? NSDictionary
                 let idArray = value?["peopleGoing"] as? [String] ?? []
@@ -285,7 +285,7 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
                     self.commentCache[currentEvent.id!] = commentArray.count
                 }
             })
-        }
+//        }
     }
     
 }
