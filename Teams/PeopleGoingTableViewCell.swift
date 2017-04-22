@@ -25,7 +25,8 @@ class PeopleGoingTableViewCell: UITableViewCell {
         
         name = UILabel(frame: CGRect(x: 30, y: 20, width: contentView.frame.width - profilePic.frame.width - 10, height: contentView.frame.height))
         name.textAlignment = .center
-        
+        name.font = UIFont(name: "HelveticaNeue-Thin", size: 15)
+
         contentView.addSubview(profilePic)
         contentView.addSubview(name)
     }

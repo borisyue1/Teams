@@ -18,6 +18,8 @@ class PeopleGoingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationItem.title = "People Going"
+
         view.backgroundColor = UIColor.white
 
         
