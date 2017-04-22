@@ -33,6 +33,7 @@ class PeopleGoingViewController: UIViewController {
     func createLoader() {
         loader = UIActivityIndicatorView(frame: CGRect(x: view.frame.width / 2 - 50, y: view.frame.height / 2 - 50, width: 100, height: 100))
         let transform = CGAffineTransform(scaleX: 2, y: 2)
+        loader.layer.zPosition = 100
         loader.transform = transform
         loader.startAnimating()
         loader.tintColor = UIColor.black
@@ -41,15 +42,17 @@ class PeopleGoingViewController: UIViewController {
   
     
     func setUpTableView() {
-        tableView = UITableView(frame: CGRect(x: 0, y: (navigationController?.navigationBar.frame.maxY)!, width: view.frame.width, height: view.frame.height - (navigationController?.navigationBar.frame.maxY)!))
-        tableView.register(PeopleGoingTableViewCell.self, forCellReuseIdentifier: "peopleCell")
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.separatorStyle = .none
-
-        tableView.backgroundColor = UIColor.white
-        
-        view.addSubview(tableView)
+        if let _ = navigationController {
+            tableView = UITableView(frame: CGRect(x: 0, y: (navigationController?.navigationBar.frame.maxY)!, width: view.frame.width, height: view.frame.height - (navigationController?.navigationBar.frame.maxY)!))
+            tableView.register(PeopleGoingTableViewCell.self, forCellReuseIdentifier: "peopleCell")
+            tableView.delegate = self
+            tableView.dataSource = self
+            tableView.separatorStyle = .none
+            
+            tableView.backgroundColor = UIColor.white
+            
+            view.addSubview(tableView)
+        }
     }
     
    

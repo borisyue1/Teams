@@ -130,7 +130,7 @@ extension CommentViewController: UITableViewDelegate, UITableViewDataSource {
         cell.comment.textColor = UIColor.black
         User.getImage(atPath: currentComment.imageUrl, withBlock: { image in
             DispatchQueue.main.async {
-                cell.pic.image? = image
+                cell.pic.image = image
             }
         })
         cell.layer.cornerRadius = 15.0

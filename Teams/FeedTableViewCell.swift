@@ -249,7 +249,7 @@ class FeedTableViewCell: UITableViewCell {
     }
     
     func initCommentButton() {
-        commentButton = UIButton(frame: CGRect(x: rectView.frame.minX, y: rectView.frame.maxY - 40, width: rectView.frame.width / 2, height: 40))
+        commentButton = UIButton(frame: CGRect(x: rectView.frame.minX + 1, y: rectView.frame.maxY - 40, width: rectView.frame.width / 2 - 1, height: 40))
         commentButton.titleLabel?.font = UIFont(name: "Lato-Light", size: 14.0)
         commentButton.setTitleColor(UIColor.black, for: .normal)
         commentButton.backgroundColor = UIColor.init(red: 249/255, green: 170/255, blue: 97/255, alpha: 1.0)
@@ -260,7 +260,7 @@ class FeedTableViewCell: UITableViewCell {
     }
     
     func initJoinButton() {
-        joinButton = UIButton(frame: CGRect(x: commentButton.frame.maxX, y: rectView.frame.maxY - 40, width: rectView.frame.width / 2, height: 40))
+        joinButton = UIButton(frame: CGRect(x: commentButton.frame.maxX, y: rectView.frame.maxY - 40, width: rectView.frame.width / 2 - 1, height: 40))
         joinButton.isSelected = buttonIsSelected
         if !buttonIsSelected {
             joinButton.backgroundColor = UIColor(red: 235/255, green: 235/255, blue: 235/255, alpha: 1.0)
