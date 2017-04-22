@@ -28,6 +28,7 @@ class FeedViewController: UIViewController {
     var segControl: UISegmentedControl!
     static var shouldUpdateFeed = false
     var eventCache: [String: Int] = [:]//caches numGoing
+    var commentCache: [String: Int] = [:]//caches comments count
     static var user: User!
     
     override func viewDidLoad() {
@@ -198,10 +199,8 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
         cell.location = currentEvent.location
         let array = currentEvent.peopleGoing
         if !array.contains(FeedViewController.user.id!) {
-            print("hi")
             cell.buttonIsSelected = false
         } else {
-            print("hello")
             cell.buttonIsSelected = true
         }
         cell.awakeFromNib()
@@ -226,17 +225,21 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
             
         }
 
-        if let numGoing = eventCache[currentEvent.id!] {
+        if let numGoing = eventCache[currentEvent.id!], let numComments = commentCache[currentEvent.id!] {
             cell.numGoingLabel.text = "\(numGoing) going"
             cell.numGoingLabel.sizeToFit()
+            cell.commentButton.setTitle("Comment (\(numComments))", for: .normal)
         } else {
             schoolRef.child("\(currentEvent.id!)").observe(.value, with: { snapshot in
                 let value = snapshot.value as? NSDictionary
                 let idArray = value?["peopleGoing"] as? [String] ?? []
+                let commentArray = value?["comments"] as? [String: Any] ?? [:]
                 DispatchQueue.main.async {
                     cell.numGoingLabel.text = "\(idArray.count) going"
                     cell.numGoingLabel.sizeToFit()
+                    cell.commentButton.setTitle("Comment (\(commentArray.count))", for: .normal)
                     self.eventCache[currentEvent.id!] = idArray.count
+                    self.commentCache[currentEvent.id!] = idArray.count
                 }
             })
         }

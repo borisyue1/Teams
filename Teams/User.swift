@@ -19,6 +19,7 @@ class User {
     var eventsJoined: [String] = []
     var school: String!
     var imageUrl: String!
+    var comments: [String] = []
     
     init(id: String, userDict: [String:Any]?) {
         self.id = id

@@ -122,11 +122,6 @@ class SettingsViewController: UIViewController {
     func donePressed() {
         let schoolUpdate = ["school": schoolButton.titleLabel?.text!]
         let userRef = FIRDatabase.database().reference().child("Users").child(FeedViewController.user.id!)
-//        userRef.observe(.value, with: { snapshot in
-//            let value = snapshot.value as? NSDictionary
-//            
-//            
-//        })
         userRef.updateChildValues(schoolUpdate, withCompletionBlock: { error, ref in
             FeedViewController.shouldUpdateFeed = true
             MenuViewController.schoolName = self.schoolButton.titleLabel?.text!
