@@ -14,11 +14,12 @@ class FeedViewController: UIViewController {
     var tableView: UITableView!
     var events: [Event] = []
     var sortedEvents: [Event] = []
+    var myEvents: [String] = []
     var auth = FIRAuth.auth()
     var eventsRef: FIRDatabaseReference = FIRDatabase.database().reference().child("Event")
     var schoolRef: FIRDatabaseReference!
     var plusSign: UIImageView!
-    let labels: [String] = ["Sport", "Date"]
+    let labels: [String] = ["Sport", "Date", "My Games"]
     var currKey: String?
     var postIds: [String] = []
     var passedEvent: Event?
@@ -41,6 +42,7 @@ class FeedViewController: UIViewController {
         User.fetchUser(withBlock: { user in
             FeedViewController.user = user
             self.fetchPosts {
+                self.myEvents = FeedViewController.user.eventsJoined
                 self.setUpTableView()
             }
         })
@@ -101,13 +103,21 @@ class FeedViewController: UIViewController {
     func changeSort(sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
         case 0:
+            sortedEvents = events
             sortedEvents = sortedEvents.sorted {
                 $0.sport! < $1.sport!
             }
             self.tableView.reloadData()
         case 1:
+            sortedEvents = events
             sortedEvents = sortedEvents.sorted {
                 $0.NSDate! < $1.NSDate!
+            }
+            self.tableView.reloadData()
+        case 2:
+            self.myEvents = FeedViewController.user.eventsJoined
+            sortedEvents = sortedEvents.filter {
+                myEvents.contains($0.id!)
             }
             self.tableView.reloadData()
         default:
@@ -144,12 +154,6 @@ class FeedViewController: UIViewController {
             withBlock() //ensures that next block is called
         })
     }
-    
-    func sortValues() {
-        sortedEvents = sortedEvents.sorted{
-            $0.sport! < $1.sport!
-        }
-    }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toComments" {
@@ -178,7 +182,7 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
         cell.sport = currentEvent.sport
         cell.author = currentEvent.author
         
-        cell.school = UserDefaults.standard.value(forKey: "school") as! String
+        cell.school = FeedViewController.user.school
         
         let dateString: String! = currentEvent.date!
         let split1 = dateString.components(separatedBy: ", ")

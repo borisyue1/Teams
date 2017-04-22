@@ -81,7 +81,7 @@ class CommentViewController: UIViewController {
     
     func fetchComments(withBlock: @escaping () -> ()) {
         //TODO: Implement a method to fetch posts with Firebase!
-        let schoolRef = eventsRef.child(UserDefaults.standard.value(forKey: "school") as! String)
+        let schoolRef = eventsRef.child(FeedViewController.user.school)
         
         schoolRef.child(currKey!).child("comments").observe(.childAdded, with: { (snapshot) in
             
@@ -111,12 +111,12 @@ class CommentViewController: UIViewController {
     }
     
     func postComment() {
-        let schoolRef = eventsRef.child(UserDefaults.standard.value(forKey: "school") as! String).child(currKey!).child("comments")
+        let schoolRef = eventsRef.child(FeedViewController.user.school).child(currKey!).child("comments")
         print("AYyyyyyyy")
         let key = schoolRef.childByAutoId().key
         self.dismissKeyboard()
         
-        let newComment = [UserDefaults.standard.string(forKey: "name")!: textField.text] as [String : Any]
+        let newComment = [FeedViewController.user.name!: textField.text] as [String : Any]
         
         let childUpdates = ["/\(key)/": newComment]
         schoolRef.updateChildValues(childUpdates)
