@@ -89,11 +89,11 @@ class CommentViewController: UIViewController {
     }
     
     func initPostFields() {
-        textField = UITextField(frame: CGRect(x: 15, y: view.frame.maxY - 50, width: view.frame.width - 60, height: 40))
+        textField = UITextField(frame: CGRect(x: 15, y: view.frame.maxY - 45, width: view.frame.width - 60, height: 40))
         textField.attributedPlaceholder = NSAttributedString(string: "Write a comment...",
                                                              attributes: [NSForegroundColorAttributeName: UIColor.gray])
         
-        postButton = UIButton(frame: CGRect(x: textField.frame.maxX - 23, y: view.frame.maxY - 50, width: 60, height: 40))
+        postButton = UIButton(frame: CGRect(x: textField.frame.maxX - 23, y: view.frame.maxY - 45, width: 60, height: 40))
         postButton.setTitle("Post", for: .normal)
         postButton.setTitleColor(UIColor(red: 87/255, green: 197/255, blue: 224/255, alpha: 1.0), for: .normal)
 
@@ -111,7 +111,7 @@ class CommentViewController: UIViewController {
         }
         let key = commentRef.childByAutoId().key
         self.dismissKeyboard()
-        let newComment = ["author": FeedViewController.user.id!, "text": textField.text, "imageUrl": FeedViewController.user.imageUrl] as [String : Any]
+        let newComment = ["author": FeedViewController.user.name!, "text": textField.text, "imageUrl": FeedViewController.user.imageUrl] as [String : Any]
         let childUpdates = ["/\(key)/": newComment]
         commentRef.updateChildValues(childUpdates)
         textField.text = ""
@@ -135,11 +135,13 @@ extension CommentViewController: UITableViewDelegate, UITableViewDataSource {
         
         let currentComment = commentsArray[indexPath.row]
         
-        cell.name.text = "Sarah Miller"
+        cell.name.text = currentComment.author
         cell.name.textColor = UIColor.black
-        cell.comment.text = "Is there still space for me??"
+        cell.comment.text = currentComment.text
         cell.comment.textColor = UIColor.black
         cell.pic.image? = UIImage(named: "anon.png")!
+        cell.layer.cornerRadius = 15.0
+        cell.frame.size.width = 500
         if (indexPath.row % 2 == 1) {
             cell.backgroundColor = UIColor(red: 168/255, green: 213/255, blue: 224/255, alpha: 1.0)
             
