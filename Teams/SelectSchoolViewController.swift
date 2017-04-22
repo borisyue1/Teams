@@ -38,7 +38,7 @@ class SelectSchoolViewController: UIViewController {
     
     func initLabel() {
         selectLabel = UILabel(frame: CGRect(x: 0, y: self.button.frame.minY - 32, width: view.frame.width, height: 22))
-        selectLabel.font = UIFont(name: "Lato-Light", size: 16.0)
+        selectLabel.font = UIFont(name: "Lato-Light", size: 18.0)
         selectLabel.text = "I go to"
         selectLabel.textAlignment = NSTextAlignment.center
         selectLabel.textColor = UIColor.white

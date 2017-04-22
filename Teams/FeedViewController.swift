@@ -193,13 +193,6 @@ class FeedViewController: UIViewController {
         empty.textAlignment = .center
         view.addSubview(empty)
     }
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toComments" {
-            let view = segue.destination as! CommentViewController
-            view.currKey = currKey
-        }
-    }
     
 }
 

@@ -109,7 +109,7 @@ class NewEventViewController: UIViewController {
         
         createTeamLabel = UILabel(frame: CGRect(x: 0, y: view.frame.height / 9, width: view.frame.width, height: view.frame.height/13))
         createTeamLabel.textAlignment = .center
-        createTeamLabel.text = "Create a Team"
+        createTeamLabel.text = "Create a Game"
         createTeamLabel.font = UIFont(name: "Lato-Bold", size: 30)
         createTeamLabel.adjustsFontSizeToFitWidth = true
         createTeamLabel.textColor = UIColor.white
@@ -194,12 +194,12 @@ class NewEventViewController: UIViewController {
             let childUpdates = ["/\(key)/": newEvent]
             schoolRef.updateChildValues(childUpdates)
             
-            FeedViewController.user.eventsJoined.append(key)
-            let userUpdate: [String: [String]] = ["eventsJoined": FeedViewController.user.eventsJoined]
+            if let _ = FeedViewController.user {
+                FeedViewController.user.eventsJoined.append(key)
+            }
+            user.eventsJoined.append(key)
+            let userUpdate: [String: [String]] = ["eventsJoined": user.eventsJoined]
             userRef.child(user.id!).updateChildValues(userUpdate)
-//            var array = UserDefaults.standard.array(forKey: "events")!
-//            array.append(key)
-//            UserDefaults.standard.set(array, forKey: "events")
             OptionViewController.shouldGoToFeed = true
             self.dismiss(animated: true, completion: nil)
         }
