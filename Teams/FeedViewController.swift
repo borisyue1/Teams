@@ -11,6 +11,8 @@ import Firebase
 
 class FeedViewController: UIViewController {
     
+    var loader: UIActivityIndicatorView!
+    var empty: UILabel!
     var tableView: UITableView!
     var events: [Event] = []
     var sortedEvents: [Event] = []
@@ -33,6 +35,7 @@ class FeedViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        createLoader()
         self.view.backgroundColor = UIColor(red: 75/255, green: 184/255, blue: 147/255, alpha: 1.0)
         self.navigationController?.navigationBar.tintColor = UIColor.black
         self.navigationItem.setHidesBackButton(true, animated: true) //hide back button
@@ -66,8 +69,20 @@ class FeedViewController: UIViewController {
         }
     }
     
+    func createLoader() {
+        loader = UIActivityIndicatorView(frame: CGRect(x: view.frame.width / 2 - 50, y: view.frame.height / 2 - 50, width: 100, height: 100))
+        let transform = CGAffineTransform(scaleX: 2.5, y: 2.5)
+        loader.transform = transform
+        loader.startAnimating()
+        loader.tintColor = UIColor.white
+        view.addSubview(loader)
+    }
+    
     func setUpTableView() {
-//        self.loader.removeFromSuperview()
+        if let empty = empty {
+            empty.removeFromSuperview() //remove empty label if posts exist
+        }
+        loader.removeFromSuperview()
         tableView = UITableView(frame: CGRect(x: 0, y: (navigationController?.navigationBar.frame.maxY)!, width: view.frame.width, height: view.frame.height))
         tableView.register(FeedTableViewCell.self, forCellReuseIdentifier: "feedCell")
         tableView.delegate = self
@@ -133,7 +148,6 @@ class FeedViewController: UIViewController {
     }
     
     func setupSideBarButton() {
-//        menuButton = UIBarButtonItem(title: "Sort", style: .plain, target: self.revealViewController(), action: "revealToggle:")
         menuButton = UIBarButtonItem(image: #imageLiteral(resourceName: "gear"), style: .plain, target: self.revealViewController(), action: "revealToggle:")
         menuButton.tintColor = UIColor.gray
         navigationItem.leftBarButtonItem = menuButton
@@ -147,9 +161,14 @@ class FeedViewController: UIViewController {
         sortedEvents.removeAll()
         events.removeAll()
         schoolRef = eventsRef.child(FeedViewController.user.school)
+        schoolRef.observeSingleEvent(of: .value, with: { snapshot in
+            if !snapshot.exists() {
+                self.setUpEmptyLabel()
+                return
+            }
+        })
         schoolRef.observe(.childAdded, with: { (snapshot) in
-//            print("queryorderedbychild")
-            var post = Event(id: snapshot.key, postDict: snapshot.value as! [String : Any]?)
+            let post = Event(id: snapshot.key, postDict: snapshot.value as! [String : Any]?)
             let dateFormatter = DateFormatter()
             dateFormatter.dateStyle = DateFormatter.Style.medium
             dateFormatter.timeStyle = DateFormatter.Style.short
@@ -160,6 +179,19 @@ class FeedViewController: UIViewController {
             self.postIds.append(snapshot.key)
             withBlock() //ensures that next block is called
         })
+    }
+    
+    func setUpEmptyLabel() {
+        loader.removeFromSuperview()
+        empty = UILabel(frame: CGRect(x: 50, y: view.frame.height / 2 - 40, width: view.frame.width - 100, height: 100))
+        empty.text = "No games to show. Create one!"
+        empty.textColor = UIColor.white
+        empty.font = UIFont(name: "Lato-Medium", size: 30)
+//        empty.frame.origin.x = view.frame.width / 2 - view.frame.width / 2
+        empty.lineBreakMode = .byWordWrapping
+        empty.numberOfLines = 0
+        empty.textAlignment = .center
+        view.addSubview(empty)
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -229,8 +261,7 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
         }
 
         if let numGoing = eventCache[currentEvent.id!], let numComments = commentCache[currentEvent.id!] {
-            cell.numGoingLabel.text = "\(numGoing) going"
-            cell.numGoingLabel.sizeToFit()
+            cell.numGoingButton.setTitle("\(numGoing) going", for: .normal)
             if (numComments == 0) {
                 cell.commentButton.setTitle("Write Comment", for: .normal)
             } else if (numComments == 1) {
@@ -245,8 +276,7 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
                 let commentArray = value?["comments"] as? [String: Any] ?? [:]
                 let numComments = commentArray.count
                 DispatchQueue.main.async {
-                    cell.numGoingLabel.text = "\(idArray.count) going"
-                    cell.numGoingLabel.sizeToFit()
+                    cell.numGoingButton.setTitle("\(idArray.count) going", for: .normal)
                     if (numComments == 0) {
                         cell.commentButton.setTitle("Write Comment", for: .normal)
                     } else if (numComments == 1) {

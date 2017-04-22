@@ -51,7 +51,7 @@ class FeedTableViewCell: UITableViewCell {
     var dayLabel: UILabel!
     var schoolLabel: UILabel!
     var locationLabel: MarqueeLabel!
-    var numGoingLabel: UILabel!
+    var numGoingButton: UIButton!
     var eventDescriptionLabel: UILabel!
     
     var atLabel: UILabel!
@@ -60,7 +60,6 @@ class FeedTableViewCell: UITableViewCell {
     var joinButton: UIButton!
     var delegate: FeedCellDelegate?
     var buttonIsSelected: Bool! //for joining
-    var goingButton: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -79,7 +78,7 @@ class FeedTableViewCell: UITableViewCell {
         setupGoingLabel()
         setUpDescriptionLabel()
         
-                initLine()
+        initLine()
     }
     
     func setUpRectView() {
@@ -100,10 +99,6 @@ class FeedTableViewCell: UITableViewCell {
     }
     
     func setupSportLabel() {
-        goingButton = UIButton(frame: CGRect(x: 50, y: 50, width: 100, height: 50))
-        goingButton.addTarget(self, action: #selector(numGoingPressed), for: .touchUpInside)
-        goingButton.backgroundColor = UIColor.black
-        rectView.addSubview(goingButton)
         sportLabel = MarqueeLabel(frame: CGRect(x: monthLabel.frame.maxX + 10, y: monthLabel.frame.maxY, width: 100, height: 100))
         sportLabel.font = UIFont(name: "Lato-Medium", size: 20.0)
         sportLabel.textColor = UIColor.black
@@ -189,7 +184,7 @@ class FeedTableViewCell: UITableViewCell {
     }
     
     func setUpDescriptionLabel() {
-        descriptionLabel = MarqueeLabel(frame: CGRect(x: numGoingLabel.frame.maxX + 45, y: joinButton.frame.minY - 40, width: rectView.frame.width - numGoingLabel.frame.maxX - 20 - 40, height: 17), rate: 20, fadeLength: 5)
+        descriptionLabel = MarqueeLabel(frame: CGRect(x: numGoingButton.frame.maxX + 25, y: joinButton.frame.minY - 40, width: rectView.frame.width - numGoingButton.frame.maxX - 40, height: 17), rate: 20, fadeLength: 5)
         descriptionLabel.textColor = UIColor.black
         descriptionLabel.font = UIFont(name: "Lato-Light", size: 14.0)
         descriptionLabel.textAlignment = NSTextAlignment.right
@@ -198,11 +193,16 @@ class FeedTableViewCell: UITableViewCell {
     }
     
     func setupGoingLabel() {
-        numGoingLabel = UILabel(frame: CGRect(x: dayLabel.frame.minX, y: joinButton.frame.minY - 40, width: 10, height: 17))
-        numGoingLabel.font = UIFont(name: "Lato-Light", size: 14.0)
-//        numGoingLabel.text = String(2) + " going"   //String(numGoing)
+        numGoingButton = UIButton(frame: CGRect(x: dayLabel.frame.minX, y: joinButton.frame.minY - 40, width: 70, height: 22))
+        numGoingButton.backgroundColor = UIColor(red: 220/255, green: 110/255, blue: 110/255, alpha: 1.0)
+        numGoingButton.titleLabel?.font = UIFont(name: "Lato-Light", size: 14.0)
+        numGoingButton.layer.cornerRadius = 3
+        numGoingButton.layer.masksToBounds = true
+        numGoingButton.addTarget(self, action: #selector(numGoingPressed), for: .touchUpInside)
+
+//        numGoingButton.text = String(2) + " going"   //String(numGoing)
         
-        rectView.addSubview(numGoingLabel)
+        rectView.addSubview(numGoingButton)
     }
     
     

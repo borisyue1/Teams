@@ -74,7 +74,7 @@ class NewEventViewController: UIViewController {
         navBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         navBar.shadowImage = UIImage()
         let navItem = UINavigationItem()
-        navItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(goBack))
+        navItem.leftBarButtonItem = UIBarButtonItem(image: resizeImage(image: #imageLiteral(resourceName: "exit"), targetSize: CGSize(width: 25, height: 25)), style: .plain, target: self, action: #selector(goBack))
         navBar.items = [navItem]
         view.addSubview(navBar)
         
@@ -203,6 +203,33 @@ class NewEventViewController: UIViewController {
             OptionViewController.shouldGoToFeed = true
             self.dismiss(animated: true, completion: nil)
         }
+    }
+    
+    //changes size of image
+    func resizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
+        let size = image.size
+        
+        let widthRatio  = targetSize.width  / image.size.width
+        let heightRatio = targetSize.height / image.size.height
+        
+        // Figure out what our orientation is, and use that to form the rectangle
+        var newSize: CGSize
+        if(widthRatio > heightRatio) {
+            newSize = CGSize(width: size.width * heightRatio, height: size.height * heightRatio)
+        } else {
+            newSize = CGSize(width: size.width * widthRatio,  height: size.height * widthRatio)
+        }
+        
+        // This is the rect that we've calculated out and this is what is actually used below
+        let rect = CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height)
+        
+        // Actually do the resizing to the rect using the ImageContext stuff
+        UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
+        image.draw(in: rect)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return newImage!
     }
     
 }
