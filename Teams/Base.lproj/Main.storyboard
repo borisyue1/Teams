@@ -13,7 +13,7 @@
         <scene sceneID="4FP-b2-JsV">
             <objects>
                 <navigationController storyboardIdentifier="SelectSchoolNavigation" id="Nn6-dr-Y9g" customClass="NavigationController" customModule="Teams" customModuleProvider="target" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="5Mj-Vv-V9J">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="5Mj-Vv-V9J">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -128,7 +128,7 @@
         <scene sceneID="otV-hh-OWM">
             <objects>
                 <navigationController storyboardIdentifier="FrontVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="lOF-bF-2vm" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="BWS-vG-fpf">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="BWS-vG-fpf">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

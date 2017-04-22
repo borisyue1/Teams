@@ -45,6 +45,8 @@ class OptionViewController: UIViewController {
         createTeam.setTitleColor(UIColor.white, for: .normal)
         createTeam.contentHorizontalAlignment = UIControlContentHorizontalAlignment.center
         createTeam.layer.borderWidth = 3.0
+        createTeam.layer.cornerRadius = 5
+        createTeam.layer.masksToBounds = true
         createTeam.layer.borderColor = UIColor.white.cgColor
         
         
@@ -57,6 +59,8 @@ class OptionViewController: UIViewController {
         joinTeam.setTitleColor(UIColor.white, for: .normal)
         joinTeam.contentHorizontalAlignment = UIControlContentHorizontalAlignment.center
         joinTeam.layer.borderWidth = 3.0
+        createTeam.layer.cornerRadius = 5
+        createTeam.layer.masksToBounds = true
         joinTeam.layer.borderColor = UIColor.white.cgColor
         
         view.addSubview(createTeam)
@@ -64,14 +68,12 @@ class OptionViewController: UIViewController {
     }
     
     func createTeamPressed() {
-//        performSegue(withIdentifier: "toNew", sender: self)
         createTeam.backgroundColor = UIColor.white
         createTeam.setTitleColor(UIColor(red: 234/255, green: 119/255, blue: 131/255, alpha: 1.0), for: .normal)
         self.present(NewEventViewController(), animated: true, completion: nil)
     }
     
     func joinTeamPressed() {
-//        performSegue(withIdentifier: "toFeedView", sender: self)
         joinTeam.backgroundColor = UIColor.white
         joinTeam.setTitleColor(UIColor(red: 234/255, green: 119/255, blue: 131/255, alpha: 1.0), for: .normal)
 //        self.navigationController?.pushViewController(FeedViewController(), animated: true)

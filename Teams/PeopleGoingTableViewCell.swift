@@ -17,12 +17,6 @@ class PeopleGoingTableViewCell: UITableViewCell {
         setupUI()
         // Initialization code
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
     
     func setupUI() {
         profilePic = UIImageView(frame: CGRect(x: 20, y: 0, width: contentView.frame.width * (1/5), height: contentView.frame.width * (1/5)))

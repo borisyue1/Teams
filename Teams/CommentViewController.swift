@@ -66,8 +66,7 @@ class CommentViewController: UIViewController {
     }
     
     func setUpTableView() {
-        tableView = UITableView(frame: CGRect(x: 0, y: exitButton.frame.maxY, width: view.frame.width, height: view.frame.height - exitButton.frame.maxY - exitButton.frame.height -
-        postButton.frame.height))
+        tableView = UITableView(frame: CGRect(x: 0, y: exitButton.frame.maxY, width: view.frame.width, height: view.frame.height - exitButton.frame.maxY - exitButton.frame.height - postButton.frame.height))
         tableView.register(CommentTableViewCell.self, forCellReuseIdentifier: "commentCell")
         tableView.delegate = self
         tableView.dataSource = self

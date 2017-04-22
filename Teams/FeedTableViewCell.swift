@@ -14,6 +14,7 @@ protocol FeedCellDelegate {
     func addInterestedUser(forCell: FeedTableViewCell, withId: String, user: User)
     func removeInterestedUser(forCell: FeedTableViewCell, withId: String, user: User)
     func goToComments(forCell: FeedTableViewCell)
+    func goToPeopleGoing(forCell: FeedTableViewCell)
     
 }
 
@@ -38,7 +39,6 @@ class FeedTableViewCell: UITableViewCell {
     var time: String!
     var school: String!
     var location: String!
-    var teamName: String!
     var numGoing: Int!
     var eventDescription: String!
     
@@ -50,7 +50,6 @@ class FeedTableViewCell: UITableViewCell {
     var monthLabel: UILabel!
     var dayLabel: UILabel!
     var schoolLabel: UILabel!
-    var teamNameLabel: UILabel!
     var locationLabel: MarqueeLabel!
     var numGoingLabel: UILabel!
     var eventDescriptionLabel: UILabel!
@@ -61,65 +60,58 @@ class FeedTableViewCell: UITableViewCell {
     var joinButton: UIButton!
     var delegate: FeedCellDelegate?
     var buttonIsSelected: Bool! //for joining
+    var goingButton: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        setUpImage()
         setUpRectView()
         setUpAuthorLabel()
+        setUpImage()
         setUpTimeLabel()
         setUpDateLabel()
         setupSportLabel()
         setUpLocationLabel()
         initAtLabel()
         
-        setupGoingLabel()
-        setUpDescriptionLabel()
-        
         initCommentButton()
         initJoinButton()
         
-        initLine()
-    }
-    
-    func initTestValues() {
-        sport = "basketball"
-        author = "Mark"
-        datePosted = Date(timeIntervalSinceNow: 3.0)
-        month = "MAY"
-        day = 20
-        school = "UC Berkeley"
-        location = "People's Park"
-        teamName = "Swaggers"
-        numGoing = 4
-        eventDescription = "come thru if u wanna ball tonite"
+        setupGoingLabel()
+        setUpDescriptionLabel()
+        
+                initLine()
     }
     
     func setUpRectView() {
-        let inset = contentView.frame.width / 15
-        let width = contentView.frame.width - (2 * inset)
-        rectView = UIView(frame: CGRect(x: inset, y: 20, width: width, height: contentView.frame.height - 40))
+        let width = contentView.frame.width - 30
+        rectView = UIView(frame: CGRect(x: 15, y: 5, width: width, height: contentView.frame.height - 10))
         rectView.backgroundColor = UIColor.white
         
-        rectView.layer.borderColor = UIColor(red: 229/255, green: 229/255, blue: 229/255, alpha: 1.0).cgColor
-        rectView.layer.borderWidth = 1.5
+        rectView.layer.borderColor = UIColor(red: 200/255, green: 200/255, blue: 200/255, alpha: 1.0).cgColor
+        rectView.layer.borderWidth = 1.0
         
-        //rectView.layer.shadowColor = UIColor.black.cgColor
-        //rectView.layer.shadowOffset = CGSize(width: 0, height: 4)
+        rectView.layer.shadowColor = UIColor.black.cgColor
+        rectView.layer.shadowOffset = CGSize(width: 0, height: 0)
         
-        rectView.layer.masksToBounds = false
-        rectView.layer.shadowOffset = CGSize(width: 0, height: 3)
-        rectView.layer.shadowRadius = 3
+        rectView.layer.shadowRadius = 5
         rectView.layer.shadowOpacity = 0.2
         
         contentView.addSubview(rectView)
     }
     
     func setupSportLabel() {
-        sportLabel = UILabel(frame: CGRect(x: monthLabel.frame.maxX + 10, y: rectView.frame.height / 2 - 30, width: 100, height: 100))
-        sportLabel.font = UIFont(name: "Lato-Medium", size: 16.0)
+        goingButton = UIButton(frame: CGRect(x: 50, y: 50, width: 100, height: 50))
+        goingButton.addTarget(self, action: #selector(numGoingPressed), for: .touchUpInside)
+        goingButton.backgroundColor = UIColor.black
+        rectView.addSubview(goingButton)
+        sportLabel = MarqueeLabel(frame: CGRect(x: monthLabel.frame.maxX + 10, y: monthLabel.frame.maxY, width: 100, height: 100))
+        sportLabel.font = UIFont(name: "Lato-Medium", size: 20.0)
         sportLabel.textColor = UIColor.black
-        sportLabel.text = sport
+        if (sport == "Ultimate Frisbee") {
+            sportLabel.text = "Frisbee"
+        } else {
+            sportLabel.text = sport
+        }
         sportLabel.numberOfLines = 0
         sportLabel.sizeToFit()
         rectView.addSubview(sportLabel)
@@ -127,19 +119,8 @@ class FeedTableViewCell: UITableViewCell {
     
     
     func setUpImage() {
-        pic = UIImageView(frame: CGRect(x: 0, y: 4, width: contentView.frame.width, height: contentView.frame.height - 8))
-        pic.layer.shadowColor = UIColor.black.cgColor
-        pic.layer.shadowOpacity = 1
-        pic.layer.shadowOffset = CGSize(width: 0, height: 3)
-        pic.layer.shadowRadius = 1.5
-        //        pic.contentMode = .scaleAspectFill
-        //        pic.layer.masksToBounds = true
-        contentView.addSubview(pic)
-        //insert gray layer
-        let layer = CALayer()
-        layer.frame = CGRect(x: 0, y: 0, width: contentView.frame.width, height: contentView.frame.height)
-        layer.backgroundColor = UIColor(red: 216/255, green: 216/255, blue: 216/255, alpha: 0.0).cgColor
-        contentView.layer.insertSublayer(layer, at: 10)
+        pic = UIImageView(frame: CGRect(x: authorLabel.frame.maxX + 3, y: authorLabel.frame.minY + 2, width: 16, height: 16))
+        rectView.addSubview(pic)
     }
     
     func setUpDateLabel() {
@@ -161,11 +142,11 @@ class FeedTableViewCell: UITableViewCell {
     }
     
     func initAtLabel() {
-        atLabel = UILabel(frame: CGRect(x: rectView.frame.width / 2 - 12, y: sportLabel.frame.minY - 3, width: 20, height: 24))
+        atLabel = UILabel(frame: CGRect(x: rectView.frame.width / 2 - 13, y: sportLabel.frame.minY - 3, width: 25, height: 30))
         atLabel.text = "@"
         atLabel.textColor = UIColor.black
         atLabel.textAlignment = NSTextAlignment.center
-        atLabel.font = UIFont(name: "Lato-Medium", size: 22.0)
+        atLabel.font = UIFont(name: "Lato-Medium", size: 26.0)
         
         rectView.addSubview(atLabel)
     }
@@ -184,8 +165,6 @@ class FeedTableViewCell: UITableViewCell {
         authorLabel.font = UIFont(name: "Lato-Light", size: 14.0)
         authorLabel.sizeToFit()
         
-//        print("FUCKING SPORT: ", author)
-        
         rectView.addSubview(authorLabel)
     }
     
@@ -199,39 +178,38 @@ class FeedTableViewCell: UITableViewCell {
     }
     
     func setUpLocationLabel() {
-//        locationLabel = UILabel(frame: CGRect(x: rectView.frame.width / 2 + 8, y: sportLabel.frame.minY - 20, width: rectView.frame.width / 2 - 20, height: 60))
-        locationLabel = MarqueeLabel(frame: CGRect(x: rectView.frame.width / 2 + 8, y: sportLabel.frame.minY - 20, width: rectView.frame.width / 2 - 25, height: 60), rate: 22.0, fadeLength: 10.0)
+        locationLabel = MarqueeLabel(frame: CGRect(x: rectView.frame.width / 2 + 15, y: monthLabel.frame.maxX - 10, width: rectView.frame.width / 2 - 25, height: 60), rate: 22.0, fadeLength: 10.0)
         locationLabel.textAlignment = NSTextAlignment.right
         locationLabel.numberOfLines = 0
         locationLabel.text = location
         locationLabel.textColor = UIColor.black
-        locationLabel.font = UIFont(name: "Lato-Medium", size: 16.0)
+        locationLabel.font = UIFont(name: "Lato-Medium", size: 20.0)
         
         rectView.addSubview(locationLabel)
     }
     
     func setUpDescriptionLabel() {
-//        descriptionLabel = UILabel(frame: CGRect(x: numGoingLabel.frame.maxX + 5, y: numGoingLabel.frame.minY, width: rectView.frame.width - numGoingLabel.frame.maxX - 20, height: 15))
-        descriptionLabel = MarqueeLabel(frame: CGRect(x: numGoingLabel.frame.maxX, y: numGoingLabel.frame.minY, width: rectView.frame.width - numGoingLabel.frame.maxX - 20, height: 15), rate: 20, fadeLength: 5)
+        descriptionLabel = MarqueeLabel(frame: CGRect(x: numGoingLabel.frame.maxX + 45, y: joinButton.frame.minY - 40, width: rectView.frame.width - numGoingLabel.frame.maxX - 20 - 40, height: 17), rate: 20, fadeLength: 5)
         descriptionLabel.textColor = UIColor.black
-        descriptionLabel.font = UIFont(name: "Lato-Light", size: 12.0)
+        descriptionLabel.font = UIFont(name: "Lato-Light", size: 14.0)
         descriptionLabel.textAlignment = NSTextAlignment.right
         descriptionLabel.text = eventDescription
         rectView.addSubview(descriptionLabel)
     }
     
     func setupGoingLabel() {
-        numGoingLabel = UILabel(frame: CGRect(x: dayLabel.frame.minX, y: dayLabel.frame.maxY + 5, width: 50, height: 15))
-        numGoingLabel.font = UIFont(name: "Lato-Light", size: 12.0)
+        numGoingLabel = UILabel(frame: CGRect(x: dayLabel.frame.minX, y: joinButton.frame.minY - 40, width: 10, height: 17))
+        numGoingLabel.font = UIFont(name: "Lato-Light", size: 14.0)
 //        numGoingLabel.text = String(2) + " going"   //String(numGoing)
         
         rectView.addSubview(numGoingLabel)
     }
     
+    
     func initLine() {
         
-        let aPath = UIBezierPath()
-        let bPath = UIBezierPath()
+        var aPath = UIBezierPath()
+        var bPath = UIBezierPath()
         
         aPath.move(to: CGPoint(x:rectView.frame.minX, y:rectView.frame.maxY - 40))
         aPath.addLine(to: CGPoint(x:rectView.frame.maxX, y:rectView.frame.maxY - 40))
@@ -256,12 +234,12 @@ class FeedTableViewCell: UITableViewCell {
         bPath.stroke()
         bPath.fill()
         
-        let shapeLayer = CAShapeLayer()
+        var shapeLayer = CAShapeLayer()
         shapeLayer.path = aPath.cgPath
         shapeLayer.strokeColor = UIColor(red: 220/255, green: 220/255, blue: 220/255, alpha: 1.0).cgColor
         shapeLayer.lineWidth = 1.0
         
-        let shapeLayer2 = CAShapeLayer()
+        var shapeLayer2 = CAShapeLayer()
         shapeLayer2.path = bPath.cgPath
         shapeLayer2.strokeColor = UIColor(red: 220/255, green: 220/255, blue: 220/255, alpha: 1.0).cgColor
         shapeLayer2.lineWidth = 0.5
@@ -274,7 +252,8 @@ class FeedTableViewCell: UITableViewCell {
         commentButton = UIButton(frame: CGRect(x: rectView.frame.minX, y: rectView.frame.maxY - 40, width: rectView.frame.width / 2, height: 40))
         commentButton.titleLabel?.font = UIFont(name: "Lato-Light", size: 14.0)
         commentButton.setTitleColor(UIColor.black, for: .normal)
-        commentButton.backgroundColor = UIColor(red: 235/255, green: 235/255, blue: 235/255, alpha: 1.0)
+        commentButton.backgroundColor = UIColor.init(red: 249/255, green: 170/255, blue: 97/255, alpha: 1.0)
+        
         commentButton.contentHorizontalAlignment = .center
         commentButton.addTarget(self, action: #selector(commentPressed), for: .touchUpInside)
         contentView.addSubview(commentButton)
@@ -310,6 +289,10 @@ class FeedTableViewCell: UITableViewCell {
             joinButton.isSelected = false
             delegate?.removeInterestedUser(forCell: self, withId: FeedViewController.user.id!, user: FeedViewController.user)
         }
+    }
+    
+    func numGoingPressed() {
+        delegate?.goToPeopleGoing(forCell: self)
     }
     
     func commentPressed() {
