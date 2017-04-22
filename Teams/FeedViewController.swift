@@ -205,6 +205,9 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "feedCell") as! FeedTableViewCell
+        for subview in cell.contentView.subviews {
+            subview.removeFromSuperview() //remove previous subviews in cell
+        }
         return cell
     }
     

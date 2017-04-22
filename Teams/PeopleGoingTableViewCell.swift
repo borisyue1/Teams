@@ -10,7 +10,7 @@ import UIKit
 import MarqueeLabel
 
 class PeopleGoingTableViewCell: UITableViewCell {
-    var name: UILabel!
+    var name: MarqueeLabel!
     var profilePic: UIImageView!
 
     override func awakeFromNib() {
@@ -24,7 +24,7 @@ class PeopleGoingTableViewCell: UITableViewCell {
         profilePic.layer.cornerRadius = profilePic.frame.width  / 2
         profilePic.layer.masksToBounds = true
         
-        name = MarqueeLabel(frame: CGRect(x: profilePic.frame.maxX + 30, y: 20, width: contentView.frame.width - profilePic.frame.width - 10, height: contentView.frame.height), rate: 20, fadeLength: 10)
+        name = MarqueeLabel(frame: CGRect(x: profilePic.frame.maxX + 60, y: 20, width: contentView.frame.width - profilePic.frame.width - 10, height: contentView.frame.height), rate: 20, fadeLength: 10)
         name.textAlignment = .left
         name.font = UIFont(name: "Lato-Light", size: 20)
 

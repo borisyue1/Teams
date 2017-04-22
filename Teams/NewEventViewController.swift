@@ -38,15 +38,15 @@ class NewEventViewController: UIViewController {
         self.hideKeyboardWhenTappedAround()
         UITextField.appearance().tintColor = UIColor.white //sets cursor to white
         UITextView.appearance().tintColor = UIColor.white
-        User.fetchUser(withBlock: { user in
-            self.user = user
-            self.setUpNavBar()
-            self.setupLayout()
-            self.initDropDown()
-            self.addressCompleter.delegate = self
-            NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-            NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-        })
+        if let user = FeedViewController.user {
+            self.user = FeedViewController.user
+        }
+        self.setUpNavBar()
+        self.setupLayout()
+        self.initDropDown()
+        self.addressCompleter.delegate = self
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
     func keyboardWillShow(notification: NSNotification) {
