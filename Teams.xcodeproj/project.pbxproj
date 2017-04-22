@@ -19,6 +19,7 @@
 		B40241AD1E95E0CC00E98597 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40241AC1E95E0CC00E98597 /* LoginViewController.swift */; };
 		B40241AF1E95E0D200E98597 /* OptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40241AE1E95E0D200E98597 /* OptionViewController.swift */; };
 		B40241B11E95E0DA00E98597 /* SelectSchoolViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40241B01E95E0DA00E98597 /* SelectSchoolViewController.swift */; };
+		B41002C31EAB1216002923C7 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B41002C21EAB1216002923C7 /* Comment.swift */; };
 		B44EF3641E7E391E00E25F58 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44EF3631E7E391E00E25F58 /* AppDelegate.swift */; };
 		B44EF3691E7E391E00E25F58 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B44EF3671E7E391E00E25F58 /* Main.storyboard */; };
 		B44EF36B1E7E391E00E25F58 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B44EF36A1E7E391E00E25F58 /* Assets.xcassets */; };
@@ -76,6 +77,7 @@
 		B40241AC1E95E0CC00E98597 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		B40241AE1E95E0D200E98597 /* OptionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionViewController.swift; sourceTree = "<group>"; };
 		B40241B01E95E0DA00E98597 /* SelectSchoolViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectSchoolViewController.swift; sourceTree = "<group>"; };
+		B41002C21EAB1216002923C7 /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		B44EF3601E7E391E00E25F58 /* Teams.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Teams.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B44EF3631E7E391E00E25F58 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B44EF3681E7E391E00E25F58 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -173,6 +175,7 @@
 			children = (
 				E13B0C971E94D36800C8FE18 /* Event.swift */,
 				B49308251EA9E88A00A0F48D /* User.swift */,
+				B41002C21EAB1216002923C7 /* Comment.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -578,6 +581,7 @@
 				B40241AB1E95DD2E00E98597 /* NewEventViewController.swift in Sources */,
 				B49308261EA9E88A00A0F48D /* User.swift in Sources */,
 				B4FDD26D1EA2EE1300CE46D8 /* SettingsViewController.swift in Sources */,
+				B41002C31EAB1216002923C7 /* Comment.swift in Sources */,
 				E13B0C981E94D36800C8FE18 /* Event.swift in Sources */,
 				B44EF3641E7E391E00E25F58 /* AppDelegate.swift in Sources */,
 			);

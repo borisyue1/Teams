@@ -7,17 +7,14 @@
 //
 import UIKit
 import Firebase
-struct Comment {
-    var author: String!
-    var text: String!
-}
 
 class CommentViewController: UIViewController {
-    var eventsRef: FIRDatabaseReference = FIRDatabase.database().reference().child("Event")
-    var comments: [String]! = []
+    
+    var eventRef: FIRDatabaseReference = FIRDatabase.database().reference().child("Event")
+    var commentRef: FIRDatabaseReference!
     var tableView: UITableView!
     var currKey: String?
-    var commentsArray: [Comment]! = []
+    var commentsArray: [Comment] = []
     var textField: UITextField!
     var postButton: UIButton!
     var exitButton: UIButton!
@@ -29,7 +26,7 @@ class CommentViewController: UIViewController {
         self.navigationController?.navigationBar.tintColor = UIColor.black
         view.backgroundColor = UIColor(red: 234/255, green: 119/255, blue: 131/255, alpha: 1.0)
         self.setupExitButton()
-        
+        commentRef = eventRef.child(FeedViewController.user.school).child(currKey!).child("comments")
         fetchComments {
             self.setUpTableView()
         }
@@ -80,17 +77,13 @@ class CommentViewController: UIViewController {
     }
     
     func fetchComments(withBlock: @escaping () -> ()) {
-        //TODO: Implement a method to fetch posts with Firebase!
-        let schoolRef = eventsRef.child(FeedViewController.user.school)
-        
-        schoolRef.child(currKey!).child("comments").observe(.childAdded, with: { (snapshot) in
-            
-            var dict = snapshot.value as! [String: Any]
-            
-            for item in dict {
-                self.commentsArray.append(Comment(author: item.key, text: item.value as! String))
+        //TODO: Implement a method to fetch posts with Firebase!        
+        commentRef.observe(.childAdded, with: { (snapshot) in
+            if snapshot.key == "0" {//no comments
+                return
             }
-            
+            let comment = Comment(id: snapshot.key, commentDict: snapshot.value as! [String : Any]?)
+            self.commentsArray.append(comment)
             withBlock() //ensures that next block is called
         })
     }
@@ -111,16 +104,16 @@ class CommentViewController: UIViewController {
     }
     
     func postComment() {
-        let schoolRef = eventsRef.child(FeedViewController.user.school).child(currKey!).child("comments")
-        print("AYyyyyyyy")
-        let key = schoolRef.childByAutoId().key
+        if textField.text == "" {
+            self.displayError(withMessage: "Please enter a comment.")
+            return
+        }
+        let key = commentRef.childByAutoId().key
         self.dismissKeyboard()
-        
-        let newComment = [FeedViewController.user.name!: textField.text] as [String : Any]
-        
+        let newComment = ["author": FeedViewController.user.id!, "text": textField.text, "imageUrl": FeedViewController.user.imageUrl] as [String : Any]
         let childUpdates = ["/\(key)/": newComment]
-        schoolRef.updateChildValues(childUpdates)
-        textField.text = "Post a comment..."
+        commentRef.updateChildValues(childUpdates)
+        textField.text = ""
         textField.textColor = UIColor.lightGray
     }
 }
