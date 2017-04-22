@@ -22,12 +22,13 @@ class CommentViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        initPostFields()
+
         self.automaticallyAdjustsScrollViewInsets = false
         self.hideKeyboardWhenTappedAround()
         self.navigationController?.navigationBar.tintColor = UIColor.black
         self.navigationItem.title = "Comments"
         view.backgroundColor = UIColor.white
-        self.setupExitButton()
         commentRef = eventRef.child(FeedViewController.user.school).child(currKey!).child("comments")
         fetchComments {
             self.setUpTableView()
@@ -35,7 +36,6 @@ class CommentViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
-        initPostFields()
     }
     
     func keyboardWillShow(notification: NSNotification) {
@@ -55,19 +55,9 @@ class CommentViewController: UIViewController {
         }
     }
     
-    func setupExitButton() {
-        exitButton = UIButton(frame: CGRect(x: 5, y: 20, width: 25, height: 25))
-        exitButton.addTarget(self, action: #selector(exitPressed), for: .touchUpInside)
-        exitButton.setImage(UIImage(named: "exit"), for: .normal)
-        view.addSubview(exitButton)
-    }
-    
-    func exitPressed() {
-        self.dismiss(animated: true, completion: nil)
-    }
     
     func setUpTableView() {
-        tableView = UITableView(frame: CGRect(x: 0, y: (navigationController?.navigationBar.frame.maxY)!, width: view.frame.width, height: view.frame.height - (navigationController?.navigationBar.frame.maxY)!))
+        tableView = UITableView(frame: CGRect(x: 0, y: (navigationController?.navigationBar.frame.maxY)!, width: view.frame.width, height: view.frame.height - 200))
         tableView.register(CommentTableViewCell.self, forCellReuseIdentifier: "commentCell")
         tableView.delegate = self
         tableView.dataSource = self
