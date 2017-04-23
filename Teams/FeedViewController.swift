@@ -151,6 +151,9 @@ class FeedViewController: UIViewController {
     }
     
     func setupSideBarButton() {
+        if self.revealViewController() != nil {
+            
+        }
         menuButton = UIBarButtonItem(image: #imageLiteral(resourceName: "gear"), style: .plain, target: self.revealViewController(), action: "revealToggle:")
         menuButton.tintColor = UIColor.gray
         navigationItem.leftBarButtonItem = menuButton

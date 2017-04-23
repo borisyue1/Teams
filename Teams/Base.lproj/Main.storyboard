@@ -40,8 +40,8 @@
                     </view>
                     <navigationItem key="navigationItem" id="ZPu-IS-2xM"/>
                     <connections>
-                        <segue destination="iJI-LJ-9cE" kind="presentation" identifier="toSelectSc" id="zjj-RT-b1h"/>
-                        <segue destination="iWD-eF-rse" kind="presentation" identifier="loginToFeed" id="cUK-x2-kL5"/>
+                        <segue destination="iJI-LJ-9cE" kind="presentation" identifier="toSelectSchool" modalTransitionStyle="crossDissolve" id="zjj-RT-b1h"/>
+                        <segue destination="iWD-eF-rse" kind="presentation" identifier="loginToFeed" modalTransitionStyle="crossDissolve" id="cUK-x2-kL5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

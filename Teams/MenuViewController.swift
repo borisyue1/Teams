@@ -30,12 +30,12 @@ class MenuViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         if let user = FeedViewController.user {
+            self.setupUI()
             self.user = user
             User.getImage(atPath: user.imageUrl, withBlock: { image in
                 self.profilePic.image = image
             })
         }
-        self.setupUI()
         
         // Do any additional setup after loading the view.
     }
@@ -115,12 +115,14 @@ class MenuViewController: UIViewController {
     }
     
     func logOut() {
-        let firebaseAuth = FIRAuth.auth()
-        do {
-            try firebaseAuth?.signOut()
-            self.dismiss(animated: true, completion: nil)
-        } catch let signOutError as NSError {
-            print ("Error signing out: %@", signOutError)
+        if let _ = user {
+            let firebaseAuth = FIRAuth.auth()
+            do {
+                try firebaseAuth?.signOut()
+                self.dismiss(animated: true, completion: nil)
+            } catch let signOutError as NSError {
+                print ("Error signing out: %@", signOutError)
+            }
         }
     }
     

@@ -139,6 +139,7 @@ class LoginViewController : UIViewController, UITextFieldDelegate {
     var signInButton: UIButton!
     var userRef: FIRDatabaseReference!
     var loader: UIActivityIndicatorView!
+    static var shouldSegue = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -148,7 +149,6 @@ class LoginViewController : UIViewController, UITextFieldDelegate {
         initButton()
         //initLabel()
         //initNextButton()
-        
         initTriangle()
         
         initWhiteLine()
@@ -157,13 +157,21 @@ class LoginViewController : UIViewController, UITextFieldDelegate {
         
 //        self.view.backgroundColor = UIColor.init(red: 41/255, green: 41/255, blue: 49/255, alpha: 1.0)
         self.view.backgroundColor = UIColor.init(red: 75/255, green: 184/255, blue: 147/255, alpha: 1.0)
+        FIRAuth.auth()?.addStateDidChangeListener { auth, user in
+            if user != nil {
+                // User is signed in. Show feed screen
+                self.performSegue(withIdentifier: "loginToFeed", sender: self)
+
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        FIRAuth.auth()?.addStateDidChangeListener { (auth, user) in
-            if user != nil {
+        if LoginViewController.shouldSegue {
+            if FIRAuth.auth()?.currentUser != nil {
                 self.performSegue(withIdentifier: "loginToFeed", sender: self)
             }
+            LoginViewController.shouldSegue = false
         }
         button.backgroundColor = UIColor.white
         button.setTitleColor(UIColor.init(red: 41/255, green: 41/255, blue: 49/255, alpha: 1.0), for: .normal)

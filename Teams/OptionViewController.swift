@@ -29,10 +29,9 @@ class OptionViewController: UIViewController {
         createTeam.setTitleColor(UIColor.white, for: .normal)
         self.navigationController?.navigationBar.tintColor = UIColor.white
         if OptionViewController.shouldGoToFeed {
-            let sb = UIStoryboard(name: "Main", bundle: nil)
-            let controller = sb.instantiateViewController(withIdentifier: "FrontVC")
-            self.show(controller, sender: nil)
+            self.dismiss(animated: true, completion: nil)
             OptionViewController.shouldGoToFeed = false
+            LoginViewController.shouldSegue = true
         }
     }
     
@@ -105,6 +104,7 @@ class OptionViewController: UIViewController {
 //        let sb = UIStoryboard(name: "Main", bundle: nil)
 //        let controller = sb.instantiateViewController(withIdentifier: "FrontVC")
 //        self.show(controller, sender: nil)
+        LoginViewController.shouldSegue = true
         self.dismiss(animated: true, completion: nil)
     }
 
