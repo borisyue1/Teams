@@ -199,14 +199,12 @@ class FeedTableViewCell: UITableViewCell {
         rectView.addSubview(peopleImage)
         
         numGoingButton = UIButton(frame: CGRect(x: peopleImage.frame.maxX + 2, y: joinButton.frame.minY - 43, width: 50, height: 22))
-//        numGoingButton.backgroundColor = UIColor(red: 234/255, green: 119/255, blue: 131/255, alpha: 1.0)
         numGoingButton.setTitleColor(UIColor.black, for: .normal)
         numGoingButton.titleLabel?.font = UIFont(name: "Lato-Light", size: 14.0)
         numGoingButton.layer.cornerRadius = 2
         numGoingButton.layer.masksToBounds = true
         numGoingButton.addTarget(self, action: #selector(numGoingPressed), for: .touchUpInside)
 
-//        numGoingButton.text = String(2) + " going"   //String(numGoing)
         
         rectView.addSubview(numGoingButton)
     }

@@ -26,12 +26,13 @@ class MenuViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         if let user = FeedViewController.user {
+            self.setupUI()
             self.user = user
             User.getImage(atPath: user.imageUrl, withBlock: { image in
                 self.profilePic.image = image
             })
         }
-        self.setupUI()
+        
         
         // Do any additional setup after loading the view.
     }

@@ -187,7 +187,6 @@ class NewEventViewController: UIViewController {
             self.descriptionField.text = ""
             let schoolRef = eventsRef.child(user.school)
             peopleGoing = [user.id!]
-//            comments = ["-"]
         
             let newEvent = ["author": user.name, "sport": sport, "description": description, "peopleGoing": peopleGoing, "date": date, "location": location] as [String : Any]
             let key = schoolRef.childByAutoId().key

@@ -78,21 +78,15 @@ class SelectSchoolViewController: UIViewController {
     
     func initDropDown() {
         dropdown = DropDown()
-        
-        //dropdown = DropDown.init(frame: CGRect(x: 10, y: 300, width: 200, height: 100))
-        
         dropdown.anchorView = button
         dropdown.dataSource = ["UC Berkeley", "UCLA", "UC Irvine", "UC Santa Barbara", "UC Riverside", "UC Merced", "UC Davis", "USC", "Stanford"]
         dropdown.bottomOffset = CGPoint(x: 0, y: button.bounds.height)
         dropdown.direction = .bottom
         dropdown.selectionAction = { [unowned self] (index: Int, item: String) in
-            //self.dropdown.show()
             self.button.setTitle(item, for: .normal)
-            //            UserDefaults.standard.set(item, forKey: "school")
         }
         dropdown.width = 230
         
-        //view.addSubview(dropdown)
     }
     
     func nextPressed() {
