@@ -99,7 +99,7 @@ class SelectSchoolViewController: UIViewController {
         if button.titleLabel!.text != "" {
             let setSchool = ["\((FIRAuth.auth()?.currentUser?.uid)!)/school": button.titleLabel!.text]
             userRef.updateChildValues(setSchool)
-            self.navigationController?.pushViewController(OptionViewController(), animated: true)
+            self.performSegue(withIdentifier: "toOptionView", sender: self)
             nextButton.backgroundColor = UIColor.white
             nextButton.setTitleColor(UIColor.init(red: 249/255, green: 170/255, blue: 97/255, alpha: 1.0), for: .normal)
             buttonTapped = true

@@ -102,9 +102,10 @@ class OptionViewController: UIViewController {
 //        revealViewController().setFront(rVC, animated: true)
     
         
-        let sb = UIStoryboard(name: "Main", bundle: nil)
-        let controller = sb.instantiateViewController(withIdentifier: "FrontVC")
-        self.show(controller, sender: nil)
+//        let sb = UIStoryboard(name: "Main", bundle: nil)
+//        let controller = sb.instantiateViewController(withIdentifier: "FrontVC")
+//        self.show(controller, sender: nil)
+        self.dismiss(animated: true, completion: nil)
     }
 
 }

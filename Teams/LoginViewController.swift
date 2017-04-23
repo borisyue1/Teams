@@ -137,15 +137,12 @@ class LoginViewController : UIViewController, UITextFieldDelegate {
     var box: UIView!
     var whiteLine: UIButton!
     var signInButton: UIButton!
-    var userRef = FIRDatabase.database().reference().child("Users")
+    var userRef: FIRDatabaseReference!
     var loader: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if FIRAuth.auth()?.currentUser != nil {
-            let controller = self.storyboard?.instantiateViewController(withIdentifier: "FrontVC")
-            self.revealViewController().setFront(controller, animated: true)
-        }
+        userRef = FIRDatabase.database().reference().child("Users")
         setupBox()
         initTitleLabel()
         initButton()
@@ -163,6 +160,11 @@ class LoginViewController : UIViewController, UITextFieldDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        FIRAuth.auth()?.addStateDidChangeListener { (auth, user) in
+            if user != nil {
+                self.performSegue(withIdentifier: "loginToFeed", sender: self)
+            }
+        }
         button.backgroundColor = UIColor.white
         button.setTitleColor(UIColor.init(red: 41/255, green: 41/255, blue: 49/255, alpha: 1.0), for: .normal)
     }
@@ -187,7 +189,7 @@ class LoginViewController : UIViewController, UITextFieldDelegate {
     }
     
     func initSignInButton() {
-        signInButton = UIButton(frame: CGRect(x: box.frame.minX + 15, y: box.frame.maxY + 25, width: 100, height: 25))
+        signInButton = UIButton(frame: CGRect(x: view.frame.width / 2 - 50, y: box.frame.maxY + 25, width: 100, height: 25))
 //        signInButton.backgroundColor = UIColor.init(red: 41/255, green: 41/255, blue: 49/255, alpha: 1.0)
         signInButton.backgroundColor = UIColor.init(red: 75/255, green: 184/255, blue: 147/255, alpha: 1.0)
         signInButton.setTitle("SIGN IN", for: .normal)
@@ -199,7 +201,7 @@ class LoginViewController : UIViewController, UITextFieldDelegate {
     }
     
     func initTriangle() {
-        let triangle = TriangleView(frame: CGRect(x: box.frame.minX + 40, y: box.frame.maxY, width: 25, height: 15))
+        let triangle = TriangleView(frame: CGRect(x: view.frame.width / 2 - 12.5, y: box.frame.maxY, width: 25, height: 15))
 //        triangle.backgroundColor = UIColor.init(red: 41/255, green: 41/255, blue: 49/255, alpha: 1.0)
         triangle.backgroundColor = UIColor.init(red: 75/255, green: 184/255, blue: 147/255, alpha: 1.0)
         view.addSubview(triangle)
@@ -257,18 +259,15 @@ class LoginViewController : UIViewController, UITextFieldDelegate {
                                                         "fullName": user!.displayName!,
                                                         "profPicUrl": user!.photoURL!.absoluteString]
                             self.userRef.child(user!.uid).setValue(userDict, withCompletionBlock: { (error, ref) -> Void in
-                                let nav = self.storyboard?.instantiateViewController(withIdentifier: "SelectSchoolNavigation") as! NavigationController
-                                self.show(nav, sender: nil)
+                                self.performSegue(withIdentifier: "toSelectSchool", sender: self)
                                 self.loader.removeFromSuperview()
                             })
                         } else {
                             let value = snapshot.value as? NSDictionary
                             if let _ = value?["school"] {
-                                let controller = self.storyboard?.instantiateViewController(withIdentifier: "FrontVC")
-                                self.revealViewController().setFront(controller, animated: true)
+                                self.performSegue(withIdentifier: "loginToFeed", sender: self)
                             } else {
-                                let nav = self.storyboard?.instantiateViewController(withIdentifier: "SelectSchoolNavigation") as! NavigationController
-                                self.show(nav, sender: nil)
+                                self.performSegue(withIdentifier: "toSelectSchool", sender: self)
                             }
                             self.loader.removeFromSuperview()
                         }

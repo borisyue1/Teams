@@ -13,7 +13,6 @@
 		2EDED1B441596217AA03FE06 /* Pods_TeamsUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A77CCC0AEB55EEDDC9164892 /* Pods_TeamsUITests.framework */; };
 		3567FC59F88763261FB20851 /* Pods_Teams.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF0241EBB394F9AD308C0D83 /* Pods_Teams.framework */; };
 		51B4C0651EA2DAC600BC1DE5 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B4C0641EA2DAC600BC1DE5 /* MenuViewController.swift */; };
-		51B4C0691EA2ED8900BC1DE5 /* RevealVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B4C0681EA2ED8900BC1DE5 /* RevealVC.swift */; };
 		51B4C06E1EA3658100BC1DE5 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 51B4C06D1EA3658100BC1DE5 /* SWRevealViewController.m */; };
 		51FF21451EAB2161006DED8C /* PeopleGoingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FF21441EAB2160006DED8C /* PeopleGoingViewController.swift */; };
 		51FF21471EAB2266006DED8C /* PeopleGoingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FF21461EAB2266006DED8C /* PeopleGoingTableViewCell.swift */; };
@@ -23,13 +22,13 @@
 		B40241B11E95E0DA00E98597 /* SelectSchoolViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40241B01E95E0DA00E98597 /* SelectSchoolViewController.swift */; };
 		B41002C31EAB1216002923C7 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B41002C21EAB1216002923C7 /* Comment.swift */; };
 		B44EF3641E7E391E00E25F58 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44EF3631E7E391E00E25F58 /* AppDelegate.swift */; };
-		B44EF3691E7E391E00E25F58 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B44EF3671E7E391E00E25F58 /* Main.storyboard */; };
 		B44EF36B1E7E391E00E25F58 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B44EF36A1E7E391E00E25F58 /* Assets.xcassets */; };
 		B44EF36E1E7E391E00E25F58 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B44EF36C1E7E391E00E25F58 /* LaunchScreen.storyboard */; };
 		B44EF3791E7E391E00E25F58 /* TeamsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44EF3781E7E391E00E25F58 /* TeamsTests.swift */; };
 		B44EF3841E7E391E00E25F58 /* TeamsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44EF3831E7E391E00E25F58 /* TeamsUITests.swift */; };
 		B44EF3921E7E39A500E25F58 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B44EF3911E7E39A500E25F58 /* GoogleService-Info.plist */; };
 		B45A84B21E94C410008B34E4 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45A84B11E94C410008B34E4 /* FeedViewController.swift */; };
+		B479D8241EAC1AFD008976C2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B479D8221EAC1AFD008976C2 /* Main.storyboard */; };
 		B49308261EA9E88A00A0F48D /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B49308251EA9E88A00A0F48D /* User.swift */; };
 		B4DDCE3E1EA2C7B700EF2B7A /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B4DDCE3D1EA2C7B700EF2B7A /* Lato-Bold.ttf */; };
 		B4DDCE401EA2C7C000EF2B7A /* Lato-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B4DDCE3F1EA2C7C000EF2B7A /* Lato-Light.ttf */; };
@@ -67,7 +66,6 @@
 		500FECED9559EEA41DAA339D /* Pods-Teams.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Teams.release.xcconfig"; path = "Pods/Target Support Files/Pods-Teams/Pods-Teams.release.xcconfig"; sourceTree = "<group>"; };
 		51B4C0601EA2D4D500BC1DE5 /* Teams-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Teams-Bridging-Header.h"; sourceTree = "<group>"; };
 		51B4C0641EA2DAC600BC1DE5 /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
-		51B4C0681EA2ED8900BC1DE5 /* RevealVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RevealVC.swift; sourceTree = "<group>"; };
 		51B4C06C1EA3658100BC1DE5 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
 		51B4C06D1EA3658100BC1DE5 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
 		51FF21441EAB2160006DED8C /* PeopleGoingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeopleGoingViewController.swift; sourceTree = "<group>"; };
@@ -84,7 +82,6 @@
 		B41002C21EAB1216002923C7 /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		B44EF3601E7E391E00E25F58 /* Teams.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Teams.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B44EF3631E7E391E00E25F58 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		B44EF3681E7E391E00E25F58 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B44EF36A1E7E391E00E25F58 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B44EF36D1E7E391E00E25F58 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B44EF36F1E7E391E00E25F58 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -96,6 +93,7 @@
 		B44EF3851E7E391E00E25F58 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B44EF3911E7E39A500E25F58 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B45A84B11E94C410008B34E4 /* FeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
+		B479D8231EAC1AFD008976C2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B49308251EA9E88A00A0F48D /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		B4C9C4601EA8C1F500FDA674 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = "../../FacebookSDKs-iOS-4.22.0/FBSDKLoginKit.framework"; sourceTree = "<group>"; };
 		B4C9C4631EA8C6CF00FDA674 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = "../../../Downloads/FacebookSDKs-iOS-4.22.0/FBSDKLoginKit.framework"; sourceTree = "<group>"; };
@@ -161,7 +159,6 @@
 				51FF21441EAB2160006DED8C /* PeopleGoingViewController.swift */,
 				B40241AA1E95DD2E00E98597 /* NewEventViewController.swift */,
 				B4FDD26C1EA2EE1300CE46D8 /* SettingsViewController.swift */,
-				51B4C0681EA2ED8900BC1DE5 /* RevealVC.swift */,
 			);
 			name = VCs;
 			sourceTree = "<group>";
@@ -257,8 +254,8 @@
 				15566F171E99884C00D8F470 /* Models */,
 				15566F161E99884700D8F470 /* Views */,
 				15566F141E99882700D8F470 /* Utils */,
-				B44EF3671E7E391E00E25F58 /* Main.storyboard */,
 				B44EF36A1E7E391E00E25F58 /* Assets.xcassets */,
+				B479D8221EAC1AFD008976C2 /* Main.storyboard */,
 				B44EF36C1E7E391E00E25F58 /* LaunchScreen.storyboard */,
 				B44EF36F1E7E391E00E25F58 /* Info.plist */,
 				B44EF3911E7E39A500E25F58 /* GoogleService-Info.plist */,
@@ -402,13 +399,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B479D8241EAC1AFD008976C2 /* Main.storyboard in Resources */,
 				B44EF36E1E7E391E00E25F58 /* LaunchScreen.storyboard in Resources */,
 				B4DDCE3E1EA2C7B700EF2B7A /* Lato-Bold.ttf in Resources */,
 				B44EF3921E7E39A500E25F58 /* GoogleService-Info.plist in Resources */,
 				B4DDCE401EA2C7C000EF2B7A /* Lato-Light.ttf in Resources */,
 				B44EF36B1E7E391E00E25F58 /* Assets.xcassets in Resources */,
 				B4DDCE421EA2C7D100EF2B7A /* Lato-Medium.ttf in Resources */,
-				B44EF3691E7E391E00E25F58 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -571,7 +568,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				51B4C0691EA2ED8900BC1DE5 /* RevealVC.swift in Sources */,
 				51FF21471EAB2266006DED8C /* PeopleGoingTableViewCell.swift in Sources */,
 				E1E425E61EA2A36A0098BB7F /* CommentViewController.swift in Sources */,
 				15566F0F1E9985D500D8F470 /* NavigationController.swift in Sources */,
@@ -627,20 +623,20 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		B44EF3671E7E391E00E25F58 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				B44EF3681E7E391E00E25F58 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		B44EF36C1E7E391E00E25F58 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				B44EF36D1E7E391E00E25F58 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		B479D8221EAC1AFD008976C2 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B479D8231EAC1AFD008976C2 /* Base */,
+			);
+			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

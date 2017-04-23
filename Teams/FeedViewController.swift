@@ -32,6 +32,7 @@ class FeedViewController: UIViewController {
     var eventCache: [String: Int] = [:]//caches numGoing
     var commentCache: [String: Int] = [:]//caches comments count
     static var user: User!
+    var canCreateNew = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,6 +46,7 @@ class FeedViewController: UIViewController {
         self.navigationItem.setRightBarButton(addButton, animated: true)
         User.fetchUser(withBlock: { user in
             FeedViewController.user = user
+            self.canCreateNew = true
             self.fetchPosts {
                 self.myEvents = FeedViewController.user.eventsJoined
                 self.setUpTableView()
@@ -155,7 +157,9 @@ class FeedViewController: UIViewController {
     }
     
     func createEvent() {
-        self.present(NewEventViewController(), animated: true, completion: nil)
+        if canCreateNew {
+             self.present(NewEventViewController(), animated: true, completion: nil)
+        }
     }
     
     func fetchPosts(withBlock: @escaping () -> ()) {
