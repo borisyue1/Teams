@@ -115,8 +115,7 @@ class MenuViewController: UIViewController {
         let firebaseAuth = FIRAuth.auth()
         do {
             try firebaseAuth?.signOut()
-            let loginVC = self.storyboard?.instantiateViewController(withIdentifier: "revealVC")
-            self.show(loginVC!, sender: nil)
+            self.dismiss(animated: true, completion: nil)
         } catch let signOutError as NSError {
             print ("Error signing out: %@", signOutError)
         }

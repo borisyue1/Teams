@@ -95,9 +95,10 @@ class OptionViewController: UIViewController {
         joinTeam.backgroundColor = UIColor.white
         joinTeam.setTitleColor(UIColor(red: 234/255, green: 119/255, blue: 131/255, alpha: 1.0), for: .normal)
         
-        let sb = UIStoryboard(name: "Main", bundle: nil)
-        let controller = sb.instantiateViewController(withIdentifier: "FrontVC")
-        self.show(controller, sender: nil)
+//        let sb = UIStoryboard(name: "Main", bundle: nil)
+//        let controller = sb.instantiateViewController(withIdentifier: "FrontVC")
+//        self.show(controller, sender: nil)
+        self.dismiss(animated: true, completion: nil)
     }
 
 }
