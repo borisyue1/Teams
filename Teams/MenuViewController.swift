@@ -10,10 +10,6 @@ import UIKit
 import Firebase
 import MarqueeLabel
 
-//protocol FeedTableDelegate {
-//    func reloadFeed(sortedItem: String)
-//}
-
 class MenuViewController: UIViewController {
     let labelIcon: [UIImage] = [#imageLiteral(resourceName: "sport"), #imageLiteral(resourceName: "date")]
     var appLabel: UILabel!
@@ -36,8 +32,6 @@ class MenuViewController: UIViewController {
                 self.profilePic.image = image
             })
         }
-        
-        // Do any additional setup after loading the view.
     }
 
     override func viewWillAppear(_ animated: Bool) {

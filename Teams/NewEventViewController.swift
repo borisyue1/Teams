@@ -118,7 +118,7 @@ class NewEventViewController: UIViewController {
         sportPicker.delegate = self
         sportPicker.dataSource = self
         
-        sportsList = ["Soccer", "Basketball", "Football", "Ultimate Frisbee", "Tennis", "Volleyball", "Spikeball"]
+        sportsList = ["Soccer", "Basketball", "Football", "Ultimate Frisbee", "Tennis", "Volleyball", "Baseball", "Spikeball"]
         
         datePicker = UIDatePicker(frame: CGRect(x: 25, y: sportPicker.frame.maxY + 10, width: view.frame.width - 50, height: 125))
         datePicker.addTarget(self, action: #selector(getDate), for: .valueChanged)
@@ -187,7 +187,6 @@ class NewEventViewController: UIViewController {
             self.descriptionField.text = ""
             let schoolRef = eventsRef.child(user.school)
             peopleGoing = [user.id!]
-//            comments = ["-"]
         
             let newEvent = ["author": user.name, "sport": sport, "description": description, "peopleGoing": peopleGoing, "date": date, "location": location] as [String : Any]
             let key = schoolRef.childByAutoId().key

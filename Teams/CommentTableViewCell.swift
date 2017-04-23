@@ -45,7 +45,7 @@ class CommentTableViewCell: UITableViewCell {
         pic.layer.cornerRadius = pic.frame.width / 2
         pic.layer.masksToBounds = true
         
-        flag = UIButton(frame: CGRect(x: contentView.frame.width + 25, y: 5, width: 15, height: 15))
+        flag = UIButton(frame: CGRect(x: UIScreen.main.bounds.maxX - 20, y: 5, width: 15, height: 15))
         flag.setImage(#imageLiteral(resourceName: "flag"), for: .normal)
         flag.addTarget(self, action: #selector(flagComment), for: .touchUpInside)
         contentView.addSubview(flag)

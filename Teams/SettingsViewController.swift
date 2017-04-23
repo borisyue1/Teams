@@ -29,8 +29,6 @@ class SettingsViewController: UIViewController {
         self.hideKeyboardWhenTappedAround()
         UITextField.appearance().tintColor = UIColor.white //sets cursor to white
         initTitle()
-//        initNameLabel()
-//        initNameField()
         initSchoolLabel()
         initSchoolButton()
         initDropDown()
@@ -63,32 +61,6 @@ class SettingsViewController: UIViewController {
         view.addSubview(doneButton)
     }
     
-//    func initNameLabel() {
-//        nameLabel = UILabel(frame: CGRect(x: 0, y: view.frame.height / 3, width: view.frame.width, height: 20))
-//        nameLabel.text = "My name is"
-//        nameLabel.font = UIFont(name: "Lato-Light", size: 16.0)
-//        nameLabel.textColor = UIColor.white
-//        nameLabel.textAlignment = NSTextAlignment.center
-//        view.addSubview(nameLabel)
-//    }
-//    
-//    func initNameField() {
-//        UITextField.appearance().tintColor = UIColor.white //sets cursor to white
-//        nameField = UITextField(frame: CGRect(x: self.view.frame.width / 2 - (230 / 2), y: nameLabel.frame.maxY + 10, width: 230, height: 40))
-//        nameField.delegate = self
-//        nameField.textColor = UIColor.white
-//        nameField.font = UIFont(name: "Lato-Medium", size: 20.0)
-//        nameField.layer.borderColor = UIColor.white.cgColor
-//        nameField.layer.borderWidth = 2
-//        nameField.textAlignment = NSTextAlignment.center
-//        nameField.attributedPlaceholder = NSAttributedString(string: FeedViewController.user.name!,
-//                                                             attributes: [NSForegroundColorAttributeName: UIColor.white])
-//        nameField.returnKeyType = .done
-//        nameField.layer.cornerRadius = 5
-//        nameField.layer.masksToBounds = true
-//        view.addSubview(nameField)
-//    }
-    
     func initSchoolLabel() {
         schoolLabel = UILabel(frame: CGRect(x: 0, y: view.frame.height / 2 - 60, width: view.frame.width, height: 22))
         schoolLabel.font = UIFont(name: "Lato-Light", size: 16.0)
@@ -119,7 +91,6 @@ class SettingsViewController: UIViewController {
         dropdown.bottomOffset = CGPoint(x: 0, y: schoolButton.bounds.height)
         dropdown.direction = .bottom
         dropdown.selectionAction = { [unowned self] (index: Int, item: String) in
-            //self.dropdown.show()
             self.schoolButton.setTitle(item, for: .normal)
         }
         dropdown.width = 230
